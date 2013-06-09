@@ -14,7 +14,7 @@ public class DrawPolygonUnfinished extends DrawGeometry {
 	{
 		Polygon polygon = (Polygon)geometry;
 		
-		g.setColor(Color.black);
+		g.setColor(Color.red);
 		
 		int i = 1;
 		for(i = 1; i < polygon.getPoints().size(); i++)
