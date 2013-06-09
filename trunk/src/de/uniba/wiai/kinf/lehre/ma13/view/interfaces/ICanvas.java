@@ -25,7 +25,7 @@ public interface ICanvas
 	public void setGeometryDrawer(DrawGeometry drawGeometry);
 	
 	/**
-	 * adds mouse listener to the canvas
+	 * adds a specific mouse listener to the canvas
 	 */
 	public void setMouseAction(MouseAction mouseAction);
 	

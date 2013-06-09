@@ -52,8 +52,6 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	{
 		onmouseUp(e.getX(), e.getY());
 		mouseDragged = false;
-		oldX = -1;
-		oldY = -1;
 	}
 	
 	/**

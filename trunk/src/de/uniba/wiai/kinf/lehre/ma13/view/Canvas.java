@@ -2,6 +2,8 @@ package de.uniba.wiai.kinf.lehre.ma13.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Stack;
 
 import javax.swing.JComponent;
@@ -54,18 +56,20 @@ public class Canvas extends JComponent implements ICanvas  {
 	public void setGeometryDrawer(DrawGeometry drawGeometry) {
 		_drawGeometry = drawGeometry;
 	}
-	
-	@Override
-	public void repaint()
-	{		
-		repaint(0);
-	}
 
 	/**
 	 * adds mouse listener to the canvas
 	 */
 	public void setMouseAction(MouseAction mouseAction)
 	{
+		for(MouseListener ml: getMouseListeners())
+		{
+			removeMouseListener(ml);
+		}
+		for(MouseMotionListener mml: getMouseMotionListeners())
+		{
+			removeMouseMotionListener(mml);
+		}
 		
 		addMouseListener(mouseAction);
 		addMouseMotionListener(mouseAction);
@@ -87,6 +91,7 @@ public class Canvas extends JComponent implements ICanvas  {
 
 	public void clearTempGeometries()
 	{
-		_tempDrawQueue.clear();
+		if(_tempDrawQueue != null)
+			_tempDrawQueue.clear();
 	}
 }
