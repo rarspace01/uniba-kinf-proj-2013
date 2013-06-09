@@ -1,15 +1,13 @@
 package de.uniba.wiai.kinf.lehre.ma13.view;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
-public class LayerView extends JList<String> {
+public class LayerView extends JList<LayerViewListItem> {
 	
 	private static final long serialVersionUID = 1L;
 	private IAppDelegate _appDelegate;
@@ -31,21 +29,26 @@ public class LayerView extends JList<String> {
 		if(_appDelegate == null)
 			return;
 		
-		
-		List<String> layerNames = new LinkedList<String>();		
+		DefaultListModel<LayerViewListItem> listModel = new DefaultListModel<LayerViewListItem>();
+		//List<LayerViewListItem> layerNames = new LinkedList<LayerViewListItem>();		
 		for (ILayer layer: _appDelegate.getLayerStore().getAllLayers()) {
 			
-			layerNames.add(layer.getName());
+			
+			listModel.addElement(new LayerViewListItem("layer.png", layer.getName()));
+			
 			
 			for(IGeometry geometry: layer.getGeometries()) {
-				layerNames.add(geometry.getName());
+				listModel.addElement(new LayerViewListItem("polygon.png", geometry.getName()));
 			}
 		}
 		
-		String[] layerNamesArray = new String[layerNames.size()];
-		layerNamesArray = layerNames.toArray(layerNamesArray);
+		//String[] layerNamesArray = new String[layerNames.size()];
+		//layerNamesArray = layerNames.toArray(layerNamesArray);
 		
-		setListData(layerNames.toArray(layerNamesArray));
+		
+		//setListData(layerNames.toArray(layerNamesArray));
+		setModel(listModel);
+		setCellRenderer(new LayerViewCellRenderer());
 		
 		//System.out.println("JList printed");
 		
