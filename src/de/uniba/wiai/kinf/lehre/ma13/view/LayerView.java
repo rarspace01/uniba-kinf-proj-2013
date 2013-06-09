@@ -49,7 +49,9 @@ public class LayerView extends JList<String> {
 		
 		//System.out.println("JList printed");
 		
+		this.setFixedCellWidth(230);
+		
 		_lockrepaint = false;
-		this.repaint(0);	
+		super.repaint();
 	}
 }

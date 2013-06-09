@@ -10,7 +10,6 @@ public class CreatePolygonMouseAction extends MouseAction {
 	
 	private Polygon _polygon;
 	private boolean firstClick = false;
-	private int lastX, lastY;
 	
 	public CreatePolygonMouseAction(IAppDelegate appDelegate) {
 		super(appDelegate);
@@ -20,7 +19,6 @@ public class CreatePolygonMouseAction extends MouseAction {
 	public void onmouseMoved(boolean dragged, int x, int y) {
 		if(firstClick)
 		{
-	
 			_polygon.getPoints().remove(_polygon.getPoints().size()-1);
 			_polygon.getPoints().add(new Point2D.Double(x, y));
 			
@@ -54,8 +52,6 @@ public class CreatePolygonMouseAction extends MouseAction {
 		}
 		
 		_polygon.getPoints().add(new Point2D.Double(x, y));
-		lastX = x;
-		lastY = y;
 	}
 
 	@Override

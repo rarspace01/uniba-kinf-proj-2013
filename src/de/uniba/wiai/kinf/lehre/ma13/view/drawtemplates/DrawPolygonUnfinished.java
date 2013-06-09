@@ -11,7 +11,7 @@ public class DrawPolygonUnfinished extends DrawGeometry {
 	
 	@Override
 	public void draw(Graphics g, IGeometry geometry)
-	{
+	{	
 		Polygon polygon = (Polygon)geometry;
 		
 		g.setColor(Color.red);
