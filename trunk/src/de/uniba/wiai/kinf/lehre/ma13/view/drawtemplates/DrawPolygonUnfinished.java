@@ -3,7 +3,6 @@ package de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
@@ -31,7 +30,7 @@ public class DrawPolygonUnfinished extends DrawGeometry {
 			Point srcScreen = appDelegate_.getUtil().toScreenCoordinates(srcWorld);
 			Point tgtScreen = appDelegate_.getUtil().toScreenCoordinates(tgtWorld);
 
-			g.drawLine(srcScreen.x, srcScreen.y, tgtScreen.x, tgtScreen.y);	
+			g.drawLine(srcScreen.x, srcScreen.y, tgtScreen.x, tgtScreen.y);
 		}
 	}
 }

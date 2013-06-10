@@ -10,7 +10,6 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
 public class Polygon extends OrderedObject implements IGeometry {
 
-	private float opacity_;
 	private ILayer parent_;
 	
 	/** list of points, position in "units" in respect to the background image */
@@ -20,16 +19,6 @@ public class Polygon extends OrderedObject implements IGeometry {
 	{
 		setObjectId(objectId);
 		points_ = new LinkedList<Point>();
-	}
-	
-	@Override
-	public void setOpacity(float opacity) {
-		opacity_ = opacity;
-	}
-
-	@Override
-	public float getOpacity() {
-		return opacity_;
 	}
 
 	@Override

@@ -16,7 +16,6 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 
 	private String imagePath_;
 	private Dimension scaledDimension_;
-	private float opacity_;
 	
 	public BackgroundImage() {
 		scaledDimension_ = new Dimension(1024, 768);
@@ -73,15 +72,4 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 		// the image is the biggest instance, it is always in every (legal) bounding box
 		return true;
 	}
-
-	@Override
-	public void setOpacity(float opacity) {
-		opacity_ = opacity;
-	}
-
-	@Override
-	public float getOpacity() {
-		return opacity_;
-	}
-
 }

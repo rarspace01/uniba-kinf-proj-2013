@@ -1,5 +1,6 @@
 package de.uniba.wiai.kinf.lehre.ma13.model.interfaces;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectStreamException;
 
@@ -19,6 +20,18 @@ public interface IOrderedObject
 	 */
 	public void setName(String name);
 	public String getName();
+	
+	/*
+	 * object color
+	 */
+	public Color getColor();
+	public void setColor(Color color);
+	
+	/*
+	 * object opacity
+	 */
+	public float getOpacity();
+	public void setOpacity(float opacity);
 	
 	/*
 	 * serialisation

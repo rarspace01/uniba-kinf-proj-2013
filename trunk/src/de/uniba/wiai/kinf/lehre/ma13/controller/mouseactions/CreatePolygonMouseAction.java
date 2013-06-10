@@ -1,5 +1,6 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions;
 
+import java.awt.Color;
 import java.awt.Point;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
@@ -37,6 +38,8 @@ public class CreatePolygonMouseAction extends MouseAction {
 			polygon_ = new Polygon(appDelegate_.getId());
 			polygon_.setName("Polygon " + polygon_.getObjectId());
 			polygon_.setVisibility(true);
+			polygon_.setOpacity(0.8f);
+			polygon_.setColor(new Color(0, 0, 100));
 			firstClick_ = true;
 			polygon_.getPoints().add(worldCoordinates);
 		}
