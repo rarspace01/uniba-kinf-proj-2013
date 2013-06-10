@@ -30,8 +30,8 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 		polygon_ = new Polygon(appDelegate_.getId());
 		polygon_.setName("Polygon " + polygon_.getObjectId());
 		polygon_.setVisibility(true);
-		polygon_.setOpacity(0.8f);
-		polygon_.setColor(new Color(0, 100, 0));
+		polygon_.setOpacity(1.0f);
+		polygon_.setColor(new Color(0, 255, 0));
 	}
 
 	@Override
@@ -45,5 +45,8 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 		}
 		polygon_ = null;
 	}
+	
+	@Override
+	public void onmouseDoubleClick(int x, int y) { }
 
 }

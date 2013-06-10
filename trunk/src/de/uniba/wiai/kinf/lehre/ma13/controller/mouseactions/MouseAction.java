@@ -35,6 +35,11 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	public abstract void onmouseUp(int x, int y);
 	
 	/**
+	 * method called if user doubleclicked
+	 */
+	public abstract void onmouseDoubleClick(int x, int y);
+	
+	/**
 	 * MouseListener, mouse pressed
 	 */
 	public void mousePressed(MouseEvent e)
@@ -49,7 +54,7 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	 * MouseListener, mouse released after pressed
 	 */
 	public void mouseReleased(MouseEvent e)
-	{
+	{	
 		onmouseUp(e.getX(), e.getY());
 		mouseDragged_ = false;
 	}
@@ -81,7 +86,12 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 		}
 	}
 	
-	public void mouseClicked(MouseEvent e) { }
+	public void mouseClicked(MouseEvent e)
+	{
+		if(e.getClickCount() > 1)
+			onmouseDoubleClick(e.getX(), e.getY());
+	}
+	
 	public void mouseEntered(MouseEvent e) { }
 	public void mouseExited(MouseEvent e) { }
 }

@@ -38,23 +38,15 @@ public class CreatePolygonMouseAction extends MouseAction {
 			polygon_ = new Polygon(appDelegate_.getId());
 			polygon_.setName("Polygon " + polygon_.getObjectId());
 			polygon_.setVisibility(true);
-			polygon_.setOpacity(0.8f);
-			polygon_.setColor(new Color(0, 0, 100));
+			polygon_.setOpacity(1.0f);
+			polygon_.setColor(new Color(0, 0, 255));
 			firstClick_ = true;
 			polygon_.getPoints().add(worldCoordinates);
 		}
 		else
 		{
-			if(polygon_.getPoints().size() > 1 && (Math.abs(polygon_.getPoints().get(0).getX() - worldCoordinates.x) + Math.abs(polygon_.getPoints().get(0).getY() - worldCoordinates.y)) < 10)
-			{
-				polygon_.getPoints().remove(polygon_.getPoints().size()-1);
-				appDelegate_.getLayerStore().getVisibleLayers().get(0).getGeometries().add(polygon_);
-				polygon_ = null;
-				firstClick_ = false;
-				appDelegate_.getWindow().getCanvas().clearTempGeometries();
-				appDelegate_.getWindow().refresh();
+			if(finnishPolygon(x, y, false))
 				return;
-			}
 		}
 		
 		polygon_.getPoints().add(worldCoordinates);
@@ -62,5 +54,33 @@ public class CreatePolygonMouseAction extends MouseAction {
 
 	@Override
 	public void onmouseUp(int x, int y) { }
+	
+	@Override
+	public void onmouseDoubleClick(int x, int y)
+	{
+		finnishPolygon(x, y, true);
+	}
 
+	private boolean finnishPolygon(int x, int y, boolean doubleclick)
+	{
+		Point worldCoordinates = appDelegate_.getUtil().toWorldCoordinates(new Point(x, y));
+		if(polygon_.getPoints().size() > 1 &&
+				(doubleclick ||
+						(
+							Math.abs(polygon_.getPoints().get(0).getX() - worldCoordinates.x) +
+							Math.abs(polygon_.getPoints().get(0).getY() - worldCoordinates.y) < 10
+						)
+				))
+		{
+			polygon_.getPoints().remove(polygon_.getPoints().size()-1);
+			appDelegate_.getLayerStore().getVisibleLayers().get(0).getGeometries().add(polygon_);
+			polygon_ = null;
+			firstClick_ = false;
+			appDelegate_.getWindow().getCanvas().clearTempGeometries();
+			appDelegate_.getWindow().refresh();
+			
+			return true;
+		}
+		return false;
+	}
 }
