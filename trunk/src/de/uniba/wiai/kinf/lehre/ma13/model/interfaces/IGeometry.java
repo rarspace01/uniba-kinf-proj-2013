@@ -17,5 +17,5 @@ public interface IGeometry extends IOrderedObject
 	/**
 	 * returns if current geometry is (partically) in bounding box
 	 */
-	public boolean inBoundingBox(float x1, float x2, float y1, float y2);
+	public boolean inBoundingBox(int x1, int x2, int y1, int y2);
 }

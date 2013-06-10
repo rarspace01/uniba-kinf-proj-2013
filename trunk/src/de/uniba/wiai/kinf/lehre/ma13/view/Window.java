@@ -14,6 +14,7 @@ import javax.swing.JToolBar;
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.CreatePolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMouseAction;
+import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawPolygonRaw;
 import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.ICanvas;
 import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.IWindow;
@@ -21,13 +22,13 @@ import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.IWindow;
 public class Window extends JFrame implements IWindow
 {
 	private static final long serialVersionUID = 1L;
-	private IAppDelegate _appDelegate;
-	private ICanvas _canvas;
-	private LayerView _layerView;
+	private IAppDelegate appDelegate_;
+	private ICanvas canvas_;
+	private LayerView layerView_;
 	
 	public Window(IAppDelegate appDelegate)
 	{
-		_appDelegate = appDelegate;
+		appDelegate_ = appDelegate;
 
 		/*
 		 * default initialisation
@@ -44,9 +45,10 @@ public class Window extends JFrame implements IWindow
 		 * initialise the canvas
 		 */
 		// initialise canvas area
-		_canvas = new Canvas(_appDelegate);
-		_canvas.setGeometryDrawer(new DrawPolygonRaw());
-		add((JComponent)_canvas, BorderLayout.CENTER);
+		canvas_ = new Canvas(appDelegate_);
+		canvas_.setGeometryDrawer(new DrawPolygonRaw(appDelegate_));
+		canvas_.setBackgroundDrawer(new DrawBackgroundImage(appDelegate_));
+		add((JComponent)canvas_, BorderLayout.CENTER);
 		
 
 		/*
@@ -67,7 +69,7 @@ public class Window extends JFrame implements IWindow
  
             public void actionPerformed(ActionEvent e)
             {
-                _appDelegate.setMouseAction(new CreatePolygonMouseAction(_appDelegate));
+                appDelegate_.setMouseAction(new CreatePolygonMouseAction(appDelegate_));
             }
         });
 		toolBar.add(tbPolygonButton);
@@ -77,7 +79,7 @@ public class Window extends JFrame implements IWindow
  
             public void actionPerformed(ActionEvent e)
             {
-                _appDelegate.setMouseAction(new FreeHandPolygonMouseAction(_appDelegate));
+                appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
             }
         });
 		toolBar.add(tbFreeHandButton);
@@ -86,10 +88,10 @@ public class Window extends JFrame implements IWindow
 		/*
 		 * layer view, showing the different layers
 		 */
-		_layerView = new LayerView(_appDelegate);
+		layerView_ = new LayerView(appDelegate_);
 		
 		nestedLayout.add(toolBar);
-		nestedLayout.add(_layerView);
+		nestedLayout.add(layerView_);
 		add(nestedLayout, BorderLayout.LINE_END);
 		
 		setSize(750, 550);
@@ -98,8 +100,8 @@ public class Window extends JFrame implements IWindow
 
 	@Override
 	public void refresh() {
-		_canvas.repaint();
-		_layerView.repaint();
+		canvas_.repaint();
+		layerView_.repaint();
 	}
 
 	/**
@@ -107,6 +109,6 @@ public class Window extends JFrame implements IWindow
 	 */
 	public ICanvas getCanvas()
 	{
-		return _canvas;
+		return canvas_;
 	}
 }

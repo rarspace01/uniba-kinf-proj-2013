@@ -1,7 +1,7 @@
 package de.uniba.wiai.kinf.lehre.ma13.model;
 
+import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,53 +10,53 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
 public class Polygon extends OrderedObject implements IGeometry {
 
-	private float _opacity;
-	private ILayer _parent;
+	private float opacity_;
+	private ILayer parent_;
 	
 	/** list of points, position in "units" in respect to the background image */
-	private List<Point2D> _points;
+	private List<Point> points_;
 	
 	public Polygon(Long objectId)
 	{
 		setObjectId(objectId);
-		_points = new LinkedList<Point2D>();
+		points_ = new LinkedList<Point>();
 	}
 	
 	@Override
 	public void setOpacity(float opacity) {
-		_opacity = opacity;
+		opacity_ = opacity;
 	}
 
 	@Override
 	public float getOpacity() {
-		return _opacity;
+		return opacity_;
 	}
 
 	@Override
 	public ILayer getParent() {
-		return _parent;
+		return parent_;
 	}
 
 	@Override
 	public void setParent(ILayer parentLayer) {
-		_parent = parentLayer;
+		parent_ = parentLayer;
 	}
 	
-	public List<Point2D> getPoints()
+	public List<Point> getPoints()
 	{
-		return _points;
+		return points_;
 	}
 
 	@Override
-	public boolean inBoundingBox(float x1, float x2, float y1, float y2) {
+	public boolean inBoundingBox(int x1, int x2, int y1, int y2) {
 		// create bounding box
-		Rectangle boundingBox = new Rectangle(Math.round(x1), Math.round(y1), Math.round(Math.abs(x1-x2)), Math.round(Math.abs(y1-y2)));
+		Rectangle boundingBox = new Rectangle(x1, y1, Math.abs(x1-x2), Math.abs(y1-y2));
 		
 		// create polygon
 		java.awt.Polygon polygon = new java.awt.Polygon();
-		for(Point2D point : _points)
+		for(Point point : points_)
 		{
-			polygon.addPoint((int)point.getX(), (int)point.getY());
+			polygon.addPoint(point.x, point.y);
 		}
 		
 		// check if bounding box of polygon intersects with given box

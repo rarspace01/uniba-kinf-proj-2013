@@ -12,7 +12,7 @@ import javax.swing.ListCellRenderer;
 public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<LayerViewListItem>
 {
 	private static final long serialVersionUID = 1L;
-	private JLabel label = null;
+	private JLabel label_ = null;
  
     public LayerViewCellRenderer()
     {
@@ -23,9 +23,9 @@ public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<La
            setOpaque(true);
  
         // JLabel instanzieren, durchsichtig machen und hinzufügen    
-        label = new JLabel();
-        label.setOpaque(false);
-        add(label);                
+        label_ = new JLabel();
+        label_.setOpaque(false);
+        add(label_);                
     }
  
     public Component getListCellRendererComponent(JList<? extends LayerViewListItem> list, // JList Objekt
@@ -35,10 +35,10 @@ public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<La
                                                   boolean chf)  // Hat den Fokus?
     {
         // JLabel das Icon aus unserem MyListItem zuweisen
-        label.setIcon(value.getIcon());
+        label_.setIcon(value.getIcon());
  
         // JLabel den Text aus unserem MyListItem zuweisen
-        label.setText(value.getText());
+        label_.setText(value.getText());
  
        // Hintergrundfarbe des JPanels bei Fokuswechseln definieren
         if(iss) setBackground(Color.lightGray); // Hat den Fokus

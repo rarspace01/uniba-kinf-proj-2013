@@ -18,5 +18,5 @@ public interface ILayer extends IOrderedObject
 	/**
 	 * returns the list of polygons that are (partially) within the bounding box
 	 */
-	public List<IGeometry> getGeometriesInBoundingBox(float x1, float x2, float y1, float y2);
+	public List<IGeometry> getGeometriesInBoundingBox(int x1, int x2, int y1, int y2);
 }

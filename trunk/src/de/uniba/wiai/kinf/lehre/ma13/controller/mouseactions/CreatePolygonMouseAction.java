@@ -1,6 +1,6 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions;
 
-import java.awt.geom.Point2D;
+import java.awt.Point;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
@@ -8,8 +8,8 @@ import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawPolygonUnfinished;
 
 public class CreatePolygonMouseAction extends MouseAction {
 	
-	private Polygon _polygon;
-	private boolean firstClick = false;
+	private Polygon polygon_;
+	private boolean firstClick_ = false;
 	
 	public CreatePolygonMouseAction(IAppDelegate appDelegate) {
 		super(appDelegate);
@@ -17,42 +17,42 @@ public class CreatePolygonMouseAction extends MouseAction {
 
 	@Override
 	public void onmouseMoved(boolean dragged, int x, int y) {
-		if(firstClick)
+		if(firstClick_)
 		{
-			_polygon.getPoints().remove(_polygon.getPoints().size()-1);
-			_polygon.getPoints().add(new Point2D.Double(x, y));
+			polygon_.getPoints().remove(polygon_.getPoints().size()-1);
+			polygon_.getPoints().add(appDelegate_.getUtil().toWorldCoordinates(new Point(x, y)));
 			
-			_appDelegate.getWindow().getCanvas().addTempGeometry(new DrawPolygonUnfinished(), _polygon, false);
-			_appDelegate.getWindow().getCanvas().repaint();
+			appDelegate_.getWindow().getCanvas().addTempGeometry(new DrawPolygonUnfinished(appDelegate_), polygon_, false);
+			appDelegate_.getWindow().getCanvas().repaint();
 		}
 	}
 
 	@Override
 	public void onmouseDown(int x, int y) {
 		
-		if(firstClick == false)
+		if(firstClick_ == false)
 		{
-			_polygon = new Polygon(_appDelegate.getId());
-			_polygon.setName("Polygon " + _polygon.getObjectId());
-			_polygon.setVisibility(true);
-			firstClick = true;
-			_polygon.getPoints().add(new Point2D.Double(x, y));
+			polygon_ = new Polygon(appDelegate_.getId());
+			polygon_.setName("Polygon " + polygon_.getObjectId());
+			polygon_.setVisibility(true);
+			firstClick_ = true;
+			polygon_.getPoints().add(appDelegate_.getUtil().toWorldCoordinates(new Point(x, y)));
 		}
 		else
 		{
-			if(_polygon.getPoints().size() > 1 && Math.abs(_polygon.getPoints().get(0).getX() - x) < 10 && Math.abs(_polygon.getPoints().get(0).getY() - y) < 10)
+			if(polygon_.getPoints().size() > 1 && (Math.abs(polygon_.getPoints().get(0).getX() - x) + Math.abs(polygon_.getPoints().get(0).getY() - y)) < 10)
 			{
-				_polygon.getPoints().remove(_polygon.getPoints().size()-1);
-				_appDelegate.getLayerStore().getVisibleLayers().get(0).getGeometries().add(_polygon);
-				_polygon = null;
-				firstClick = false;
-				_appDelegate.getWindow().getCanvas().clearTempGeometries();
-				_appDelegate.getWindow().refresh();
+				polygon_.getPoints().remove(polygon_.getPoints().size()-1);
+				appDelegate_.getLayerStore().getVisibleLayers().get(0).getGeometries().add(polygon_);
+				polygon_ = null;
+				firstClick_ = false;
+				appDelegate_.getWindow().getCanvas().clearTempGeometries();
+				appDelegate_.getWindow().refresh();
 				return;
 			}
 		}
 		
-		_polygon.getPoints().add(new Point2D.Double(x, y));
+		polygon_.getPoints().add(appDelegate_.getUtil().toWorldCoordinates(new Point(x, y)));
 	}
 
 	@Override

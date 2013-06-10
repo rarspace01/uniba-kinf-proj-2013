@@ -2,6 +2,7 @@ package de.uniba.wiai.kinf.lehre.ma13.view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Stack;
@@ -18,18 +19,19 @@ import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.ICanvas;
 public class Canvas extends JComponent implements ICanvas  {
 
 	private static final long serialVersionUID = 1L;
-	private IAppDelegate _appDelegate;
-	private DrawGeometry _drawGeometry;
+	private IAppDelegate appDelegate_;
+	private DrawGeometry drawGeometry_;
+	private DrawGeometry drawBackground_;
 	
 	/** temporary queue of geometries which should
 	 * be drawn at the end of the paint-method
 	 */
-	private Stack<IGeometry>	_tempDrawQueue;
-	private DrawGeometry	_tempDrawGeometry;
+	private Stack<IGeometry>	tempDrawQueue_;
+	private DrawGeometry	tempDrawGeometry_;
 	
 	public Canvas(IAppDelegate appDelegate)
 	{
-		_appDelegate = appDelegate;
+		appDelegate_ = appDelegate;
 	}
 	
 	@Override
@@ -38,23 +40,29 @@ public class Canvas extends JComponent implements ICanvas  {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
+		drawBackground_.draw(g, appDelegate_.getLayerStore().getBackgroundImage());
 
-		for (ILayer layer: _appDelegate.getLayerStore().getVisibleLayers()) {
+		for (ILayer layer: appDelegate_.getLayerStore().getVisibleLayers()) {
 			
 			for(IGeometry geometry: layer.getVisibleGeometries()) {
-				_drawGeometry.draw(g, geometry);
+				drawGeometry_.draw(g, geometry);
 			}
 		}
 		
-		if(_tempDrawQueue != null)
-			for(IGeometry geometry: _tempDrawQueue) {
-				_tempDrawGeometry.draw(g, geometry);
+		if(tempDrawQueue_ != null)
+			for(IGeometry geometry: tempDrawQueue_) {
+				tempDrawGeometry_.draw(g, geometry);
 			}
 	}
 
 	@Override
 	public void setGeometryDrawer(DrawGeometry drawGeometry) {
-		_drawGeometry = drawGeometry;
+		drawGeometry_ = drawGeometry;
+	}
+
+	@Override
+	public void setBackgroundDrawer(DrawGeometry drawBackground) {
+		drawBackground_ = drawBackground;
 	}
 
 	/**
@@ -77,21 +85,28 @@ public class Canvas extends JComponent implements ICanvas  {
 	
 	public void addTempGeometry(DrawGeometry tempDrawGeometry, IGeometry tempGeometry, boolean stack)
 	{
-		if(_tempDrawQueue == null)
+		if(tempDrawQueue_ == null)
 		{
-			_tempDrawQueue = new Stack<IGeometry>();
+			tempDrawQueue_ = new Stack<IGeometry>();
 		}
-		if(!stack && !_tempDrawQueue.isEmpty())
+		if(!stack && !tempDrawQueue_.isEmpty())
 		{
-			_tempDrawQueue.pop();
+			tempDrawQueue_.pop();
 		}
-		_tempDrawQueue.push(tempGeometry);
-		_tempDrawGeometry = tempDrawGeometry;
+		tempDrawQueue_.push(tempGeometry);
+		tempDrawGeometry_ = tempDrawGeometry;
 	}
 
 	public void clearTempGeometries()
 	{
-		if(_tempDrawQueue != null)
-			_tempDrawQueue.clear();
+		if(tempDrawQueue_ != null)
+			tempDrawQueue_.clear();
+	}
+	
+	public Rectangle getCanvasClippingBounds()
+	{
+		// TODO: offset if it does not start at 0, 0?
+		Rectangle clippingBounds = new Rectangle(0, 0, this.getWidth(), this.getHeight());
+		return clippingBounds;
 	}
 }
