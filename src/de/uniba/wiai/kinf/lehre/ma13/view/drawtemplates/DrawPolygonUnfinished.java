@@ -2,13 +2,19 @@ package de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.geom.Point2D;
 
+import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 
 public class DrawPolygonUnfinished extends DrawGeometry {
 	
+	public DrawPolygonUnfinished(IAppDelegate appDelegate) {
+		super(appDelegate);
+	}
+
 	@Override
 	public void draw(Graphics g, IGeometry geometry)
 	{	
@@ -19,13 +25,13 @@ public class DrawPolygonUnfinished extends DrawGeometry {
 		int i = 1;
 		for(i = 1; i < polygon.getPoints().size(); i++)
 		{
-			Point2D srcWorld = polygon.getPoints().get(i - 1);
-			Point2D tgtWorld = polygon.getPoints().get(i);
-			
-			g.drawLine((int)srcWorld.getX(), (int)srcWorld.getY(), (int)tgtWorld.getX(), (int)tgtWorld.getY());
+			Point srcWorld = polygon.getPoints().get(i - 1);
+			Point tgtWorld = polygon.getPoints().get(i);
+
+			Point srcScreen = appDelegate_.getUtil().toScreenCoordinates(srcWorld);
+			Point tgtScreen = appDelegate_.getUtil().toScreenCoordinates(tgtWorld);
+
+			g.drawLine(srcScreen.x, srcScreen.y, tgtScreen.x, tgtScreen.y);	
 		}
-		/*Point2D srcWorld = polygon.getPoints().get(i-1);
-		Point2D tgtWorld = polygon.getPoints().get(0);
-		g.drawLine((int)srcWorld.getX(), (int)srcWorld.getY(), (int)tgtWorld.getX(), (int)tgtWorld.getY());*/
 	}
 }

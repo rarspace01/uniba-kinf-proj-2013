@@ -8,24 +8,24 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
 public class Layer extends OrderedObject implements ILayer
 {
-	List<IGeometry> _allGeometries;
+	List<IGeometry> allGeometries_;
 	
 	public Layer(Long objectId)
 	{
 		setObjectId(objectId);
-		_allGeometries = new LinkedList<IGeometry>();
+		allGeometries_ = new LinkedList<IGeometry>();
 	}
 	
 	@Override
 	public List<IGeometry> getGeometries() {
-		return _allGeometries;
+		return allGeometries_;
 	}
 
 	@Override
 	public List<IGeometry> getVisibleGeometries() {
 		
 		List<IGeometry> visibleGeometries = new LinkedList<IGeometry>();
-		for(IGeometry geo: _allGeometries)
+		for(IGeometry geo: allGeometries_)
 		{
 			if(geo.isVisible())
 				visibleGeometries.add(geo);
@@ -34,10 +34,10 @@ public class Layer extends OrderedObject implements ILayer
 	}
 
 	@Override
-	public List<IGeometry> getGeometriesInBoundingBox(float x1, float x2, float y1, float y2) {
+	public List<IGeometry> getGeometriesInBoundingBox(int x1, int x2, int y1, int y2) {
 		
 		List<IGeometry> boundingBoxGeometries = new LinkedList<IGeometry>();
-		for(IGeometry geo: _allGeometries)
+		for(IGeometry geo: allGeometries_)
 		{
 			if(geo.isVisible() && geo.inBoundingBox(x1, x2, y1, y2))
 				boundingBoxGeometries.add(geo);

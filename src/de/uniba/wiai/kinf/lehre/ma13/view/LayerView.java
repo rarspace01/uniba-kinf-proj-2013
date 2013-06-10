@@ -10,27 +10,26 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 public class LayerView extends JList<LayerViewListItem> {
 	
 	private static final long serialVersionUID = 1L;
-	private IAppDelegate _appDelegate;
-	
-	private boolean _lockrepaint = false;
+	private IAppDelegate appDelegate_;
+	private boolean lockrepaint_ = false;
 	
 
 	public LayerView(IAppDelegate appDelegate)
 	{
-		_appDelegate = appDelegate;
+		appDelegate_ = appDelegate;
 	}
 	
 	public void repaint()
 	{
-		if(_lockrepaint)
+		if(lockrepaint_)
 			return;
 		
-		_lockrepaint = true;
-		if(_appDelegate == null)
+		lockrepaint_ = true;
+		if(appDelegate_ == null)
 			return;
 		
 		DefaultListModel<LayerViewListItem> listModel = new DefaultListModel<LayerViewListItem>();	
-		for (ILayer layer: _appDelegate.getLayerStore().getAllLayers()) {
+		for (ILayer layer: appDelegate_.getLayerStore().getAllLayers()) {
 			
 			
 			listModel.addElement(new LayerViewListItem("res/layer.png", layer.getName()));
@@ -41,12 +40,14 @@ public class LayerView extends JList<LayerViewListItem> {
 			}
 		}
 		
+		listModel.addElement(new LayerViewListItem("res/image.png", "Structure"));
+		
 		setModel(listModel);
 		setCellRenderer(new LayerViewCellRenderer());
 		
 		this.setFixedCellWidth(230);
 		
-		_lockrepaint = false;
+		lockrepaint_ = false;
 		super.repaint();
 	}
 }

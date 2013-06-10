@@ -15,18 +15,18 @@ public class AppDelegate implements IAppDelegate {
 	 * view
 	 */
 	/** the window which contains all views */
-	private IWindow _window;
+	private IWindow window_;
 	
 	/*
 	 * model
 	 */
-	private ILayerStore _layerStore;
+	private ILayerStore layerStore_;
 	
 	/*
 	 * controller
 	 */
-	private Util _util;
-	private MouseAction _mouseAction;
+	private Util util_;
+	private MouseAction mouseAction_;
 	
 	
 	public static void main(String[] args)
@@ -38,14 +38,14 @@ public class AppDelegate implements IAppDelegate {
 	public void init() {
 		setWindow(new Window(this));
 		
-		_layerStore = new LayerStore(this);
-		_util = Util.instance();
+		layerStore_ = new LayerStore(this);
+		util_ = Util.instance(this);
 		
 		DataManager dm = new DataManager(this);
 		dm.loadTestData();
 		
 		setMouseAction(new CreatePolygonMouseAction(this));
-		_window.refresh();
+		window_.refresh();
 	}
 
 	@Override
@@ -54,35 +54,35 @@ public class AppDelegate implements IAppDelegate {
 	}
 
 	public IWindow getWindow() {
-		return _window;
+		return window_;
 	}
 	public void setWindow(IWindow window) {
-		_window = window;
+		window_ = window;
 	}
 	
 	public ILayerStore getLayerStore() {
-		return _layerStore;
+		return layerStore_;
 	}
 	
 	public void setMouseAction(MouseAction ma)
 	{
-		_mouseAction = ma;
-		_window.getCanvas().setMouseAction(_mouseAction);
+		mouseAction_ = ma;
+		window_.getCanvas().setMouseAction(mouseAction_);
 	}
 	
 	public MouseAction getMouseAction()
 	{
-		return _mouseAction;
+		return mouseAction_;
 	}
 
 	@Override
 	public Util getUtil() {
-		return _util;
+		return util_;
 	}
 
 	@Override
 	public Long getId() {
-		return _util.getId();
+		return util_.getId();
 	}
 
 }

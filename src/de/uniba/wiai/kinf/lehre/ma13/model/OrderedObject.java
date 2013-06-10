@@ -9,29 +9,29 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 
 public abstract class OrderedObject implements IOrderedObject {
 
-	private boolean _visible;
-	private Long _objectId;
+	private boolean visible_;
+	private Long objectId_;
 	
 	private String _name;
 	
 	@Override
 	public void setVisibility(boolean visible) {
-		_visible = visible;
+		visible_ = visible;
 	}
 
 	@Override
 	public boolean isVisible() {
-		return _visible;
+		return visible_;
 	}
 
 	@Override
 	public void setObjectId(Long objectId) {
-		_objectId = objectId;
+		objectId_ = objectId;
 	}
 
 	@Override
 	public Long getObjectId() {
-		return _objectId;
+		return objectId_;
 	}
 	
 	@Override

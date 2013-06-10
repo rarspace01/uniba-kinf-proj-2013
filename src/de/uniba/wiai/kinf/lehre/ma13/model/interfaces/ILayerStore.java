@@ -19,5 +19,10 @@ public interface ILayerStore
 	 * will return all layers that have geometries that are (partially) within
 	 * the given bounding box.
 	 */
-	public List<ILayer> getLayersInBoundingBox(float x1, float x2, float y1, float y2);
+	public List<ILayer> getLayersInBoundingBox(int x1, int x2, int y1, int y2);
+	
+	/**
+	 * returns the background-image object
+	 */
+	public IBackgroundImage getBackgroundImage();
 }

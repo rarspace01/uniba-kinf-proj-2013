@@ -1,23 +1,24 @@
 package de.uniba.wiai.kinf.lehre.ma13.model;
 
-import java.awt.geom.Point2D;
-
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 
 public class DataManager
 {
-	private IAppDelegate _appDelegate;
+	private IAppDelegate appDelegate_;
 	
 	public DataManager(IAppDelegate appDelegate)
 	{
-		_appDelegate = appDelegate;
+		appDelegate_ = appDelegate;
 	}
 	
 	public void loadTestData()
 	{
-		Layer firstLayer = new Layer(_appDelegate.getId());
+		Layer firstLayer = new Layer(appDelegate_.getId());
 		firstLayer.setName("Layer 1");
 		firstLayer.setVisibility(true);
-		_appDelegate.getLayerStore().getAllLayers().add(firstLayer);
+		appDelegate_.getLayerStore().getAllLayers().add(firstLayer);
+		
+		appDelegate_.getLayerStore().getBackgroundImage().setImagePath("res/default_image.jpg");
+		
 	}
 }

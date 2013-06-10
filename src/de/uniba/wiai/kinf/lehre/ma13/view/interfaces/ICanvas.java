@@ -1,6 +1,7 @@
 package de.uniba.wiai.kinf.lehre.ma13.view.interfaces;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
@@ -25,6 +26,11 @@ public interface ICanvas
 	public void setGeometryDrawer(DrawGeometry drawGeometry);
 	
 	/**
+	 * sets a template for drawing the background
+	 */
+	public void setBackgroundDrawer(DrawGeometry drawBackground);
+	
+	/**
 	 * adds a specific mouse listener to the canvas
 	 */
 	public void setMouseAction(MouseAction mouseAction);
@@ -47,4 +53,10 @@ public interface ICanvas
 	 * clears all temporary geometries
 	 */
 	public void clearTempGeometries();
+	
+	/**
+	 * returns the bounds of the current clipping at the canvas
+	 * if the zoom is 100%, it would return (0, 0, imagewidth, imageheight)
+	 */
+	public Rectangle getCanvasClippingBounds();
 }

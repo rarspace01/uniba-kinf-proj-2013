@@ -1,6 +1,6 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions;
 
-import java.awt.geom.Point2D;
+import java.awt.Point;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
@@ -8,7 +8,7 @@ import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawPolygonUnfinished;
 
 public class FreeHandPolygonMouseAction extends MouseAction {
 	
-	private Polygon _polygon;
+	private Polygon polygon_;
 	
 	public FreeHandPolygonMouseAction(IAppDelegate appDelegate) {
 		super(appDelegate);
@@ -18,29 +18,29 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 	public void onmouseMoved(boolean dragged, int x, int y) {
 		if(dragged)
 		{
-			_polygon.getPoints().add(new Point2D.Double(x, y));
-			_appDelegate.getWindow().getCanvas().addTempGeometry(new DrawPolygonUnfinished(), _polygon, false);
-			_appDelegate.getWindow().getCanvas().repaint();
+			polygon_.getPoints().add(appDelegate_.getUtil().toWorldCoordinates(new Point(x, y)));
+			appDelegate_.getWindow().getCanvas().addTempGeometry(new DrawPolygonUnfinished(appDelegate_), polygon_, false);
+			appDelegate_.getWindow().getCanvas().repaint();
 		}
 	}
 
 	@Override
 	public void onmouseDown(int x, int y) {
-		_polygon = new Polygon(_appDelegate.getId());
-		_polygon.setName("Polygon " + _polygon.getObjectId());
-		_polygon.setVisibility(true);
+		polygon_ = new Polygon(appDelegate_.getId());
+		polygon_.setName("Polygon " + polygon_.getObjectId());
+		polygon_.setVisibility(true);
 	}
 
 	@Override
 	public void onmouseUp(int x, int y) {
-		if(mouseDragged)
+		if(mouseDragged_)
 		{
-			_appDelegate.getWindow().getCanvas().clearTempGeometries();
-			if(_polygon.getPoints().size() > 0)
-				_appDelegate.getLayerStore().getVisibleLayers().get(0).getGeometries().add(_polygon);
-			_appDelegate.getWindow().refresh();
+			appDelegate_.getWindow().getCanvas().clearTempGeometries();
+			if(polygon_.getPoints().size() > 0)
+				appDelegate_.getLayerStore().getVisibleLayers().get(0).getGeometries().add(polygon_);
+			appDelegate_.getWindow().refresh();
 		}
-		_polygon = null;
+		polygon_ = null;
 	}
 
 }

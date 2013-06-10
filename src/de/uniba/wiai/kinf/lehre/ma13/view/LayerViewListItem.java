@@ -5,29 +5,29 @@ import javax.swing.ImageIcon;
 public class LayerViewListItem 
 {
     // Das anzuzeigende Icon
-    private ImageIcon icon = null;
+    private ImageIcon icon_ = null;
  
     // Der Text
-    private String text;
+    private String text_;
  
     public LayerViewListItem(String iconpath, String text) 
     {
         // Erzeugung des ImageIcons durch Angabe des Bild-Quellpfads
-        icon = new ImageIcon(iconpath);
+        icon_ = new ImageIcon(iconpath);
  
         // Zuweisung des Textes
-        this.text = text;
+        this.text_ = text;
     }       
  
     // Liefert das Icon
     public ImageIcon getIcon() 
     {
-    return icon;
+    return icon_;
     }
  
     // Liefert den Text
     public String getText() 
     {
-        return text;
+        return text_;
     }
 }

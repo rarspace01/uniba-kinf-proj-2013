@@ -8,14 +8,14 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 
 public abstract class MouseAction implements MouseMotionListener, MouseListener
 {	
-	protected IAppDelegate _appDelegate;
-	protected int oldX = -1;
-	protected int oldY = -1;
-	protected boolean mouseDragged = false;
+	protected IAppDelegate appDelegate_;
+	protected int oldX_ = -1;
+	protected int oldY_ = -1;
+	protected boolean mouseDragged_ = false;
 	
 	public MouseAction(IAppDelegate appDelegate)
 	{
-		_appDelegate = appDelegate;
+		appDelegate_ = appDelegate;
 	}
 	
 	/**
@@ -39,9 +39,9 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	 */
 	public void mousePressed(MouseEvent e)
 	{
-		mouseDragged = true;
-		oldX = e.getX();
-		oldY = e.getY();
+		mouseDragged_ = true;
+		oldX_ = e.getX();
+		oldY_ = e.getY();
 		onmouseDown(e.getX(), e.getY());
 	}
 
@@ -51,7 +51,7 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	public void mouseReleased(MouseEvent e)
 	{
 		onmouseUp(e.getX(), e.getY());
-		mouseDragged = false;
+		mouseDragged_ = false;
 	}
 	
 	/**
@@ -59,11 +59,11 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	 */
 	public void mouseDragged(MouseEvent e)
 	{
-		if(Math.abs(e.getX() - oldX) > 10 || Math.abs(e.getY() - oldY) > 10)
+		if(Math.abs(e.getX() - oldX_) + Math.abs(e.getY() - oldY_) > 10)
 		{
 			onmouseMoved(true, e.getX(), e.getY());
-			oldX = e.getX();
-			oldY = e.getY();
+			oldX_ = e.getX();
+			oldY_ = e.getY();
 		}
 	}
 
@@ -73,11 +73,11 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	 */
 	public void mouseMoved(MouseEvent e)
 	{
-		if(Math.abs(e.getX() - oldX) > 10 || Math.abs(e.getY() - oldY) > 10)
+		if(Math.abs(e.getX() - oldX_) + Math.abs(e.getY() - oldY_) > 10)
 		{
 			onmouseMoved(false, e.getX(), e.getY());
-			oldX = e.getX();
-			oldY = e.getY();
+			oldX_ = e.getX();
+			oldY_ = e.getY();
 		}
 	}
 	
