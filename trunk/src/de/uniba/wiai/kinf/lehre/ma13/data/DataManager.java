@@ -5,12 +5,12 @@ import java.sql.SQLException;
 
 public class DataManager {
 
-	private String filename="";
-	private DataManagerSQLite currentDB;
+	private String filename_="";
+	private DataManagerSQLite currentDB_;
 	
 	public DataManager(String filename) {
-		this.filename=filename;
-		currentDB=DataManagerSQLite.getInstance(this.filename);
+		this.filename_=filename;
+		currentDB_=DataManagerSQLite.getInstance(this.filename_);
 		
 		if(isEmpty()){
 			createTables();
@@ -26,13 +26,13 @@ public class DataManager {
 		
 		try {
 			//point table
-			currentDB.execute("CREATE TABLE points (polyid NUMERIC, pointid INTEGER PRIMARY KEY, ordernumber NUMERIC, x NUMERIC, y NUMERIC, colour NUMERIC);");
+			currentDB_.execute("CREATE TABLE points (polyid NUMERIC, pointid INTEGER PRIMARY KEY, ordernumber NUMERIC, x NUMERIC, y NUMERIC, colour NUMERIC);");
 			//poly table
-			currentDB.execute("CREATE TABLE poly (polyid INTEGER PRIMARY KEY, colour NUMERIC, polygroupid NUMERIC, isvisible NUMERIC);");
+			currentDB_.execute("CREATE TABLE poly (polyid INTEGER PRIMARY KEY, colour NUMERIC, polygroupid NUMERIC, isvisible NUMERIC);");
 			//polygroup
-			currentDB.execute("CREATE TABLE polygroup (polygroupid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, colour NUMERIC);");
+			currentDB_.execute("CREATE TABLE polygroup (polygroupid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, colour NUMERIC);");
 			//background image
-			currentDB.execute("CREATE TABLE backgroundimage (imageid INTEGER PRIMARY KEY, scalex NUMERIC, scaley NUMERIC, x NUMERIC, y NUMERIC, image BLOB);");
+			currentDB_.execute("CREATE TABLE backgroundimage (imageid INTEGER PRIMARY KEY, scalex NUMERIC, scaley NUMERIC, x NUMERIC, y NUMERIC, image BLOB);");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -52,7 +52,7 @@ public class DataManager {
 		boolean isEmpty = true;
 		
 		try {
-			rs = currentDB.select("SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name != 'android_metadata' AND name != 'sqlite_sequence';");
+			rs = currentDB_.select("SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name != 'android_metadata' AND name != 'sqlite_sequence';");
 			
 			while(rs.next()){
 				count=rs.getInt(1);

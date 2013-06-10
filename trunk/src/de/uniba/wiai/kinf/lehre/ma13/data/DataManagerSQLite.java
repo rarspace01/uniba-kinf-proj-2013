@@ -12,16 +12,16 @@ import java.sql.Statement;
  *
  */
 public class DataManagerSQLite {
-	private static DataManagerSQLite uniqueInstance = null;
+	private static DataManagerSQLite uniqueInstance_ = null;
 	
-	private java.sql.Connection conn;
-	private Statement stmt;
+	private java.sql.Connection conn_;
+	private Statement stmt_;
 	
 	private DataManagerSQLite(String filename) {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:"+filename);
-			stmt = conn.createStatement();
+			conn_ = DriverManager.getConnection("jdbc:sqlite:"+filename);
+			stmt_ = conn_.createStatement();
 			
 		} catch (ClassNotFoundException e) {
 			
@@ -32,34 +32,34 @@ public class DataManagerSQLite {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		uniqueInstance = this;
+		uniqueInstance_ = this;
 	}
 
 	public static DataManagerSQLite getInstance(String filename)
 	{
-			if(uniqueInstance== null)
+			if(uniqueInstance_== null)
 			{
 			new DataManagerSQLite(filename);
 			}
-		return uniqueInstance;	
+		return uniqueInstance_;	
 	}
 	
 	public void dispose()
 	{
 		try {
-			stmt.close();
-			conn.close();
+			stmt_.close();
+			conn_.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		uniqueInstance=null;
+		uniqueInstance_=null;
 	}
 	
 	//Methode für normale Select Operationen
 	public ResultSet select(String SQLString) throws SQLException
 	{
-			return stmt.executeQuery(SQLString);
+			return stmt_.executeQuery(SQLString);
 	}
 
 	/*unsichere Methode für update/insert into, da kein Rückgabewert
@@ -67,11 +67,11 @@ public class DataManagerSQLite {
 	 */
 	public void execute(String SQLString) throws SQLException
 	{
-		stmt.executeUpdate(SQLString);
+		stmt_.executeUpdate(SQLString);
 	}
 	
     public Connection getConnection() {
-        return conn;
+        return conn_;
     }
 
 	
