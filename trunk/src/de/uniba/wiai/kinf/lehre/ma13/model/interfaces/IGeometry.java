@@ -13,4 +13,9 @@ public interface IGeometry extends IOrderedObject
 	 * set the parent of the geometry. Every parent is a layer
 	 */
 	public void setParent(ILayer parentLayer);
+	
+	/**
+	 * returns if current geometry is (partically) in bounding box
+	 */
+	public boolean inBoundingBox(float x1, float x2, float y1, float y2);
 }

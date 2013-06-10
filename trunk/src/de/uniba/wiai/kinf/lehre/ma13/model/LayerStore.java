@@ -36,7 +36,13 @@ public class LayerStore implements ILayerStore
 
 	@Override
 	public List<ILayer> getLayersInBoundingBox(float x1, float x2, float y1, float y2) {
-		return _allLayers;
+		List<ILayer> boundingBoxLayers = new LinkedList<ILayer>();
+		for(ILayer lay: _allLayers)
+		{
+			if(lay.isVisible() && lay.getGeometriesInBoundingBox(x1, x2, y1, y2).size() > 0)
+				boundingBoxLayers.add(lay);
+		}
+		return boundingBoxLayers;
 	}
 
 }
