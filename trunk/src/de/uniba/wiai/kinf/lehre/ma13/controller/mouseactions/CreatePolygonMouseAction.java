@@ -30,17 +30,19 @@ public class CreatePolygonMouseAction extends MouseAction {
 	@Override
 	public void onmouseDown(int x, int y) {
 		
+		Point worldCoordinates = appDelegate_.getUtil().toWorldCoordinates(new Point(x, y));
+		
 		if(firstClick_ == false)
 		{
 			polygon_ = new Polygon(appDelegate_.getId());
 			polygon_.setName("Polygon " + polygon_.getObjectId());
 			polygon_.setVisibility(true);
 			firstClick_ = true;
-			polygon_.getPoints().add(appDelegate_.getUtil().toWorldCoordinates(new Point(x, y)));
+			polygon_.getPoints().add(worldCoordinates);
 		}
 		else
 		{
-			if(polygon_.getPoints().size() > 1 && (Math.abs(polygon_.getPoints().get(0).getX() - x) + Math.abs(polygon_.getPoints().get(0).getY() - y)) < 10)
+			if(polygon_.getPoints().size() > 1 && (Math.abs(polygon_.getPoints().get(0).getX() - worldCoordinates.x) + Math.abs(polygon_.getPoints().get(0).getY() - worldCoordinates.y)) < 10)
 			{
 				polygon_.getPoints().remove(polygon_.getPoints().size()-1);
 				appDelegate_.getLayerStore().getVisibleLayers().get(0).getGeometries().add(polygon_);
@@ -52,7 +54,7 @@ public class CreatePolygonMouseAction extends MouseAction {
 			}
 		}
 		
-		polygon_.getPoints().add(appDelegate_.getUtil().toWorldCoordinates(new Point(x, y)));
+		polygon_.getPoints().add(worldCoordinates);
 	}
 
 	@Override

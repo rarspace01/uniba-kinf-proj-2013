@@ -34,15 +34,14 @@ public class Util
 	}
 	
 	public Point toWorldCoordinates(Point pt) {
+		
 		// TODO: offset!
 		Dimension worldDimension = toWorldDimension(new Dimension(pt.x, pt.y));
-		
-		System.out.println("Converting " + pt + " to " + worldDimension);
-		
 		return new Point(worldDimension.width, worldDimension.height);
 	}
 
 	public Point toScreenCoordinates(Point pt) {
+		
 		// TODO: offset!
 		Dimension screenDimension = toScreenDimension(new Dimension(pt.x, pt.y));
 		return new Point(screenDimension.width, screenDimension.height);
