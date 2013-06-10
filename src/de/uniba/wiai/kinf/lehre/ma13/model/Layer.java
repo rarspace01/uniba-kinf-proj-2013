@@ -34,9 +34,15 @@ public class Layer extends OrderedObject implements ILayer
 	}
 
 	@Override
-	public List<IGeometry> getGeometriesInBoundingBox(float x1, float x2,
-			float y1, float y2) {
-		return _allGeometries;
+	public List<IGeometry> getGeometriesInBoundingBox(float x1, float x2, float y1, float y2) {
+		
+		List<IGeometry> boundingBoxGeometries = new LinkedList<IGeometry>();
+		for(IGeometry geo: _allGeometries)
+		{
+			if(geo.isVisible() && geo.inBoundingBox(x1, x2, y1, y2))
+				boundingBoxGeometries.add(geo);
+		}
+		return boundingBoxGeometries;
 	}
 
 }
