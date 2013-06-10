@@ -33,11 +33,11 @@ public class LayerView extends JList<LayerViewListItem> {
 		for (ILayer layer: _appDelegate.getLayerStore().getAllLayers()) {
 			
 			
-			listModel.addElement(new LayerViewListItem("layer.png", layer.getName()));
+			listModel.addElement(new LayerViewListItem("res/layer.png", layer.getName()));
 			
 			
 			for(IGeometry geometry: layer.getGeometries()) {
-				listModel.addElement(new LayerViewListItem("polygon.png", geometry.getName()));
+				listModel.addElement(new LayerViewListItem("res/polygon.png", geometry.getName()));
 			}
 		}
 		
