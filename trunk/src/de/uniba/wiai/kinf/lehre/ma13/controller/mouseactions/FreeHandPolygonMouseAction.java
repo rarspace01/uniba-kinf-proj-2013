@@ -28,6 +28,7 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 	public void onmouseDown(int x, int y) {
 		_polygon = new Polygon(_appDelegate.getId());
 		_polygon.setName("Polygon " + _polygon.getObjectId());
+		_polygon.setVisibility(true);
 	}
 
 	@Override
@@ -35,10 +36,11 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 		if(mouseDragged)
 		{
 			_appDelegate.getWindow().getCanvas().clearTempGeometries();
-			_appDelegate.getLayerStore().getAllLayers().get(0).getGeometries().add(_polygon);
+			if(_polygon.getPoints().size() > 0)
+				_appDelegate.getLayerStore().getVisibleLayers().get(0).getGeometries().add(_polygon);
 			_appDelegate.getWindow().refresh();
-			_polygon = null;
 		}
+		_polygon = null;
 	}
 
 }

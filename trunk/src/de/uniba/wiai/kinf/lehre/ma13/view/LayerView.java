@@ -29,8 +29,7 @@ public class LayerView extends JList<LayerViewListItem> {
 		if(_appDelegate == null)
 			return;
 		
-		DefaultListModel<LayerViewListItem> listModel = new DefaultListModel<LayerViewListItem>();
-		//List<LayerViewListItem> layerNames = new LinkedList<LayerViewListItem>();		
+		DefaultListModel<LayerViewListItem> listModel = new DefaultListModel<LayerViewListItem>();	
 		for (ILayer layer: _appDelegate.getLayerStore().getAllLayers()) {
 			
 			
@@ -42,15 +41,8 @@ public class LayerView extends JList<LayerViewListItem> {
 			}
 		}
 		
-		//String[] layerNamesArray = new String[layerNames.size()];
-		//layerNamesArray = layerNames.toArray(layerNamesArray);
-		
-		
-		//setListData(layerNames.toArray(layerNamesArray));
 		setModel(listModel);
 		setCellRenderer(new LayerViewCellRenderer());
-		
-		//System.out.println("JList printed");
 		
 		this.setFixedCellWidth(230);
 		
