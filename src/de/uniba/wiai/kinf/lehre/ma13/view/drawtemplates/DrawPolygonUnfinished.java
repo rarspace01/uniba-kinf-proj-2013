@@ -1,7 +1,9 @@
 package de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
@@ -18,7 +20,8 @@ public class DrawPolygonUnfinished extends DrawGeometry {
 	public void draw(Graphics g, IGeometry geometry)
 	{	
 		Polygon polygon = (Polygon)geometry;
-		
+
+		((Graphics2D)g).setStroke(new BasicStroke(1));
 		g.setColor(Color.red);
 		
 		int i = 1;

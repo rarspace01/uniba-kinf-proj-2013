@@ -1,7 +1,9 @@
 package de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
@@ -19,6 +21,7 @@ public class DrawPolygonRaw extends DrawGeometry {
 	{
 		Polygon polygon = (Polygon)geometry;
 		
+		((Graphics2D)g).setStroke(new BasicStroke(5));
 		g.setColor(new Color(
 				geometry.getColor().getRed(),
 				geometry.getColor().getGreen(),
