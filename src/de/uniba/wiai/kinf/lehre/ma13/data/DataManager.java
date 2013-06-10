@@ -3,24 +3,20 @@ package de.uniba.wiai.kinf.lehre.ma13.data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DataManager {
+import de.uniba.wiai.kinf.lehre.ma13.data.interfaces.IDataManager;
+
+/**
+ * class for managing the save files
+ * @author denis
+ *
+ */
+public class DataManager implements IDataManager{
 
 	private String filename_="";
 	private DataManagerSQLite currentDB_;
-	
-	public DataManager(String filename) {
-		this.filename_=filename;
-		currentDB_=DataManagerSQLite.getInstance(this.filename_);
-		
-		if(isEmpty()){
-			createTables();
-		}
-		
-	}
-	
 
 	/**
-	 * creates the initial table
+	 * creates the initial tables
 	 */
 	private void createTables() {
 		
@@ -69,6 +65,46 @@ public class DataManager {
 		}
 		
 		return isEmpty;
+	}
+
+
+	@Override
+	public void closeDb() {
+		currentDB_.dispose();
+	}
+
+
+
+	@Override
+	public ResultSet select(String sql) {
+		ResultSet rs = null;
+		try {
+			rs=this.currentDB_.select(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	@Override
+	public void execute(String sql) {
+		try {
+			this.currentDB_.execute(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void openDb(String filename) {
+		this.filename_=filename;
+		currentDB_=DataManagerSQLite.getInstance(this.filename_);
+		
+		if(isEmpty()){
+			createTables();
+		}
 	}
 	
 }
