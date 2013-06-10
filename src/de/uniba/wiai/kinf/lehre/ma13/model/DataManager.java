@@ -15,18 +15,9 @@ public class DataManager
 	
 	public void loadTestData()
 	{
-		/*
-		Polygon firstPolygon = new Polygon(_appDelegate.getId());
-		firstPolygon.setName("Test Polygon");
-		firstPolygon.getPoints().add(new Point2D.Double(100, 100));
-		firstPolygon.getPoints().add(new Point2D.Double(100, 200));
-		firstPolygon.getPoints().add(new Point2D.Double(200, 200));
-		firstPolygon.getPoints().add(new Point2D.Double(200, 100));
-		*/
-		
 		Layer firstLayer = new Layer(_appDelegate.getId());
-		firstLayer.setName("Test Layer");
-		//firstLayer.getGeometries().add(firstPolygon);
+		firstLayer.setName("Layer 1");
+		firstLayer.setVisibility(true);
 		_appDelegate.getLayerStore().getAllLayers().add(firstLayer);
 	}
 }

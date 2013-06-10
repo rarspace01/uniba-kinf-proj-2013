@@ -23,7 +23,14 @@ public class Layer extends OrderedObject implements ILayer
 
 	@Override
 	public List<IGeometry> getVisibleGeometries() {
-		return _allGeometries;
+		
+		List<IGeometry> visibleGeometries = new LinkedList<IGeometry>();
+		for(IGeometry geo: _allGeometries)
+		{
+			if(geo.isVisible())
+				visibleGeometries.add(geo);
+		}
+		return visibleGeometries;
 	}
 
 	@Override

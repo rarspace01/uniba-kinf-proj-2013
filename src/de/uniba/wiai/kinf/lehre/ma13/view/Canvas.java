@@ -39,9 +39,9 @@ public class Canvas extends JComponent implements ICanvas  {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
 
-		for (ILayer layer: _appDelegate.getLayerStore().getAllLayers()) {
+		for (ILayer layer: _appDelegate.getLayerStore().getVisibleLayers()) {
 			
-			for(IGeometry geometry: layer.getGeometries()) {
+			for(IGeometry geometry: layer.getVisibleGeometries()) {
 				_drawGeometry.draw(g, geometry);
 			}
 		}

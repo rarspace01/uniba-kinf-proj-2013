@@ -25,7 +25,13 @@ public class LayerStore implements ILayerStore
 
 	@Override
 	public List<ILayer> getVisibleLayers() {
-		return _allLayers;
+		List<ILayer> visibleLayers = new LinkedList<ILayer>();
+		for(ILayer lay: _allLayers)
+		{
+			if(lay.isVisible())
+				visibleLayers.add(lay);
+		}
+		return visibleLayers;
 	}
 
 	@Override
