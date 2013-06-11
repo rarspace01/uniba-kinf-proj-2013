@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -64,7 +65,9 @@ public class Window extends JFrame implements IWindow
 		JToolBar toolBar = new JToolBar(JToolBar.HORIZONTAL);
 		
 		// button for polygon, make lines between points
-		JButton tbPolygonButton = new JButton("Polygon");
+		JButton tbPolygonButton = new JButton();
+		tbPolygonButton.setIcon(new ImageIcon("res/polygon.png"));
+		tbPolygonButton.setToolTipText("Polygon");
 		tbPolygonButton.addActionListener(new ActionListener() {
  
             public void actionPerformed(ActionEvent e)
@@ -74,7 +77,9 @@ public class Window extends JFrame implements IWindow
         });
 		toolBar.add(tbPolygonButton);
 		// button for free hand drawings (many implicit points in a polygon)
-		JButton tbFreeHandButton = new JButton("Freehand");
+		JButton tbFreeHandButton = new JButton();
+		tbFreeHandButton.setIcon(new ImageIcon("res/freehand.png"));
+		tbFreeHandButton.setToolTipText("Free Hand");
 		tbFreeHandButton.addActionListener(new ActionListener() {
  
             public void actionPerformed(ActionEvent e)
@@ -83,6 +88,32 @@ public class Window extends JFrame implements IWindow
             }
         });
 		toolBar.add(tbFreeHandButton);
+		// button to move a polygon (only enabled when polygon is selected in JList)
+		JButton tbMoveButton = new JButton();
+		tbMoveButton.setIcon(new ImageIcon("res/movepolygon.png"));
+		tbMoveButton.setToolTipText("Move Polygon");
+		tbMoveButton.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+                //appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
+            }
+        });
+		tbMoveButton.setEnabled(false);
+		toolBar.add(tbMoveButton);
+		// button to move a polygon (only enabled when polygon is selected in JList)
+		JButton tbDeleteObject = new JButton();
+		tbDeleteObject.setIcon(new ImageIcon("res/delete.png"));
+		tbDeleteObject.setToolTipText("Delete Object");
+		tbDeleteObject.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+                //appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
+            }
+        });
+		tbDeleteObject.setEnabled(false);
+		toolBar.add(tbDeleteObject);
 		toolBar.setFloatable(false);
 		
 		/*

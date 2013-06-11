@@ -2,32 +2,50 @@ package de.uniba.wiai.kinf.lehre.ma13.view;
 
 import javax.swing.ImageIcon;
 
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
+
 public class LayerViewListItem 
 {
-    // Das anzuzeigende Icon
+    // the object associated with this list-item
+    private IOrderedObject object_ = null;
+    // image icon (layer or polygon?)
     private ImageIcon icon_ = null;
+    
  
-    // Der Text
-    private String text_;
- 
-    public LayerViewListItem(String iconpath, String text) 
+    public LayerViewListItem(IOrderedObject object) 
     {
-        // Erzeugung des ImageIcons durch Angabe des Bild-Quellpfads
-        icon_ = new ImageIcon(iconpath);
+    	object_ = object;
+    	
+    	if(object_ instanceof ILayer)
+    	{
+    		icon_ = new ImageIcon("res/layer.png");
+    	}
+    	else if(object_ instanceof IBackgroundImage)
+    	{
+    		icon_ = new ImageIcon("res/image.png");
+    	}
+    	else
+    	{
+    		icon_ = new ImageIcon("res/polygon.png");
+    	}
+    }
  
-        // Zuweisung des Textes
-        this.text_ = text;
-    }       
- 
-    // Liefert das Icon
+    // return the icon for the jlist-icon
     public ImageIcon getIcon() 
     {
     return icon_;
     }
  
-    // Liefert den Text
+    // returns the text for the JList item
     public String getText() 
     {
-        return text_;
+        return object_.getName();
+    }
+    
+    public IOrderedObject getObject()
+    {
+    	return object_;
     }
 }

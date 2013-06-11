@@ -20,6 +20,7 @@ public class LayerStore implements ILayerStore
 		
 		allLayers_ = new LinkedList<ILayer>();
 		backgroundImage_ = new BackgroundImage();
+		backgroundImage_.setName("Structure");
 	}
 	
 	@Override

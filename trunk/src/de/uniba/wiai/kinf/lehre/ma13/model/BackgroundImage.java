@@ -19,6 +19,7 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 	
 	public BackgroundImage() {
 		scaledDimension_ = new Dimension(1024, 768);
+		setVisibility(true);
 	}
 	
 	@Override
