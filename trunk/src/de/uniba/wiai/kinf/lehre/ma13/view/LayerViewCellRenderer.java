@@ -3,10 +3,6 @@ package de.uniba.wiai.kinf.lehre.ma13.view;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
+
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
 
 public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<LayerViewListItem>
 {
@@ -50,11 +48,17 @@ public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<La
         // JLabel den Text aus unserem MyListItem zuweisen
         label_.setText(value.getText());
  
-        System.out.println(value.getObject().getName() + " is " + (value.getObject().isVisible() ? "" : "in") + "visible");
 		visibilityButton_.setIcon(new ImageIcon(
 				(value.getObject().isVisible() ? "res/layer_visible.png" : "res/layer_invisible.png")
 				));
-		
+		if(value.getObject() instanceof IBackgroundImage)
+		{
+			visibilityButton_.setEnabled(false);
+		}
+		else
+		{
+			visibilityButton_.setEnabled(true);
+		}
 
         this.setName(value.getObject().getName());
 		

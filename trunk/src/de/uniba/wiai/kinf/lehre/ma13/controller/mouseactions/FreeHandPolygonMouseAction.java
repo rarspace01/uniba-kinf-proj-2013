@@ -40,7 +40,7 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 		{
 			appDelegate_.getWindow().getCanvas().clearTempGeometries();
 			if(polygon_.getPoints().size() > 0)
-				appDelegate_.getLayerStore().getVisibleLayers().get(0).getGeometries().add(polygon_);
+				appDelegate_.getLayerStore().getAllLayers().get(0).getGeometries().add(polygon_);
 			appDelegate_.getWindow().refresh();
 		}
 		polygon_ = null;

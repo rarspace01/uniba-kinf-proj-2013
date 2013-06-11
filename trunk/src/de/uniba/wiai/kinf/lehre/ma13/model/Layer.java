@@ -44,10 +44,4 @@ public class Layer extends OrderedObject implements ILayer
 		}
 		return boundingBoxGeometries;
 	}
-	
-	@Override
-	public void setVisibility(boolean visible) {
-		super.setVisibility(visible);
-	}
-
 }

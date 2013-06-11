@@ -73,4 +73,10 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 		// the image is the biggest instance, it is always in every (legal) bounding box
 		return true;
 	}
+
+	
+	@Override
+	public boolean isVisible() {
+		return true;
+	}
 }
