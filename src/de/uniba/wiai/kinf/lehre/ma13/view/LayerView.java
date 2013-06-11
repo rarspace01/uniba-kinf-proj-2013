@@ -39,7 +39,6 @@ public class LayerView extends JList<LayerViewListItem> {
 				{
 					LayerViewListItem item = getModel().getElementAt(locationToIndex(arg0.getPoint()));
 					item.getObject().setVisibility(!item.getObject().isVisible());
-					System.out.println("Button clicked: " + getModel().getElementAt(locationToIndex(arg0.getPoint())).getObject().getName());
 					appDelegate_.getWindow().refresh();
 				}
 			}
