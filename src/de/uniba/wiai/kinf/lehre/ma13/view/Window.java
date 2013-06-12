@@ -15,6 +15,8 @@ import javax.swing.JToolBar;
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.CreatePolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMouseAction;
+import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawPolygonRaw;
 import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.ICanvas;
@@ -114,6 +116,22 @@ public class Window extends JFrame implements IWindow
         });
 		tbDeleteObject.setEnabled(false);
 		toolBar.add(tbDeleteObject);
+		// button to create a new layer
+		JButton tbCreatelayerButton = new JButton();
+		tbCreatelayerButton.setIcon(new ImageIcon("res/addlayer.png"));
+		tbCreatelayerButton.setToolTipText("Add Layer");
+		tbCreatelayerButton.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+            	ILayer newLayer = new Layer(appDelegate_.getId());
+            	newLayer.setName("Layer " + (appDelegate_.getLayerStore().getAllLayers().size()+1));
+            	newLayer.setVisibility(true);
+                appDelegate_.getLayerStore().getAllLayers().add(newLayer);
+                layerView_.repaint();
+            }
+        });
+		toolBar.add(tbCreatelayerButton);
 		toolBar.setFloatable(false);
 		
 		/*
