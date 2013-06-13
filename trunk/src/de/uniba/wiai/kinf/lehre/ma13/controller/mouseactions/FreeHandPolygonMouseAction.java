@@ -19,7 +19,7 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 	public void onmouseMoved(boolean dragged, int x, int y) {
 		if(dragged)
 		{
-			polygon_.getPoints().add(appDelegate_.getUtil().toWorldCoordinates(new Point(x, y)));
+			polygon_.getPoints().add(new Point(x, y));
 			appDelegate_.getWindow().getCanvas().addTempGeometry(new DrawPolygonUnfinished(appDelegate_), polygon_, false);
 			appDelegate_.getWindow().getCanvas().repaint();
 		}

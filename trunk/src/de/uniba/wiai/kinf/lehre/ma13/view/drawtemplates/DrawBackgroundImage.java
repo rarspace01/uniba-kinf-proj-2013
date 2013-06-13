@@ -36,6 +36,13 @@ public class DrawBackgroundImage extends DrawGeometry {
 			
 			Point imageOrigin = appDelegate_.getUtil().toScreenCoordinates(new Point(0, 0));
 			Dimension imageDimension = appDelegate_.getUtil().toScreenDimension(backgroundGeometry.getImageDimensions());
+			/*Point imageDimension = appDelegate_.getUtil().toScreenCoordinates(
+					new Point(
+							backgroundGeometry.getImageDimensions().width,
+							backgroundGeometry.getImageDimensions().height)
+					);
+			System.out.println("Origin: " + imageOrigin);
+			System.out.println("Dimension: " + imageDimension);*/
 			
 			g.drawImage(backgroundImage_,
 					imageOrigin.x,

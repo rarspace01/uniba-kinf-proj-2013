@@ -21,7 +21,7 @@ public class CreatePolygonMouseAction extends MouseAction {
 		if(firstClick_)
 		{
 			polygon_.getPoints().remove(polygon_.getPoints().size()-1);
-			polygon_.getPoints().add(appDelegate_.getUtil().toWorldCoordinates(new Point(x, y)));
+			polygon_.getPoints().add(new Point(x, y));
 			
 			appDelegate_.getWindow().getCanvas().addTempGeometry(new DrawPolygonUnfinished(appDelegate_), polygon_, false);
 			appDelegate_.getWindow().getCanvas().repaint();
@@ -31,8 +31,6 @@ public class CreatePolygonMouseAction extends MouseAction {
 	@Override
 	public void onmouseDown(int x, int y) {
 		
-		Point worldCoordinates = appDelegate_.getUtil().toWorldCoordinates(new Point(x, y));
-		
 		if(firstClick_ == false)
 		{
 			polygon_ = new Polygon(appDelegate_.getId());
@@ -41,7 +39,7 @@ public class CreatePolygonMouseAction extends MouseAction {
 			polygon_.setOpacity(1.0f);
 			polygon_.setColor(new Color(0, 0, 255));
 			firstClick_ = true;
-			polygon_.getPoints().add(worldCoordinates);
+			polygon_.getPoints().add(new Point(x, y));
 		}
 		else
 		{
@@ -49,7 +47,7 @@ public class CreatePolygonMouseAction extends MouseAction {
 				return;
 		}
 		
-		polygon_.getPoints().add(worldCoordinates);
+		polygon_.getPoints().add(new Point(x, y));
 	}
 
 	@Override
@@ -63,12 +61,11 @@ public class CreatePolygonMouseAction extends MouseAction {
 
 	private boolean finnishPolygon(int x, int y, boolean doubleclick)
 	{
-		Point worldCoordinates = appDelegate_.getUtil().toWorldCoordinates(new Point(x, y));
 		if(polygon_.getPoints().size() > 1 &&
 				(doubleclick ||
 						(
-							Math.abs(polygon_.getPoints().get(0).getX() - worldCoordinates.x) +
-							Math.abs(polygon_.getPoints().get(0).getY() - worldCoordinates.y) < 10
+							Math.abs(polygon_.getPoints().get(0).getX() - x) +
+							Math.abs(polygon_.getPoints().get(0).getY() - y) < 10
 						)
 				))
 		{
