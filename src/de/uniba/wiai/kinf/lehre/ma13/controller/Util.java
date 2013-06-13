@@ -12,10 +12,16 @@ public class Util
 	/** last ID that was allocated */
 	private Long lastId_;
 	
+	private float zoomFactor_;
+	private Point zoomOffset_;
+	
 	private Util(IAppDelegate appDelegate)
 	{
 		lastId_ = 1337L;
 		appDelegate_ = appDelegate;
+		
+		zoomFactor_ = 1.0f;
+		zoomOffset_ = new Point(0, 0);
 	}
 	
 	public static Util instance(IAppDelegate appDelegate)
@@ -34,40 +40,113 @@ public class Util
 	}
 	
 	public Point toWorldCoordinates(Point pt) {
+
+		// dimension of the background image
+		Dimension originalDimension = appDelegate_.getLayerStore().getBackgroundImage().getImageDimensions();
+		// dimensions of the canvas
+		Dimension canvasDimension = appDelegate_.getWindow().getCanvas().getCanvasClippingBounds().getSize();
+
+		float ratio = Math.min(
+				((float)canvasDimension.width / (float)originalDimension.width),
+				((float)canvasDimension.height / (float)originalDimension.height)
+				);
 		
-		// TODO: offset!
-		Dimension worldDimension = toWorldDimension(new Dimension(pt.x, pt.y));
-		return new Point(worldDimension.width, worldDimension.height);
+		float pointX = 0.0f;
+		float pointY = 0.0f;
+		
+		// TODO: there can be an additional offset
+		float offsetX = (((float)originalDimension.width * getZoom() * ratio) - (float)canvasDimension.width) / 2.0f;
+		float offsetY = (((float)originalDimension.height * getZoom() * ratio) - (float)canvasDimension.height) / 2.0f;
+			
+		pointX = (pt.x + offsetX) / ratio;
+		pointY = (pt.y + offsetY) / ratio;
+		
+		return new Point(Math.round(pointX), Math.round(pointY));
+		
+		//Dimension worldDimension = toWorldDimension(new Dimension(pt.x, pt.y));
+		//return new Point(worldDimension.width, worldDimension.height);
 	}
 
 	public Point toScreenCoordinates(Point pt) {
+
+		// dimension of the background image
+		Dimension originalDimension = appDelegate_.getLayerStore().getBackgroundImage().getImageDimensions();
+		// dimensions of the canvas
+		Dimension canvasDimension = appDelegate_.getWindow().getCanvas().getCanvasClippingBounds().getSize();
+
+		float ratio = Math.min(
+				((float)canvasDimension.width / (float)originalDimension.width),
+				((float)canvasDimension.height / (float)originalDimension.height)
+				);
 		
-		// TODO: offset!
-		Dimension screenDimension = toScreenDimension(new Dimension(pt.x, pt.y));
-		return new Point(screenDimension.width, screenDimension.height);
+		float pointX = 0.0f;
+		float pointY = 0.0f;
+		
+		// TODO: there can be an additional offset
+		float offsetX = (((float)originalDimension.width * getZoom() * ratio) - (float)canvasDimension.width) / 2.0f;
+		float offsetY = (((float)originalDimension.height * getZoom() * ratio) - (float)canvasDimension.height) / 2.0f;
+			
+		pointX = pt.x * ratio - offsetX;
+		pointY = pt.y * ratio - offsetY;
+		
+		return new Point(Math.round(pointX), Math.round(pointY));
+		
+		//Dimension screenDimension = toScreenDimension(new Dimension(pt.x, pt.y));
+		//return new Point(screenDimension.width, screenDimension.height);
 	}
 	
 	public Dimension toWorldDimension(Dimension screen) {
 		
-		// TODO: zoom factor!
+		/*// TODO: zoom factor!
 		Dimension originalDimension = appDelegate_.getLayerStore().getBackgroundImage().getImageDimensions();
 		Dimension canvasDimension = appDelegate_.getWindow().getCanvas().getCanvasClippingBounds().getSize();
+		
+		// get aspect ratio of image
+		float aspectRatio = (float)originalDimension.width / (float)originalDimension.height;
 		
 		int worldWidth = Math.round((float)screen.width / ((float)canvasDimension.width / (float)originalDimension.width));
-		int worldHeight = Math.round((float)screen.height / ((float)canvasDimension.height / (float)originalDimension.height));
+		//int worldHeight = Math.round((float)screen.height / ((float)canvasDimension.height / (float)originalDimension.height));
+		int worldHeight = Math.round((float)worldWidth / aspectRatio);
 		
-		return new Dimension(worldWidth, worldHeight);
+		return new Dimension(worldWidth, worldHeight);*/
+		
+		// dimension of the background image
+		Dimension originalDimension = appDelegate_.getLayerStore().getBackgroundImage().getImageDimensions();
+		// dimensions of the canvas
+		Dimension canvasDimension = appDelegate_.getWindow().getCanvas().getCanvasClippingBounds().getSize();
+		// get aspect ratio of image
+		float aspectRatio = (float)originalDimension.width / (float)originalDimension.height;
+
+		float worldWidth = ((float)screen.width / ((float)canvasDimension.width / (float)originalDimension.width)) * zoomFactor_;
+		float worldHeight = worldWidth / aspectRatio;
+		
+		return new Dimension(Math.round(worldWidth), Math.round(worldHeight));
 	}
 	
+	/**
+	 * translates a dimension from the "real world" to the screen.
+	 * The image has an original dimension which is translated to the screen here
+	 */
 	public Dimension toScreenDimension(Dimension world) {
-
-		// TODO: zoom factor!
+		
+		// dimension of the background image
 		Dimension originalDimension = appDelegate_.getLayerStore().getBackgroundImage().getImageDimensions();
+		// dimensions of the canvas
 		Dimension canvasDimension = appDelegate_.getWindow().getCanvas().getCanvasClippingBounds().getSize();
+
+		float ratio = Math.min(
+				((float)canvasDimension.width / (float)originalDimension.width),
+				((float)canvasDimension.height / (float)originalDimension.height)
+				);
 		
-		int screenWidth = Math.round((float)world.width * ((float)canvasDimension.width / (float)originalDimension.width));
-		int screenHeight = Math.round((float)world.height * ((float)canvasDimension.height / (float)originalDimension.height));
+		float screenWidth = ((float)world.width * ratio) * getZoom();
+		float screenHeight = ((float)world.height * ratio) * getZoom();
 		
-		return new Dimension(screenWidth, screenHeight);
+		return new Dimension(Math.round(screenWidth), Math.round(screenHeight));
+	}
+	
+	public float getZoom()
+	{
+		return zoomFactor_;
 	}
 }

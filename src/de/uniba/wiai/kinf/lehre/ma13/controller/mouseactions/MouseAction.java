@@ -1,5 +1,6 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -44,10 +45,11 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	 */
 	public void mousePressed(MouseEvent e)
 	{
+		Point worldPt = appDelegate_.getUtil().toWorldCoordinates(e.getPoint());
 		mouseDragged_ = true;
-		oldX_ = e.getX();
-		oldY_ = e.getY();
-		onmouseDown(e.getX(), e.getY());
+		oldX_ = worldPt.x;
+		oldY_ = worldPt.y;
+		onmouseDown(worldPt.x, worldPt.y);
 	}
 
 	/**
@@ -55,7 +57,8 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	 */
 	public void mouseReleased(MouseEvent e)
 	{	
-		onmouseUp(e.getX(), e.getY());
+		Point worldPt = appDelegate_.getUtil().toWorldCoordinates(e.getPoint());
+		onmouseUp(worldPt.x, worldPt.y);
 		mouseDragged_ = false;
 	}
 	
@@ -64,11 +67,12 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	 */
 	public void mouseDragged(MouseEvent e)
 	{
-		if(Math.abs(e.getX() - oldX_) + Math.abs(e.getY() - oldY_) > 10)
+		Point worldPt = appDelegate_.getUtil().toWorldCoordinates(e.getPoint());
+		if(Math.abs(worldPt.x - oldX_) + Math.abs(worldPt.y - oldY_) > 10)
 		{
-			onmouseMoved(true, e.getX(), e.getY());
-			oldX_ = e.getX();
-			oldY_ = e.getY();
+			onmouseMoved(true, worldPt.x, worldPt.y);
+			oldX_ = worldPt.x;
+			oldY_ = worldPt.y;
 		}
 	}
 
@@ -78,18 +82,22 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	 */
 	public void mouseMoved(MouseEvent e)
 	{
-		if(Math.abs(e.getX() - oldX_) + Math.abs(e.getY() - oldY_) > 10)
+		Point worldPt = appDelegate_.getUtil().toWorldCoordinates(e.getPoint());
+		if(Math.abs(worldPt.x - oldX_) + Math.abs(worldPt.y - oldY_) > 10)
 		{
-			onmouseMoved(false, e.getX(), e.getY());
-			oldX_ = e.getX();
-			oldY_ = e.getY();
+			onmouseMoved(false, worldPt.x, worldPt.y);
+			oldX_ = worldPt.x;
+			oldY_ = worldPt.y;
 		}
 	}
 	
 	public void mouseClicked(MouseEvent e)
 	{
 		if(e.getClickCount() > 1)
-			onmouseDoubleClick(e.getX(), e.getY());
+		{
+			Point worldPt = appDelegate_.getUtil().toWorldCoordinates(e.getPoint());
+			onmouseDoubleClick(worldPt.x, worldPt.y);
+		}
 	}
 	
 	public void mouseEntered(MouseEvent e) { }
