@@ -73,6 +73,7 @@ public class CreatePolygonMouseAction extends MouseAction {
 				))
 		{
 			polygon_.getPoints().remove(polygon_.getPoints().size()-1);
+			polygon_.setParent(appDelegate_.getLayerStore().getAllLayers().get(0));
 			appDelegate_.getLayerStore().getAllLayers().get(0).getGeometries().add(polygon_);
 			polygon_ = null;
 			firstClick_ = false;

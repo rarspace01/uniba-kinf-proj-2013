@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 
 public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<LayerViewListItem>
 {
@@ -51,9 +52,17 @@ public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<La
 		visibilityButton_.setIcon(new ImageIcon(
 				(value.getObject().isVisible() ? "res/layer_visible.png" : "res/layer_invisible.png")
 				));
-		if(value.getObject() instanceof IBackgroundImage)
+		
+		if(value.getObject() instanceof IGeometry)
 		{
-			visibilityButton_.setEnabled(false);
+			if( ((IGeometry)value.getObject()).getParent() != null && ((IGeometry)value.getObject()).getParent().isVisible() )
+			{
+				visibilityButton_.setEnabled(true);
+			}
+			else
+			{
+				visibilityButton_.setEnabled(false);
+			}
 		}
 		else
 		{
