@@ -1,7 +1,7 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
-import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.CreatePolygonMouseAction;
+import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.model.DataManager;
 import de.uniba.wiai.kinf.lehre.ma13.model.LayerStore;
@@ -44,7 +44,7 @@ public class AppDelegate implements IAppDelegate {
 		DataManager dm = new DataManager(this);
 		dm.loadTestData();
 		
-		setMouseAction(new CreatePolygonMouseAction(this));
+		setMouseAction(new DummyMouseAction(this));
 		window_.refresh();
 	}
 

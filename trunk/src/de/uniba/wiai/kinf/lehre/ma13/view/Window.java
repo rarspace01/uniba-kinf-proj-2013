@@ -17,7 +17,9 @@ import javax.swing.JToolBar;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.CreatePolygonMouseAction;
+import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMouseAction;
+import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MovePolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawBackgroundImage;
@@ -30,6 +32,7 @@ public class Window extends JFrame implements IWindow
 	private static final long serialVersionUID = 1L;
 	private IAppDelegate appDelegate_;
 	private ICanvas canvas_;
+	private JToolBar toolBar_;
 	private LayerView layerView_;
 	
 	public Window(IAppDelegate appDelegate)
@@ -67,75 +70,8 @@ public class Window extends JFrame implements IWindow
 		/*
 		 * initialise the toolbar
 		 */
-		JToolBar toolBar = new JToolBar(JToolBar.HORIZONTAL);
+		createToolBar();
 		
-		// button for polygon, make lines between points
-		JButton tbPolygonButton = new JButton();
-		tbPolygonButton.setIcon(new ImageIcon("res/polygon.png"));
-		tbPolygonButton.setToolTipText("Polygon");
-		tbPolygonButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                appDelegate_.setMouseAction(new CreatePolygonMouseAction(appDelegate_));
-            }
-        });
-		toolBar.add(tbPolygonButton);
-		// button for free hand drawings (many implicit points in a polygon)
-		JButton tbFreeHandButton = new JButton();
-		tbFreeHandButton.setIcon(new ImageIcon("res/freehand.png"));
-		tbFreeHandButton.setToolTipText("Free Hand");
-		tbFreeHandButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
-            }
-        });
-		toolBar.add(tbFreeHandButton);
-		// button to move a polygon (only enabled when polygon is selected in JList)
-		JButton tbMoveButton = new JButton();
-		tbMoveButton.setIcon(new ImageIcon("res/movepolygon.png"));
-		tbMoveButton.setToolTipText("Move Polygon");
-		tbMoveButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                //appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
-            }
-        });
-		tbMoveButton.setEnabled(false);
-		toolBar.add(tbMoveButton);
-		// button to move a polygon (only enabled when polygon is selected in JList)
-		JButton tbDeleteObject = new JButton();
-		tbDeleteObject.setIcon(new ImageIcon("res/delete.png"));
-		tbDeleteObject.setToolTipText("Delete Object");
-		tbDeleteObject.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                //appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
-            }
-        });
-		tbDeleteObject.setEnabled(false);
-		toolBar.add(tbDeleteObject);
-		// button to create a new layer
-		JButton tbCreatelayerButton = new JButton();
-		tbCreatelayerButton.setIcon(new ImageIcon("res/addlayer.png"));
-		tbCreatelayerButton.setToolTipText("Add Layer");
-		tbCreatelayerButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-            	ILayer newLayer = new Layer(appDelegate_.getId());
-            	newLayer.setName("Layer " + (appDelegate_.getLayerStore().getAllLayers().size()+1));
-            	newLayer.setVisibility(true);
-                appDelegate_.getLayerStore().getAllLayers().add(newLayer);
-                layerView_.repaint();
-            }
-        });
-		toolBar.add(tbCreatelayerButton);
-		toolBar.setFloatable(false);
 		
 		/*
 		 * JMenuBars
@@ -164,13 +100,14 @@ public class Window extends JFrame implements IWindow
 		 */
 		layerView_ = new LayerView(appDelegate_);
 		
-		nestedLayout.add(toolBar);
+		nestedLayout.add(toolBar_);
 		nestedLayout.add(layerView_);
 		add(nestedLayout, BorderLayout.LINE_END);
 		
 		setSize(750, 550);
 		setVisible(true);
 	}
+	
 
 	@Override
 	public void refresh() {
@@ -184,5 +121,112 @@ public class Window extends JFrame implements IWindow
 	public ICanvas getCanvas()
 	{
 		return canvas_;
+	}
+	
+	public JToolBar getToolBar()
+	{
+		return toolBar_;
+	}
+	
+	public LayerView getLayerView()
+	{
+		return layerView_;
+	}
+	
+	private void createToolBar()
+	{
+		toolBar_ = new JToolBar(JToolBar.HORIZONTAL);
+
+		// button for polygon, make lines between points
+		JButton tbPolygonButton = new JButton();
+		tbPolygonButton.setIcon(new ImageIcon("res/polygon.png"));
+		tbPolygonButton.setToolTipText("Polygon");
+		tbPolygonButton.addActionListener(new ActionListener() {
+	
+	        public void actionPerformed(ActionEvent e)
+	        {
+	        	getToolBar().getComponent(4).setEnabled(true);
+	            appDelegate_.setMouseAction(new CreatePolygonMouseAction(appDelegate_));
+	        }
+	    });
+		toolBar_.add(tbPolygonButton);
+		
+		// button for free hand drawings (many implicit points in a polygon)
+		JButton tbFreeHandButton = new JButton();
+		tbFreeHandButton.setIcon(new ImageIcon("res/freehand.png"));
+		tbFreeHandButton.setToolTipText("Free Hand");
+		tbFreeHandButton.addActionListener(new ActionListener() {
+	
+	        public void actionPerformed(ActionEvent e)
+	        {
+	        	getToolBar().getComponent(4).setEnabled(true);
+	            appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
+	        }
+	    });
+		toolBar_.add(tbFreeHandButton);
+		
+		// button to move a polygon (only enabled when polygon is selected in JList)
+		JButton tbMoveButton = new JButton();
+		tbMoveButton.setIcon(new ImageIcon("res/movepolygon.png"));
+		tbMoveButton.setToolTipText("Move Polygon");
+		tbMoveButton.addActionListener(new ActionListener() {
+	
+	        public void actionPerformed(ActionEvent e)
+	        {
+	            appDelegate_.setMouseAction(new MovePolygonMouseAction(appDelegate_));
+	        }
+	    });
+		tbMoveButton.setEnabled(false);
+		toolBar_.add(tbMoveButton);
+		
+		// button to move a polygon (only enabled when polygon is selected in JList)
+		JButton tbDeleteObject = new JButton();
+		tbDeleteObject.setIcon(new ImageIcon("res/delete.png"));
+		tbDeleteObject.setToolTipText("Delete Object");
+		tbDeleteObject.addActionListener(new ActionListener() {
+	
+	        public void actionPerformed(ActionEvent e)
+	        {
+	            //appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
+	        }
+	    });
+		tbDeleteObject.setEnabled(false);
+		toolBar_.add(tbDeleteObject);
+		
+		// button to stop current action
+		JButton tbStopactionButton = new JButton();
+		tbStopactionButton.setIcon(new ImageIcon("res/stop.png"));
+		tbStopactionButton.setToolTipText("Stop Action");
+		tbStopactionButton.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+    			appDelegate_.getWindow().getCanvas().clearTempGeometries();
+    			appDelegate_.setMouseAction(new DummyMouseAction(appDelegate_));
+    			canvas_.repaint();
+    			getToolBar().getComponent(4).setEnabled(false);
+            }
+        });
+		tbStopactionButton.setEnabled(false);
+		toolBar_.add(tbStopactionButton);
+
+		// button to create a new layer
+		JButton tbCreatelayerButton = new JButton();
+		tbCreatelayerButton.setIcon(new ImageIcon("res/addlayer.png"));
+		tbCreatelayerButton.setToolTipText("Add Layer");
+		tbCreatelayerButton.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+            	ILayer newLayer = new Layer(appDelegate_.getId());
+            	newLayer.setName("Layer " + (appDelegate_.getLayerStore().getAllLayers().size()+1));
+            	newLayer.setVisibility(true);
+                appDelegate_.getLayerStore().getAllLayers().add(newLayer);
+                layerView_.repaint();
+            }
+        });
+		toolBar_.add(tbCreatelayerButton);
+		
+		toolBar_.setFloatable(false);
 	}
 }
