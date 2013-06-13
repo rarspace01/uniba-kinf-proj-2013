@@ -9,6 +9,7 @@ import java.awt.Point;
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 
 public class DrawPolygonRaw extends DrawGeometry {
 	
@@ -20,13 +21,33 @@ public class DrawPolygonRaw extends DrawGeometry {
 	public void draw(Graphics g, IGeometry geometry)
 	{
 		Polygon polygon = (Polygon)geometry;
-		
-		((Graphics2D)g).setStroke(new BasicStroke(5));
+
+		// default color settings
+		((Graphics2D)g).setStroke(new BasicStroke(3));
 		g.setColor(new Color(
 				geometry.getColor().getRed(),
 				geometry.getColor().getGreen(),
 				geometry.getColor().getBlue(),
 				Math.round(255 * geometry.getOpacity())));
+		
+		// special treatment for selected geometries
+		int listSelection = appDelegate_.getWindow().getLayerView().getMaxSelectionIndex();
+		if(listSelection >= 0)
+		{
+			IOrderedObject selectedObject = appDelegate_.getWindow().getLayerView().getModel().getElementAt(
+						appDelegate_.getWindow().getLayerView().getMaxSelectionIndex()
+					).getObject();
+			
+			if(selectedObject instanceof IGeometry && geometry.equals(selectedObject))
+			{
+				((Graphics2D)g).setStroke(new BasicStroke(6));
+				g.setColor(new Color(
+						geometry.getColor().getRed(),
+						geometry.getColor().getGreen(),
+						geometry.getColor().getBlue(),
+						Math.round(255 * geometry.getOpacity())));	
+			}
+		}
 		
 		int i = 1;
 		for(i = 1; i <= polygon.getPoints().size(); i++)

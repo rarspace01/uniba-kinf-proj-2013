@@ -5,8 +5,12 @@ import java.awt.event.MouseListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
@@ -44,6 +48,56 @@ public class LayerView extends JList<LayerViewListItem> {
 			}
 		};
 		this.addMouseListener(mouseListener_);
+		
+		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		this.addListSelectionListener(new ListSelectionListener() {
+			
+			@SuppressWarnings("unchecked")
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				
+				if(!e.getValueIsAdjusting())
+				{
+					int newIndex = ((JList<LayerViewListItem>)e.getSource()).getMaxSelectionIndex();
+					if(newIndex < 0)
+					{
+						// moving polygon is disabled
+						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(false);
+						// deleting object is disabled
+						appDelegate_.getWindow().getToolBar().getComponent(3).setEnabled(false);
+						return;
+					}
+					
+					LayerViewListItem item = getModel().getElementAt(newIndex);
+					
+					if(item.getObject() instanceof IBackgroundImage)
+					{
+						// moving polygon is disabled
+						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(false);
+						// deleting object is disabled
+						appDelegate_.getWindow().getToolBar().getComponent(3).setEnabled(false);
+					}
+					else if(item.getObject() instanceof ILayer)
+					{
+						// moving polygon is disabled
+						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(false);
+						// deleting object is enabled
+						appDelegate_.getWindow().getToolBar().getComponent(3).setEnabled(true);
+					}
+					else if(item.getObject() instanceof IGeometry)
+					{
+						// moving polygon is enabled
+						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(true);
+						// deleting object is enabled
+						appDelegate_.getWindow().getToolBar().getComponent(3).setEnabled(true);
+						
+						// polygon selected, refresh canvas
+						appDelegate_.getWindow().getCanvas().repaint();
+					}
+				}
+			}
+		});
 	}
 	
 	public void repaint()
@@ -76,5 +130,7 @@ public class LayerView extends JList<LayerViewListItem> {
 		
 		lockrepaint_ = false;
 		super.repaint();
+		
+		
 	}
 }
