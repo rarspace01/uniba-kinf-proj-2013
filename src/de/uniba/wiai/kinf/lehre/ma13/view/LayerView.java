@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
+import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
@@ -59,6 +60,7 @@ public class LayerView extends JList<LayerViewListItem> {
 				
 				if(!e.getValueIsAdjusting())
 				{
+					appDelegate_.setMouseAction(new DummyMouseAction(appDelegate_));
 					int newIndex = ((JList<LayerViewListItem>)e.getSource()).getMaxSelectionIndex();
 					if(newIndex < 0)
 					{
