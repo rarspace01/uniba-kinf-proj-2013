@@ -9,6 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -133,6 +136,28 @@ public class Window extends JFrame implements IWindow
         });
 		toolBar.add(tbCreatelayerButton);
 		toolBar.setFloatable(false);
+		
+		/*
+		 * JMenuBars
+		 */
+		JMenuBar menuBar = new JMenuBar();
+		
+		// file
+		JMenu file = new JMenu("File");
+		JMenuItem fileOpen = new JMenuItem("Open");
+		file.add(fileOpen);
+		JMenuItem fileSave = new JMenuItem("Save");
+		file.add(fileSave);
+		JMenuItem fileExit = new JMenuItem("Exit");
+		file.add(fileExit);
+		menuBar.add(file);
+
+		JMenu help = new JMenu("Help");
+		JMenuItem helpHello = new JMenuItem("Hello 1337!");
+		help.add(helpHello);
+		menuBar.add(help);
+		
+		add(menuBar, BorderLayout.NORTH);
 		
 		/*
 		 * layer view, showing the different layers
