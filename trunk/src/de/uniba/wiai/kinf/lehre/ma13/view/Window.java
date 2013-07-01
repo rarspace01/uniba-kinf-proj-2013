@@ -13,7 +13,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JToolBar;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.CreatePolygonMouseAction;
@@ -22,6 +27,7 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMous
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MovePolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawPolygonRaw;
 import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.ICanvas;
@@ -34,6 +40,7 @@ public class Window extends JFrame implements IWindow
 	private ICanvas canvas_;
 	private JToolBar toolBar_;
 	private LayerView layerView_;
+	private JScrollPane scrollPaneLayer_;
 	
 	public Window(IAppDelegate appDelegate)
 	{
@@ -57,21 +64,7 @@ public class Window extends JFrame implements IWindow
 		canvas_ = new Canvas(appDelegate_);
 		canvas_.setGeometryDrawer(new DrawPolygonRaw(appDelegate_));
 		canvas_.setBackgroundDrawer(new DrawBackgroundImage(appDelegate_));
-		add((JComponent)canvas_, BorderLayout.CENTER);
-		
-
-		/*
-		 * new JPanel for right side of the window
-		 */
-		JPanel nestedLayout = new JPanel();
-		nestedLayout.setLayout(new BoxLayout(nestedLayout, BoxLayout.Y_AXIS));
-		
-		
-		/*
-		 * initialise the toolbar
-		 */
-		createToolBar();
-		
+		add((JComponent)canvas_, BorderLayout.CENTER);		
 		
 		/*
 		 * JMenuBars
@@ -93,15 +86,52 @@ public class Window extends JFrame implements IWindow
 		help.add(helpHello);
 		menuBar.add(help);
 		
-		add(menuBar, BorderLayout.NORTH);
+		add(menuBar, BorderLayout.NORTH);		
+
+		/*
+		 * new JPanel for right side of the window
+		 */
+		JPanel nestedLayout = new JPanel();
+		nestedLayout.setLayout(new BoxLayout(nestedLayout, BoxLayout.Y_AXIS));
+		
+		
+		/*
+		 * initialise the toolbar
+		 */
+		createToolBar();
 		
 		/*
 		 * layer view, showing the different layers
 		 */
 		layerView_ = new LayerView(appDelegate_);
 		
+		scrollPaneLayer_ = new JScrollPane(layerView_, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+
+		JSlider zoomSlider = new JSlider(JSlider.HORIZONTAL, 50, 250, 100);
+		zoomSlider.setMinorTickSpacing(10);
+		zoomSlider.setMajorTickSpacing(50);
+		zoomSlider.setPaintLabels(true);
+		zoomSlider.setPaintTicks(true);
+		zoomSlider.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider)e.getSource();
+			    if (!source.getValueIsAdjusting()) {
+			    	//System.out.println("Slider Value: " + source.getValue());
+			    	
+			    	float currentValue = (float)source.getValue();
+			    	appDelegate_.getUtil().setZoom(currentValue / 100);
+			    	refresh();
+			    }
+			}
+		});
+		
 		nestedLayout.add(toolBar_);
-		nestedLayout.add(layerView_);
+		nestedLayout.add(scrollPaneLayer_);
+		nestedLayout.add(zoomSlider);
+		
 		add(nestedLayout, BorderLayout.LINE_END);
 		
 		setSize(750, 550);
@@ -187,7 +217,14 @@ public class Window extends JFrame implements IWindow
 	
 	        public void actionPerformed(ActionEvent e)
 	        {
-	            //appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
+	        	IOrderedObject selectedObject = appDelegate_.getWindow().getLayerView().getModel().getElementAt(
+						appDelegate_.getWindow().getLayerView().getMaxSelectionIndex()
+					).getObject();
+	        	
+	        	if(selectedObject instanceof ILayer)
+	        	{
+	        		
+	        	}
 	        }
 	    });
 		tbDeleteObject.setEnabled(false);

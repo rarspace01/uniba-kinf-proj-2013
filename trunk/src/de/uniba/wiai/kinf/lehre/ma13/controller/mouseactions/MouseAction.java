@@ -68,7 +68,7 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	public void mouseDragged(MouseEvent e)
 	{
 		Point worldPt = appDelegate_.getUtil().toWorldCoordinates(e.getPoint());
-		if(Math.abs(worldPt.x - oldX_) + Math.abs(worldPt.y - oldY_) > 10)
+		if(Math.abs(worldPt.x - oldX_) + Math.abs(worldPt.y - oldY_) > 5)
 		{
 			onmouseMoved(true, worldPt.x, worldPt.y);
 			oldX_ = worldPt.x;
@@ -83,7 +83,7 @@ public abstract class MouseAction implements MouseMotionListener, MouseListener
 	public void mouseMoved(MouseEvent e)
 	{
 		Point worldPt = appDelegate_.getUtil().toWorldCoordinates(e.getPoint());
-		if(Math.abs(worldPt.x - oldX_) + Math.abs(worldPt.y - oldY_) > 10)
+		if(Math.abs(worldPt.x - oldX_) + Math.abs(worldPt.y - oldY_) > 5)
 		{
 			onmouseMoved(false, worldPt.x, worldPt.y);
 			oldX_ = worldPt.x;

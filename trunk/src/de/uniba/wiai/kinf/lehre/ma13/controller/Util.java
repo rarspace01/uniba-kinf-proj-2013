@@ -58,8 +58,8 @@ public class Util
 		float offsetX = (((float)originalDimension.width * getZoom() * ratio) - (float)canvasDimension.width) / 2.0f;
 		float offsetY = (((float)originalDimension.height * getZoom() * ratio) - (float)canvasDimension.height) / 2.0f;
 			
-		pointX = (pt.x + offsetX) / ratio;
-		pointY = (pt.y + offsetY) / ratio;
+		pointX = (pt.x + offsetX) / (ratio * getZoom());
+		pointY = (pt.y + offsetY) / (ratio * getZoom());
 		
 		return new Point(Math.round(pointX), Math.round(pointY));
 		
@@ -86,8 +86,8 @@ public class Util
 		float offsetX = (((float)originalDimension.width * getZoom() * ratio) - (float)canvasDimension.width) / 2.0f;
 		float offsetY = (((float)originalDimension.height * getZoom() * ratio) - (float)canvasDimension.height) / 2.0f;
 			
-		pointX = pt.x * ratio - offsetX;
-		pointY = pt.y * ratio - offsetY;
+		pointX = pt.x * (ratio * getZoom()) - offsetX;
+		pointY = pt.y * (ratio * getZoom()) - offsetY;
 		
 		return new Point(Math.round(pointX), Math.round(pointY));
 		
@@ -148,5 +148,10 @@ public class Util
 	public float getZoom()
 	{
 		return zoomFactor_;
+	}
+	
+	public void setZoom(float zoomFactor)
+	{
+		zoomFactor_ = zoomFactor;
 	}
 }
