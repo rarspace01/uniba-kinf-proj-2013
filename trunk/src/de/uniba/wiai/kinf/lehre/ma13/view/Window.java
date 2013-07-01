@@ -26,6 +26,7 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MovePolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawBackgroundImage;
@@ -221,10 +222,15 @@ public class Window extends JFrame implements IWindow
 						appDelegate_.getWindow().getLayerView().getMaxSelectionIndex()
 					).getObject();
 	        	
-	        	if(selectedObject instanceof ILayer)
+	        	if(selectedObject instanceof ILayer && appDelegate_.getLayerStore().getAllLayers().size() > 1)
 	        	{
-	        		
+	        		appDelegate_.getLayerStore().getAllLayers().remove(selectedObject);
 	        	}
+	        	else if(selectedObject instanceof IGeometry)
+	        	{
+	        		((IGeometry)selectedObject).getParent().getGeometries().remove(selectedObject);
+	        	}
+	        	refresh();
 	        }
 	    });
 		tbDeleteObject.setEnabled(false);
