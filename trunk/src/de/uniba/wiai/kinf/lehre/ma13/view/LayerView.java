@@ -127,7 +127,6 @@ public class LayerView extends JList<LayerViewListItem> {
 					int newIndex = ((JList<LayerViewListItem>)e.getSource()).getMaxSelectionIndex();
 					if(newIndex < 0)
 					{
-						System.out.println("Index invalid");
 						// moving polygon is disabled
 						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(false);
 						// deleting object is disabled
@@ -151,7 +150,6 @@ public class LayerView extends JList<LayerViewListItem> {
 					else if(item.getObject() instanceof ILayer)
 					{
 						appDelegate_.getLayerStore().setActiveLayer((ILayer)item.getObject());
-						System.out.println("Layer selected");
 						// moving polygon is disabled
 						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(false);
 						// deleting object is enabled
@@ -161,7 +159,6 @@ public class LayerView extends JList<LayerViewListItem> {
 					}
 					else if(item.getObject() instanceof IGeometry)
 					{
-						System.out.println("Geometry selected");
 						// moving polygon is enabled
 						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(true);
 						// deleting object is enabled
