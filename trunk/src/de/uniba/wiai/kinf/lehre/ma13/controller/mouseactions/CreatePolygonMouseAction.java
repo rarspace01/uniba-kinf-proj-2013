@@ -75,6 +75,7 @@ public class CreatePolygonMouseAction extends MouseAction {
 			polygon_ = null;
 			firstClick_ = false;
 			appDelegate_.getWindow().getCanvas().clearTempGeometries();
+			appDelegate_.setMouseAction(new DummyMouseAction(appDelegate_));
 			appDelegate_.getWindow().refresh();
 			
 			return true;
