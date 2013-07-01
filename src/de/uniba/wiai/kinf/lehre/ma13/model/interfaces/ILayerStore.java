@@ -25,4 +25,15 @@ public interface ILayerStore
 	 * returns the background-image object
 	 */
 	public IBackgroundImage getBackgroundImage();
+	
+	/**
+	 * returns the layer object that is currently active
+	 * (selected in LayerList)
+	 */
+	public ILayer getActiveLayer();
+	
+	/**
+	 * set the layer that is currently active
+	 */
+	public void setActiveLayer(ILayer active);
 }

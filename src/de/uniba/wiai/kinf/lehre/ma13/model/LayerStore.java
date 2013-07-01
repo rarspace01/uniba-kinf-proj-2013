@@ -10,6 +10,7 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayerStore;
 
 public class LayerStore implements ILayerStore
 {
+	private int activeLayer;
 	private List<ILayer> allLayers_;
 	private IBackgroundImage backgroundImage_;
 	private IAppDelegate appDelegate_;
@@ -21,6 +22,8 @@ public class LayerStore implements ILayerStore
 		allLayers_ = new LinkedList<ILayer>();
 		backgroundImage_ = new BackgroundImage();
 		backgroundImage_.setName("Structure");
+		
+		activeLayer = 0;
 	}
 	
 	@Override
@@ -53,6 +56,18 @@ public class LayerStore implements ILayerStore
 	@Override
 	public IBackgroundImage getBackgroundImage() {
 		return backgroundImage_;
+	}
+	
+	@Override
+	public ILayer getActiveLayer()
+	{
+		return allLayers_.get(activeLayer);
+	}
+	
+	@Override
+	public void setActiveLayer(ILayer active)
+	{
+		activeLayer = allLayers_.indexOf(active);
 	}
 
 }
