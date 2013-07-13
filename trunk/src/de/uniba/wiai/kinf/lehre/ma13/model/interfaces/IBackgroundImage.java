@@ -20,4 +20,10 @@ public interface IBackgroundImage extends IGeometry
 	 * and the window is 400px wide, the image will be scaled again.
 	 */
 	public Dimension getImageDimensions();
+	
+	/**
+	 * sets the dimension of the BG Image
+	 * @param dimension
+	 */
+	public void setImageDimensions(Dimension dimension);
 }

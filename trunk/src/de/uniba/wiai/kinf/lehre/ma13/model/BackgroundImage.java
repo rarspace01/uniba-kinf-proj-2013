@@ -57,7 +57,13 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 	public Dimension getImageDimensions() {
 		return scaledDimension_;
 	}
-
+	
+	@Override
+	public void setImageDimensions(Dimension dimension) {
+		scaledDimension_ = dimension;		
+	}
+	
+	
 	@Override
 	public ILayer getParent() {
 		return null;
@@ -79,4 +85,6 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 	public boolean isVisible() {
 		return true;
 	}
+
+
 }
