@@ -16,7 +16,7 @@ public class PBackgroundImage {
 			DataManagerSQLite
 					.getInstance()
 					.execute(
-							"INSERT INTO backgroundimage (imageid,scalex, scaley, x, y, imagepath) VALUES ('1','1','1','"
+							"REPLACE INTO backgroundimage (imageid,scalex, scaley, x, y, imagepath) VALUES ('1','1','1','"
 									+ toBeSaved.getImageDimensions().getWidth()
 									+ "','"+toBeSaved.getImageDimensions().getHeight()+"','"+toBeSaved.getImagePath()+"'); ");
 
