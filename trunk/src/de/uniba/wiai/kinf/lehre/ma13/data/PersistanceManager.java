@@ -12,9 +12,9 @@ public class PersistanceManager implements IPersistanceManager {
 		PBackgroundImage pbi=new PBackgroundImage();
 		pbi.saveToDB(layerStore.getBackgroundImage());
 
-		// Step 2 - Retrieve the Layers
-		layerStore.getAllLayers();
-
+		// Step 2 - Retrieve & save the Layers
+		PLayers pl=new PLayers();
+		pl.saveToDB(layerStore.getAllLayers());
 	}
 
 	@Override
