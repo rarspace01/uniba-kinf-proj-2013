@@ -13,6 +13,7 @@ import java.sql.Statement;
  */
 public class DataManagerSQLite {
 	private static DataManagerSQLite uniqueInstance_ = null;
+	private static String filename_ = "default.db";
 	
 	private java.sql.Connection conn_;
 	private Statement stmt_;
@@ -40,6 +41,15 @@ public class DataManagerSQLite {
 			if(uniqueInstance_== null)
 			{
 			new DataManagerSQLite(filename);
+			}
+		return uniqueInstance_;	
+	}
+	
+	public static DataManagerSQLite getInstance()
+	{
+			if(uniqueInstance_== null)
+			{
+			new DataManagerSQLite(filename_);
 			}
 		return uniqueInstance_;	
 	}

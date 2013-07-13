@@ -10,7 +10,7 @@ import de.uniba.wiai.kinf.lehre.ma13.data.interfaces.IDataManager;
  * @author denis
  *
  */
-public class DataManager implements IDataManager{
+public class DataBaseManager implements IDataManager{
 
 	private String filename_="";
 	private DataManagerSQLite currentDB_;
@@ -25,10 +25,10 @@ public class DataManager implements IDataManager{
 			currentDB_.execute("CREATE TABLE points (polyid NUMERIC, pointid INTEGER PRIMARY KEY, ordernumber NUMERIC, x NUMERIC, y NUMERIC, colour NUMERIC);");
 			//poly table
 			currentDB_.execute("CREATE TABLE poly (polyid INTEGER PRIMARY KEY, colour NUMERIC, polygroupid NUMERIC, isvisible NUMERIC);");
-			//polygroup
-			currentDB_.execute("CREATE TABLE polygroup (polygroupid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, colour NUMERIC);");
+			//layer table
+			currentDB_.execute("CREATE TABLE layer (layerid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, colour NUMERIC);");
 			//background image
-			currentDB_.execute("CREATE TABLE backgroundimage (imageid INTEGER PRIMARY KEY, scalex NUMERIC, scaley NUMERIC, x NUMERIC, y NUMERIC, image BLOB);");
+			currentDB_.execute("CREATE TABLE backgroundimage (imageid INTEGER PRIMARY KEY, scalex NUMERIC, scaley NUMERIC, x NUMERIC, y NUMERIC, imagepath TEXT);");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
