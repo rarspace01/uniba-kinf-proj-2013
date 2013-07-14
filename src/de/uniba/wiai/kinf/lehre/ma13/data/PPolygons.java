@@ -45,6 +45,8 @@ public class PPolygons {
 		
 		List<IGeometry> polygonList = new LinkedList<IGeometry>();
 		
+		System.out.println("DEBUG: filename: "+DataManagerSQLiteSingleton.getInstance().getCurrentFilename());
+		
 		DataManagerSQLite dataManager=new DataManagerSQLite(DataManagerSQLiteSingleton.getInstance().getCurrentFilename());
 		
 		try {
