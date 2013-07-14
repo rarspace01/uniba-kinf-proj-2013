@@ -32,6 +32,8 @@ public class PersistanceManager implements IPersistanceManager {
 		// Step 2 - Retrieve & save the Layers
 		PLayers pl=new PLayers();
 		pl.saveToDB(layerStore.getAllLayers());
+		
+		dbm.closeDb();
 	}
 
 	@Override
