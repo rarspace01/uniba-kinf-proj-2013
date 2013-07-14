@@ -19,6 +19,10 @@ public class PLayers {
 
 			// save the Layer
 
+			if(toBeSaved.get(i).getColor() == null){
+				toBeSaved.get(i).setColor(Color.black);
+			}
+			
 			//toBeSaved.get(i);
 
 			try {

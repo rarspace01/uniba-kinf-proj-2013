@@ -83,7 +83,7 @@ public class DataBaseTests {
 								.getObjectId()
 						+ " - Color: "
 						+ ls.getAllLayers().get(i).getGeometries().get(j)
-								.getColor().toString()+" Poyl has Points: "+((Polygon) ls.getAllLayers().get(i).getGeometries().get(j)).getPoints().size());
+								.getColor().toString()+" Polygon has Points: "+((Polygon) ls.getAllLayers().get(i).getGeometries().get(j)).getPoints().size());
 			}
 
 		}

@@ -3,11 +3,13 @@ package de.uniba.wiai.kinf.lehre.ma13.view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -25,6 +27,7 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.CreatePolygonMouseA
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MovePolygonMouseAction;
+import de.uniba.wiai.kinf.lehre.ma13.data.PersistanceManager;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
@@ -42,6 +45,14 @@ public class Window extends JFrame implements IWindow
 	private JToolBar toolBar_;
 	private LayerView layerView_;
 	private JScrollPane scrollPaneLayer_;
+	private JMenu file;
+	private JMenuItem fileOpen;
+	private JMenuItem fileSave;
+	private JMenuItem fileExit;
+	private JMenuBar menuBar;
+	private JMenu help;
+	private JMenuItem helpHello;
+	private JPanel nestedLayout;
 	
 	public Window(IAppDelegate appDelegate)
 	{
@@ -70,20 +81,57 @@ public class Window extends JFrame implements IWindow
 		/*
 		 * JMenuBars
 		 */
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		
 		// file
-		JMenu file = new JMenu("File");
-		JMenuItem fileOpen = new JMenuItem("Open");
+		file = new JMenu("File");
+		fileOpen = new JMenuItem("Open");
 		file.add(fileOpen);
-		JMenuItem fileSave = new JMenuItem("Save");
+		fileSave = new JMenuItem("Save");
+		
+		fileSave.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//open File Save Dialog
+				
+                String sFilename = "";
+                JFileChooser fileChooser = new JFileChooser();
+
+                // setting *.pdf filter for save dialog
+                FileFilters filter = new FileFilters();
+                filter.addExtension("sqlite");
+                filter.setDescription("sqlite - Database");
+                fileChooser.setFileFilter(filter);
+
+                fileChooser.setSelectedFile(new File(sFilename));
+                if (fileChooser.showSaveDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
+                        // if the user hasn't typed .pdf, we'll do it for him
+                        if (!fileChooser.getSelectedFile().getPath().toLowerCase()
+                                        .endsWith(".sqlite")) {
+                                fileChooser.setSelectedFile(new File(fileChooser
+                                                .getSelectedFile() + ".sqlite"));
+                        }
+                        
+                        PersistanceManager pm=new PersistanceManager(appDelegate_);
+                        
+                        System.out.println("saving file to: ["+fileChooser.getSelectedFile().getPath().toLowerCase()+"]");
+                        
+                        pm.save(appDelegate_.getLayerStore(), fileChooser.getSelectedFile().getPath().toLowerCase());
+                        
+
+                }
+                
+			}
+		});
+		
 		file.add(fileSave);
-		JMenuItem fileExit = new JMenuItem("Exit");
+		fileExit = new JMenuItem("Exit");
 		file.add(fileExit);
 		menuBar.add(file);
 
-		JMenu help = new JMenu("Help");
-		JMenuItem helpHello = new JMenuItem("Hello 1337!");
+		help = new JMenu("Help");
+		helpHello = new JMenuItem("Hello 1337!");
 		help.add(helpHello);
 		menuBar.add(help);
 		
@@ -92,7 +140,7 @@ public class Window extends JFrame implements IWindow
 		/*
 		 * new JPanel for right side of the window
 		 */
-		JPanel nestedLayout = new JPanel();
+		nestedLayout = new JPanel();
 		nestedLayout.setLayout(new BoxLayout(nestedLayout, BoxLayout.Y_AXIS));
 		
 		
