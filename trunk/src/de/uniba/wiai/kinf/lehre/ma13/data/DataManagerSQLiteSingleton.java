@@ -19,9 +19,10 @@ public class DataManagerSQLiteSingleton {
 	private Statement stmt_;
 	
 	private DataManagerSQLiteSingleton(String filename) {
+		filename_ = filename;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn_ = DriverManager.getConnection("jdbc:sqlite:"+filename);
+			conn_ = DriverManager.getConnection("jdbc:sqlite:"+filename_);
 			stmt_ = conn_.createStatement();
 			
 		} catch (ClassNotFoundException e) {

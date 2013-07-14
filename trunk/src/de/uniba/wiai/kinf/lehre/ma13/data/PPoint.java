@@ -69,7 +69,7 @@ public class PPoint {
 
 		dataManager.dispose();
 		
-		return null;
+		return pointList;
 	}	
 	
 }
