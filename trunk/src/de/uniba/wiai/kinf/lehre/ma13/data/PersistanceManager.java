@@ -35,13 +35,11 @@ public class PersistanceManager implements IPersistanceManager {
 	}
 
 	@Override
-	public ILayerStore load(String filename) {
+	public void load(ILayerStore layerStore, String filename) {
 		
 		//Step0 - open DB
 		DataBaseManager dbm = new DataBaseManager();
 		dbm.openDb(filename);
-		
-		ILayerStore layerStore = new LayerStore(appDelegate_);
 		
 		// Step 1 - Retrieve the Background Image
 		PBackgroundImage pbi=new PBackgroundImage();
@@ -53,8 +51,6 @@ public class PersistanceManager implements IPersistanceManager {
 		
 		layerStore.getAllLayers().clear();
 		layerStore.getAllLayers().addAll(pl.loadFromDB());
-		
-		return layerStore;
 	}
 
 }
