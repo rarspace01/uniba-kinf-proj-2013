@@ -58,7 +58,7 @@ class PreviewPane extends JPanel implements PropertyChangeListener {
 		lblVertical = new JLabel("        ");
 		leftPane.add(lblVertical, BorderLayout.EAST);
 		
-		drawRouler();
+		//drawRouler();
 		
 		JSlider sliderVertical = new JSlider();
 		leftPane.add(sliderVertical);
