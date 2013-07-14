@@ -33,7 +33,7 @@ public class PBackgroundImage {
 		try {
 			ResultSet resultSet= 		
 			DataManagerSQLite
-			.getInstance().select("SELECT (imageid, scalex NUMERIC, scaley, x, y, imagepath) FROM backgroundimage;");
+			.getInstance().select("SELECT imageid, scalex, scaley, x, y, imagepath FROM backgroundimage;");
 			
 			while(resultSet.next()){
 				

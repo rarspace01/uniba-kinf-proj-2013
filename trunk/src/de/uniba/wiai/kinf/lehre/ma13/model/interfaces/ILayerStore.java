@@ -27,6 +27,11 @@ public interface ILayerStore
 	public IBackgroundImage getBackgroundImage();
 	
 	/**
+	 * sets the background-image object
+	 */
+	public void setBackgroundImage(IBackgroundImage backgroundImage);
+	
+	/**
 	 * returns the layer object that is currently active
 	 * (selected in LayerList)
 	 */

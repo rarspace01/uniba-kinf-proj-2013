@@ -70,4 +70,9 @@ public class LayerStore implements ILayerStore
 		activeLayer = allLayers_.indexOf(active);
 	}
 
+	@Override
+	public void setBackgroundImage(IBackgroundImage backgroundImage) {
+		backgroundImage_ = backgroundImage;
+	}
+
 }
