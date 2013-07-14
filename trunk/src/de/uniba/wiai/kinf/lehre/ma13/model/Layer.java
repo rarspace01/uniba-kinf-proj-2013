@@ -1,5 +1,6 @@
 package de.uniba.wiai.kinf.lehre.ma13.model;
 
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Layer extends OrderedObject implements ILayer
 	public Layer(Long objectId)
 	{
 		setObjectId(objectId);
+		setColor(Color.BLACK); // default color to initialise
 		allGeometries_ = new LinkedList<IGeometry>();
 	}
 	

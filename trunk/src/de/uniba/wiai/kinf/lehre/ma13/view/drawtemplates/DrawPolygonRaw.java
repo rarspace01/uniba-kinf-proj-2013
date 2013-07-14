@@ -22,12 +22,18 @@ public class DrawPolygonRaw extends DrawGeometry {
 	{
 		Polygon polygon = (Polygon)geometry;
 
+		Color geometryColor = polygon.getColor();
+		if(geometryColor == null)
+		{
+			geometryColor = polygon.getParent().getColor();
+		}
+		
 		// default color settings
 		((Graphics2D)g).setStroke(new BasicStroke(3));
 		g.setColor(new Color(
-				geometry.getColor().getRed(),
-				geometry.getColor().getGreen(),
-				geometry.getColor().getBlue(),
+				geometryColor.getRed(),
+				geometryColor.getGreen(),
+				geometryColor.getBlue(),
 				Math.round(255 * geometry.getOpacity())));
 		
 		// special treatment for selected geometries
@@ -42,9 +48,9 @@ public class DrawPolygonRaw extends DrawGeometry {
 			{
 				((Graphics2D)g).setStroke(new BasicStroke(6));
 				g.setColor(new Color(
-						geometry.getColor().getRed(),
-						geometry.getColor().getGreen(),
-						geometry.getColor().getBlue(),
+						geometryColor.getRed(),
+						geometryColor.getGreen(),
+						geometryColor.getBlue(),
 						Math.round(255 * geometry.getOpacity())));	
 			}
 		}

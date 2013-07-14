@@ -1,6 +1,7 @@
 package de.uniba.wiai.kinf.lehre.ma13.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -8,6 +9,7 @@ import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -28,7 +30,6 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MovePolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.data.PersistanceManager;
-import de.uniba.wiai.kinf.lehre.ma13.model.BackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
@@ -329,6 +330,33 @@ public class Window extends JFrame implements IWindow
 		tbMoveButton.setEnabled(false);
 		toolBar_.add(tbMoveButton);
 		
+		// button to change to color of a layer or polygon
+		JButton tbColorButton = new JButton();
+		tbColorButton.setIcon(new ImageIcon("res/color.png"));
+		tbColorButton.setToolTipText("Change Color");
+		tbColorButton.addActionListener(new ActionListener() {
+	
+	        public void actionPerformed(ActionEvent e)
+	        {
+	        	IOrderedObject selectedObject = appDelegate_.getWindow().getLayerView().getModel().getElementAt(
+						appDelegate_.getWindow().getLayerView().getMaxSelectionIndex()
+					).getObject();
+	        	
+	        	Color newColor = JColorChooser.showDialog(
+	                     Window.this,
+	                     "Choose Color",
+	                     selectedObject.getColor());
+	        	
+	        	if(newColor != null)
+	        	{
+	        		selectedObject.setColor(newColor);
+	        		refresh();
+	        	}
+	        }
+	    });
+		tbColorButton.setEnabled(false);
+		toolBar_.add(tbColorButton);
+		
 		// button to move a polygon (only enabled when polygon is selected in JList)
 		JButton tbDeleteObject = new JButton();
 		tbDeleteObject.setIcon(new ImageIcon("res/delete.png"));
@@ -337,6 +365,7 @@ public class Window extends JFrame implements IWindow
 	
 	        public void actionPerformed(ActionEvent e)
 	        {
+	        	
 	        	IOrderedObject selectedObject = appDelegate_.getWindow().getLayerView().getModel().getElementAt(
 						appDelegate_.getWindow().getLayerView().getMaxSelectionIndex()
 					).getObject();
