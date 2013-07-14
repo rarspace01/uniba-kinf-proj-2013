@@ -24,6 +24,15 @@ public class LayerView extends JList<LayerViewListItem> {
 	private boolean lockrepaint_ = false;
 	private MouseInputAdapter mouseListener_ = null;
 	
+	private static final int BUTTON_CREATE_POLYGON = 0;
+	private static final int BUTTON_CREATE_FREEHAND = 1;
+	private static final int BUTTON_MOVE_POLYGON = 2;
+	private static final int BUTTON_COLOR = 3;
+	private static final int BUTTON_DELETE = 4;
+	private static final int BUTTON_STOP_ACTION = 5;
+	private static final int BUTTON_ADD_LAYER = 6;
+	
+	
 
 	public LayerView(IAppDelegate appDelegate)
 	{
@@ -128,11 +137,13 @@ public class LayerView extends JList<LayerViewListItem> {
 					if(newIndex < 0)
 					{
 						// moving polygon is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_MOVE_POLYGON).setEnabled(false);
+						// select color is disabled
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_COLOR).setEnabled(false);
 						// deleting object is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(3).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(false);
 						// "stop action" is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(4).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
 						return;
 					}
 					
@@ -141,30 +152,36 @@ public class LayerView extends JList<LayerViewListItem> {
 					if(item.getObject() instanceof IBackgroundImage)
 					{
 						// moving polygon is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_MOVE_POLYGON).setEnabled(false);
+						// select color is disabled
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_COLOR).setEnabled(false);
 						// deleting object is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(3).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(false);
 						// "stop action" is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(4).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
 					}
 					else if(item.getObject() instanceof ILayer)
 					{
 						appDelegate_.getLayerStore().setActiveLayer((ILayer)item.getObject());
 						// moving polygon is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_MOVE_POLYGON).setEnabled(false);
+						// select color is enabled
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_COLOR).setEnabled(true);
 						// deleting object is enabled
-						appDelegate_.getWindow().getToolBar().getComponent(3).setEnabled(true);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(true);
 						// "stop action" is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(4).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
 					}
 					else if(item.getObject() instanceof IGeometry)
 					{
 						// moving polygon is enabled
-						appDelegate_.getWindow().getToolBar().getComponent(2).setEnabled(true);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_MOVE_POLYGON).setEnabled(true);
+						// select color is enabled
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_COLOR).setEnabled(true);
 						// deleting object is enabled
-						appDelegate_.getWindow().getToolBar().getComponent(3).setEnabled(true);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(true);
 						// "stop action" is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(4).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
 					}
 					
 					// polygon selected, refresh canvas
@@ -173,10 +190,6 @@ public class LayerView extends JList<LayerViewListItem> {
 			}
 		});
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-	    //this.setDragEnabled(true);
-	    //this.setDropMode(DropMode.INSERT);
-	    //this.setTransferHandler(new ListMoveTransferHandler());
 	}
 	
 	public void repaint()

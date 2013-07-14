@@ -1,6 +1,5 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions;
 
-import java.awt.Color;
 import java.awt.Point;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
@@ -31,7 +30,7 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 		polygon_.setName("Polygon " + polygon_.getObjectId());
 		polygon_.setVisibility(true);
 		polygon_.setOpacity(1.0f);
-		polygon_.setColor(new Color(0, 255, 0));
+		polygon_.setColor(null);
 	}
 
 	@Override
