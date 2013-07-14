@@ -24,11 +24,27 @@ public class DataBaseManager implements IDataManager{
 			//point table
 			currentDB_.execute("CREATE TABLE point (pointid INTEGER PRIMARY KEY, polygonid NUMERIC, x NUMERIC, y NUMERIC);");
 			//poly table
-			currentDB_.execute("CREATE TABLE polygon (polygonid INTEGER PRIMARY KEY, colour NUMERIC, layerid NUMERIC, isvisible NUMERIC);");
+			currentDB_.execute("CREATE TABLE polygon (polygonid INTEGER PRIMARY KEY, color NUMERIC, layerid NUMERIC, isvisible NUMERIC);");
 			//layer table
-			currentDB_.execute("CREATE TABLE layer (layerid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, colour NUMERIC);");
+			currentDB_.execute("CREATE TABLE layer (layerid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, color NUMERIC);");
 			//background image
 			currentDB_.execute("CREATE TABLE backgroundimage (imageid INTEGER PRIMARY KEY, scalex NUMERIC, scaley NUMERIC, x NUMERIC, y NUMERIC, imagepath TEXT);");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void cleanTables(){
+		
+		try {
+			currentDB_.execute("DELETE FROM point");
+			currentDB_.execute("DELETE FROM polygon");
+			currentDB_.execute("DELETE FROM layer");
+			currentDB_.execute("DELETE FROM backgroundimage");
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -52,7 +68,7 @@ public class DataBaseManager implements IDataManager{
 			
 			while(rs.next()){
 				count=rs.getInt(1);
-				System.out.println("setted count to: "+count);
+				System.out.println("table count: "+count);
 			}
 			
 		} catch (SQLException e) {

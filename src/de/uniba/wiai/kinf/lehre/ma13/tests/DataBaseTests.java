@@ -8,7 +8,6 @@ import org.junit.Test;
 import de.uniba.wiai.kinf.lehre.ma13.data.DataBaseManager;
 import de.uniba.wiai.kinf.lehre.ma13.data.PersistanceManager;
 import de.uniba.wiai.kinf.lehre.ma13.data.interfaces.IPersistanceManager;
-import de.uniba.wiai.kinf.lehre.ma13.model.BackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.LayerStore;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
@@ -24,7 +23,7 @@ public class DataBaseTests {
 		String filename="testSave.sqlite";
 		
 		//setupDB
-		new DataBaseManager().openDb(filename);
+		
 		
 		
 		//create layerstore
@@ -47,8 +46,6 @@ public class DataBaseTests {
 		polygon1.setColor(Color.GREEN);
 		polygon2.setColor(Color.BLUE);
 		
-		//polygon1.
-		
 		polygon1.setParent(layer);
 		polygon2.setParent(layer);
 		
@@ -60,7 +57,7 @@ public class DataBaseTests {
 		ls.getBackgroundImage().setImagePath("res/default_image.jpg");
 		
 		
-		IPersistanceManager pm=new PersistanceManager();
+		IPersistanceManager pm=new PersistanceManager(null);
 		
 		pm.save(ls, filename);		
 		
@@ -69,10 +66,19 @@ public class DataBaseTests {
 	@Test
 	public void testLoad() {
 		
-		IPersistanceManager pm=new PersistanceManager();
+		IPersistanceManager pm=new PersistanceManager(null);
 		String filename="testSave.sqlite";
 		
-		pm.load(filename);
+		ILayerStore ls=new LayerStore(null);
+		
+		ls=pm.load(filename);
+		
+		for(int i=0; i<ls.getAllLayers().size(); i++){
+			System.out.println("Layer: ["+ls.getAllLayers().get(i).getName()+"]");
+			System.out.println("Color: "+ls.getAllLayers().get(i).getColor().toString());
+		}
+		
+		System.out.println("Image path: ["+ls.getBackgroundImage().getImagePath()+"]");
 		
 	}
 	

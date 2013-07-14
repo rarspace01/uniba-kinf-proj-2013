@@ -16,7 +16,7 @@ public class PPolygons {
 			try {
 				DataManagerSQLite.getInstance()
 						.execute(
-								"REPLACE INTO polygon (polygonid, layerid, isvisible, colour) VALUES ('"
+								"REPLACE INTO polygon (polygonid, layerid, isvisible, color) VALUES ('"
 										+ toBeSaved.get(i).getObjectId()
 										+ "','" + toBeSaved.get(i).getParent().getObjectId()
 										+ "','" + toBeSaved.get(i).isVisible()
