@@ -28,13 +28,18 @@ public class DrawPolygonRaw extends DrawGeometry {
 			geometryColor = polygon.getParent().getColor();
 		}
 		
+		// geometry opacity
+		// combine the opacity of the geometry and its parent (layer)
+		float geometryOpacity = (float)255 * geometry.getOpacity() * geometry.getParent().getOpacity();
+		int geometryAlpha = Math.min(255, Math.max(0, Math.round(geometryOpacity)));
+		
 		// default color settings
 		((Graphics2D)g).setStroke(new BasicStroke(3));
 		g.setColor(new Color(
 				geometryColor.getRed(),
 				geometryColor.getGreen(),
 				geometryColor.getBlue(),
-				Math.round(255 * geometry.getOpacity())));
+				geometryAlpha));
 		
 		// special treatment for selected geometries
 		int listSelection = appDelegate_.getWindow().getLayerView().getMaxSelectionIndex();
@@ -51,7 +56,7 @@ public class DrawPolygonRaw extends DrawGeometry {
 						geometryColor.getRed(),
 						geometryColor.getGreen(),
 						geometryColor.getBlue(),
-						Math.round(255 * geometry.getOpacity())));	
+						geometryAlpha));	
 			}
 		}
 		

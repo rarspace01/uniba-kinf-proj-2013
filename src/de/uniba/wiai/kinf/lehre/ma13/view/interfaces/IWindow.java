@@ -1,5 +1,6 @@
 package de.uniba.wiai.kinf.lehre.ma13.view.interfaces;
 
+import javax.swing.JSlider;
 import javax.swing.JToolBar;
 
 import de.uniba.wiai.kinf.lehre.ma13.view.LayerView;
@@ -28,4 +29,9 @@ public interface IWindow
 	 * returns the layer-view (JList)
 	 */
 	public LayerView getLayerView();
+	
+	/**
+	 * returns the slider for opacity
+	 */
+	public JSlider getOpacitySlider();
 }

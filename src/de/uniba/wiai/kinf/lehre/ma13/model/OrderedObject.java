@@ -10,12 +10,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 
 public abstract class OrderedObject implements IOrderedObject {
 
-	private Long objectId_;
-	
-	private String name_;
-	private Color color_;
-	private boolean visible_;
-	private float opacity_ = 1.0f;
+	protected Long objectId_;
+	protected String name_;
+	protected Color color_;
+	protected boolean visible_;
+	protected float opacity_ = 1.0f;
 
 	@Override
 	public void setObjectId(Long objectId) {

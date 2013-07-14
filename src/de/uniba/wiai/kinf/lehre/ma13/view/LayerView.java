@@ -144,6 +144,8 @@ public class LayerView extends JList<LayerViewListItem> {
 						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(false);
 						// "stop action" is disabled
 						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
+						// set opacity-slider disabled
+						appDelegate_.getWindow().getOpacitySlider().setEnabled(false);
 						return;
 					}
 					
@@ -159,6 +161,8 @@ public class LayerView extends JList<LayerViewListItem> {
 						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(false);
 						// "stop action" is disabled
 						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
+						// set opacity-slider disabled
+						appDelegate_.getWindow().getOpacitySlider().setEnabled(false);
 					}
 					else if(item.getObject() instanceof ILayer)
 					{
@@ -171,6 +175,9 @@ public class LayerView extends JList<LayerViewListItem> {
 						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(true);
 						// "stop action" is disabled
 						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
+						// set opacity-slider enabled and set correct value
+						appDelegate_.getWindow().getOpacitySlider().setEnabled(true);
+						appDelegate_.getWindow().getOpacitySlider().setValue(Math.round(item.getObject().getOpacity() * 100));
 					}
 					else if(item.getObject() instanceof IGeometry)
 					{
@@ -182,6 +189,9 @@ public class LayerView extends JList<LayerViewListItem> {
 						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(true);
 						// "stop action" is disabled
 						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
+						// set opacity-slider enabled and set correct value
+						appDelegate_.getWindow().getOpacitySlider().setEnabled(true);
+						appDelegate_.getWindow().getOpacitySlider().setValue(Math.round(item.getObject().getOpacity() * 100));
 					}
 					
 					// polygon selected, refresh canvas
