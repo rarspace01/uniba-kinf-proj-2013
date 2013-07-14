@@ -13,7 +13,7 @@ public class PBackgroundImage {
 
 		try {
 
-			DataManagerSQLite
+			DataManagerSQLiteSingleton
 					.getInstance()
 					.execute(
 							"REPLACE INTO backgroundimage (imageid,scalex, scaley, x, y, imagepath) VALUES ('1','1','1','"
@@ -32,7 +32,7 @@ public class PBackgroundImage {
 		
 		try {
 			ResultSet resultSet= 		
-			DataManagerSQLite
+			DataManagerSQLiteSingleton
 			.getInstance().select("SELECT imageid, scalex, scaley, x, y, imagepath FROM backgroundimage;");
 			
 			while(resultSet.next()){

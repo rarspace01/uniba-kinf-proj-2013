@@ -1,13 +1,11 @@
 package de.uniba.wiai.kinf.lehre.ma13.data;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.uniba.wiai.kinf.lehre.ma13.model.BackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
@@ -24,7 +22,7 @@ public class PLayers {
 			//toBeSaved.get(i);
 
 			try {
-				DataManagerSQLite.getInstance()
+				DataManagerSQLiteSingleton.getInstance()
 						.execute(
 								"REPLACE INTO layer (layerid, name, isvisible, color) VALUES ('"
 										+ toBeSaved.get(i).getObjectId()
@@ -52,7 +50,7 @@ public class PLayers {
 		
 		try {
 			ResultSet resultSet= 		
-			DataManagerSQLite
+			DataManagerSQLiteSingleton
 			.getInstance().select("SELECT layerid, name, isvisible, color FROM layer;");
 			
 			while(resultSet.next()){
@@ -62,6 +60,13 @@ public class PLayers {
 				layer.setName(resultSet.getString("name"));
 				layer.setVisibility(resultSet.getBoolean("isvisible"));
 				layer.setColor(new Color(resultSet.getInt("color")));
+				
+				//
+				PPolygons ppolygons = new PPolygons();
+				//ppolygons
+				layer.getGeometries().clear();
+				layer.getGeometries().addAll(ppolygons.loadFromDB(layer));
+				
 				
 				layerList.add(layer);
 			}

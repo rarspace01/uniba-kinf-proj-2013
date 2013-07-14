@@ -1,9 +1,14 @@
 package de.uniba.wiai.kinf.lehre.ma13.data;
 
+import java.awt.Color;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
+import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
 public class PPolygons {
 
@@ -14,7 +19,7 @@ public class PPolygons {
 		for (int i = 0; i < toBeSaved.size(); i++) {
 
 			try {
-				DataManagerSQLite.getInstance()
+				DataManagerSQLiteSingleton.getInstance()
 						.execute(
 								"REPLACE INTO polygon (polygonid, layerid, isvisible, color) VALUES ('"
 										+ toBeSaved.get(i).getObjectId()
@@ -34,6 +39,46 @@ public class PPolygons {
 
 		}
 		
+	}
+	
+	public List<IGeometry> loadFromDB(ILayer layer){
+		
+		List<IGeometry> polygonList = new LinkedList<IGeometry>();
+		
+		DataManagerSQLite dataManager=new DataManagerSQLite(DataManagerSQLiteSingleton.getInstance().getCurrentFilename());
+		
+		try {
+			ResultSet resultSet= 		
+					dataManager.select("SELECT polygonid, layerid, isvisible, color FROM polygon WHERE layerid = '"+layer.getObjectId()+"';");
+			
+			while(resultSet.next()){
+				
+				IGeometry polygon=new Polygon(resultSet.getLong("polygonid"));
+				
+				polygon.setParent(layer);
+				polygon.setVisibility(resultSet.getBoolean("isvisible"));
+				polygon.setColor(new Color(resultSet.getInt("color")));
+
+				PPoint pPoint = new PPoint();
+				//pPoint.				
+				
+				if(polygon instanceof Polygon){
+					((Polygon) polygon).getPoints().clear();
+					((Polygon) polygon).getPoints().addAll(pPoint.loadFromDB(polygon));
+				}
+				
+				polygonList.add(polygon);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dataManager.dispose();
+
+		return polygonList;
 	}
 	
 }
