@@ -45,12 +45,15 @@ public class DataBaseTests {
 		
 		
 		polygon1.setColor(Color.GREEN);
-		polygon1.setColor(Color.BLUE);
+		polygon2.setColor(Color.BLUE);
 		
 		//polygon1.
 		
+		polygon1.setParent(layer);
+		polygon2.setParent(layer);
+		
 		layer.getGeometries().add(polygon1);
-		layer.getGeometries().add(polygon1);
+		layer.getGeometries().add(polygon2);
 		
 		ls.getAllLayers().add(layer);
 		
