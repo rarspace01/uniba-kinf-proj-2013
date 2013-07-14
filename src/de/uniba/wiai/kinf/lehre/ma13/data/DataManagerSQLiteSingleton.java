@@ -11,13 +11,14 @@ import java.sql.Statement;
  * @author denis
  *
  */
-public class DataManagerSQLite {
+public class DataManagerSQLiteSingleton {
+	private static DataManagerSQLiteSingleton uniqueInstance_ = null;
 	private static String filename_ = "default.db";
 	
 	private java.sql.Connection conn_;
 	private Statement stmt_;
 	
-	public DataManagerSQLite(String filename) {
+	private DataManagerSQLiteSingleton(String filename) {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			conn_ = DriverManager.getConnection("jdbc:sqlite:"+filename);
@@ -32,8 +33,27 @@ public class DataManagerSQLite {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		uniqueInstance_ = this;
 	}
 
+	public static DataManagerSQLiteSingleton getInstance(String filename)
+	{
+			if(uniqueInstance_== null)
+			{
+			new DataManagerSQLiteSingleton(filename);
+			}
+		return uniqueInstance_;	
+	}
+	
+	public static DataManagerSQLiteSingleton getInstance()
+	{
+			if(uniqueInstance_== null)
+			{
+			new DataManagerSQLiteSingleton(filename_);
+			}
+		return uniqueInstance_;	
+	}
+	
 	public void dispose()
 	{
 		try {
@@ -43,6 +63,7 @@ public class DataManagerSQLite {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		uniqueInstance_=null;
 	}
 	
 	//Methode für normale Select Operationen
@@ -63,5 +84,8 @@ public class DataManagerSQLite {
         return conn_;
     }
 
+    public String getCurrentFilename(){
+    	return this.filename_;
+    }
 	
 }

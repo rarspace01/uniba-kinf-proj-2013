@@ -5,7 +5,6 @@ import java.awt.Point;
 
 import org.junit.Test;
 
-import de.uniba.wiai.kinf.lehre.ma13.data.DataBaseManager;
 import de.uniba.wiai.kinf.lehre.ma13.data.PersistanceManager;
 import de.uniba.wiai.kinf.lehre.ma13.data.interfaces.IPersistanceManager;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;

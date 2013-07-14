@@ -1,7 +1,9 @@
 package de.uniba.wiai.kinf.lehre.ma13.data;
 
 import java.awt.Point;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
@@ -18,7 +20,7 @@ public class PPoint {
 			for (int i = 0; i < pointList.size(); i++) {
 	
 				try {
-					DataManagerSQLite.getInstance()
+					DataManagerSQLiteSingleton.getInstance()
 							.execute(
 									"REPLACE INTO point (polygonid, x, y) VALUES ('"
 											+ toBeSaved.getObjectId()
@@ -39,6 +41,35 @@ public class PPoint {
 		}
 		
 		
+	}
+
+	public List<Point> loadFromDB(IGeometry polygon) {
+		
+		List<Point> pointList = new LinkedList<Point>();
+		
+		DataManagerSQLite dataManager=new DataManagerSQLite(DataManagerSQLiteSingleton.getInstance().getCurrentFilename());
+		
+		try {
+			ResultSet resultSet= 		
+					dataManager.select("SELECT pointid, polygonid, x, y FROM point WHERE polygonid = '"+polygon.getObjectId()+"';");
+			
+			while(resultSet.next()){
+				
+				Point point=new Point();
+				point.setLocation(resultSet.getDouble("x"), resultSet.getDouble("y"));
+				
+				pointList.add(point);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		dataManager.dispose();
+		
+		return null;
 	}	
 	
 }

@@ -13,7 +13,7 @@ import de.uniba.wiai.kinf.lehre.ma13.data.interfaces.IDataManager;
 public class DataBaseManager implements IDataManager{
 
 	private String filename_="";
-	private DataManagerSQLite currentDB_;
+	private DataManagerSQLiteSingleton currentDB_;
 
 	/**
 	 * creates the initial tables
@@ -116,7 +116,7 @@ public class DataBaseManager implements IDataManager{
 	@Override
 	public void openDb(String filename) {
 		this.filename_=filename;
-		currentDB_=DataManagerSQLite.getInstance(this.filename_);
+		currentDB_=DataManagerSQLiteSingleton.getInstance(this.filename_);
 		
 		if(isEmpty()){
 			createTables();
