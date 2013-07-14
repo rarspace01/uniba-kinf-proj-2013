@@ -17,10 +17,13 @@ public interface IPersistanceManager {
 	public void save(ILayerStore layerStore, String filename);
 	
 	/**
-	 * loads the given file and returns a Layerstore	
+	 * loads the given file into the given layerstore	
+	 * @param layerStore
 	 * @param filename
-	 * @return
+	 * 
 	 */
-	public ILayerStore load(String filename); 
+	public void load(ILayerStore layerStore, String filename); 
+
+	
 	
 }

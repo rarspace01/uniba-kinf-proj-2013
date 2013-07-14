@@ -86,6 +86,36 @@ public class Window extends JFrame implements IWindow
 		// file
 		file = new JMenu("File");
 		fileOpen = new JMenuItem("Open");
+		
+		fileOpen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+                String sFilename = "";
+                JFileChooser fileChooser = new JFileChooser();
+
+                // setting *.pdf filter for save dialog
+                FileFilters filter = new FileFilters();
+                filter.addExtension("sqlite");
+                filter.setDescription("sqlite - Database");
+                fileChooser.setFileFilter(filter);
+
+                fileChooser.setSelectedFile(new File(sFilename));
+                if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
+                        
+                        PersistanceManager pm=new PersistanceManager(appDelegate_);
+                        
+                        System.out.println("saving file to: ["+fileChooser.getSelectedFile().getPath().toLowerCase()+"]");
+                        
+                        pm.load(appDelegate_.getLayerStore(),fileChooser.getSelectedFile().getPath().toLowerCase());
+                        
+                        refresh();
+                }
+				
+			}
+		});
+		
 		file.add(fileOpen);
 		fileSave = new JMenuItem("Save");
 		

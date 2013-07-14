@@ -66,7 +66,7 @@ public class DataBaseTests {
 
 		ILayerStore ls = new LayerStore(null);
 
-		ls = pm.load(filename);
+		pm.load(ls,filename);
 
 		for (int i = 0; i < ls.getAllLayers().size(); i++) {
 			System.out.println("Layer: [" + ls.getAllLayers().get(i).getName()
