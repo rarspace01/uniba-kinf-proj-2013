@@ -22,9 +22,9 @@ public class DataBaseManager implements IDataManager{
 		
 		try {
 			//point table
-			currentDB_.execute("CREATE TABLE points (polyid NUMERIC, pointid INTEGER PRIMARY KEY, ordernumber NUMERIC, x NUMERIC, y NUMERIC, colour NUMERIC);");
+			currentDB_.execute("CREATE TABLE point (pointid INTEGER PRIMARY KEY, polygonid NUMERIC, x NUMERIC, y NUMERIC);");
 			//poly table
-			currentDB_.execute("CREATE TABLE poly (polyid INTEGER PRIMARY KEY, colour NUMERIC, polygroupid NUMERIC, isvisible NUMERIC);");
+			currentDB_.execute("CREATE TABLE polygon (polygonid INTEGER PRIMARY KEY, colour NUMERIC, layerid NUMERIC, isvisible NUMERIC);");
 			//layer table
 			currentDB_.execute("CREATE TABLE layer (layerid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, colour NUMERIC);");
 			//background image
