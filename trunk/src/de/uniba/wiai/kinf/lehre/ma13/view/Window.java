@@ -28,6 +28,7 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MovePolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.data.PersistanceManager;
+import de.uniba.wiai.kinf.lehre.ma13.model.BackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
@@ -53,6 +54,7 @@ public class Window extends JFrame implements IWindow
 	private JMenu help;
 	private JMenuItem helpHello;
 	private JPanel nestedLayout;
+	private JMenuItem loadImage;
 	
 	public Window(IAppDelegate appDelegate)
 	{
@@ -85,7 +87,7 @@ public class Window extends JFrame implements IWindow
 		
 		// file
 		file = new JMenu("File");
-		fileOpen = new JMenuItem("Open");
+		fileOpen = new JMenuItem("Open File...");
 		
 		fileOpen.addActionListener(new ActionListener() {
 			
@@ -156,6 +158,45 @@ public class Window extends JFrame implements IWindow
 		});
 		
 		file.add(fileSave);
+		
+		loadImage = new JMenuItem("Load Image...");
+		
+		loadImage.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+                String sFilename = "";
+                JFileChooser fileChooser = new JFileChooser();
+
+                // setting *.pdf filter for save dialog
+                FileFilters filter = new FileFilters();
+                filter.addExtension("jpg");
+                filter.addExtension("jpeg");
+                filter.addExtension("gif");
+                filter.addExtension("png");
+                filter.setDescription("IMages");
+                
+                PreviewPane previewPane = new PreviewPane();
+                fileChooser.setAccessory(previewPane);
+                fileChooser.addPropertyChangeListener(previewPane);
+                
+                fileChooser.setFileFilter(filter);
+
+                fileChooser.setSelectedFile(new File(sFilename));
+                if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
+                        
+                	//set background image
+                	appDelegate_.getLayerStore().getBackgroundImage().setImagePath(fileChooser.getSelectedFile().getPath());
+            	}
+				
+				refresh();
+				
+			}
+		});
+		
+		file.add(loadImage);
+		
 		fileExit = new JMenuItem("Exit");
 		file.add(fileExit);
 		menuBar.add(file);
