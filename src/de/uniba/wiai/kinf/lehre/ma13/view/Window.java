@@ -131,10 +131,10 @@ public class Window extends JFrame implements IWindow
                 JFileChooser fileChooser = new JFileChooser();
 
                 // setting *.pdf filter for save dialog
-                FileFilters filter = new FileFilters();
-                filter.addExtension("sqlite");
-                filter.setDescription("sqlite - Database");
-                fileChooser.setFileFilter(filter);
+                FileFilters filterSQL = new FileFilters();
+                filterSQL.addExtension("sqlite");
+                filterSQL.setDescription("sqlite - Database");
+                fileChooser.setFileFilter(filterSQL);
 
                 fileChooser.setSelectedFile(new File(sFilename));
                 if (fileChooser.showSaveDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
@@ -170,18 +170,18 @@ public class Window extends JFrame implements IWindow
                 JFileChooser fileChooser = new JFileChooser();
 
                 // setting *.pdf filter for save dialog
-                FileFilters filter = new FileFilters();
-                filter.addExtension("jpg");
-                filter.addExtension("jpeg");
-                filter.addExtension("gif");
-                filter.addExtension("png");
-                filter.setDescription("IMages");
+                FileFilters filterImages = new FileFilters();
+                filterImages.addExtension("jpg");
+                filterImages.addExtension("jpeg");
+                filterImages.addExtension("gif");
+                filterImages.addExtension("png");
+                filterImages.setDescription("Images");
                 
                 PreviewPane previewPane = new PreviewPane();
                 fileChooser.setAccessory(previewPane);
                 fileChooser.addPropertyChangeListener(previewPane);
                 
-                fileChooser.setFileFilter(filter);
+                fileChooser.setFileFilter(filterImages);
 
                 fileChooser.setSelectedFile(new File(sFilename));
                 if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
