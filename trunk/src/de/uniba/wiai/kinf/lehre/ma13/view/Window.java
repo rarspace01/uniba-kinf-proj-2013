@@ -45,6 +45,7 @@ public class Window extends JFrame implements IWindow
 	private IAppDelegate appDelegate_;
 	private ICanvas canvas_;
 	private JToolBar toolBar_;
+	private JSlider opacitySlider_;
 	private LayerView layerView_;
 	private JScrollPane scrollPaneLayer_;
 	private JMenu file;
@@ -222,13 +223,40 @@ public class Window extends JFrame implements IWindow
 		createToolBar();
 		
 		/*
+		 * slider to manipulate the opacity of objects
+		 */
+
+		opacitySlider_ = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+		opacitySlider_.setMinorTickSpacing(5);
+		opacitySlider_.setMajorTickSpacing(10);
+		opacitySlider_.setPaintLabels(true);
+		opacitySlider_.setPaintTicks(true);
+		opacitySlider_.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				JSlider source = (JSlider)e.getSource();
+			    if (!source.getValueIsAdjusting()) {
+			    	float currentValue = (float)source.getValue();
+		        	appDelegate_.getWindow().getLayerView().getModel().getElementAt(
+							appDelegate_.getWindow().getLayerView().getMaxSelectionIndex()
+						).getObject().setOpacity(currentValue / 100);
+			    	refresh();
+			    }
+			}
+		});
+		
+		/*
 		 * layer view, showing the different layers
 		 */
 		layerView_ = new LayerView(appDelegate_);
-		
+		// layerview is inside a scroll pane
 		scrollPaneLayer_ = new JScrollPane(layerView_, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-
+		/*
+		 * zoom slider, zoom in or out of the image
+		 */
+		
 		JSlider zoomSlider = new JSlider(JSlider.HORIZONTAL, 50, 250, 100);
 		zoomSlider.setMinorTickSpacing(10);
 		zoomSlider.setMajorTickSpacing(50);
@@ -250,6 +278,7 @@ public class Window extends JFrame implements IWindow
 		});
 		
 		nestedLayout.add(toolBar_);
+		nestedLayout.add(opacitySlider_);
 		nestedLayout.add(scrollPaneLayer_);
 		nestedLayout.add(zoomSlider);
 		
@@ -282,6 +311,11 @@ public class Window extends JFrame implements IWindow
 	public LayerView getLayerView()
 	{
 		return layerView_;
+	}
+	
+	public JSlider getOpacitySlider()
+	{
+		return opacitySlider_;
 	}
 	
 	private void createToolBar()
