@@ -1,5 +1,8 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller;
 
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MouseAction;
@@ -36,6 +39,21 @@ public class AppDelegate implements IAppDelegate {
 	
 	@Override
 	public void init() {
+		
+        // set look and feel
+        try {
+                for (LookAndFeelInfo info : UIManager
+                                .getInstalledLookAndFeels()) {
+                        if ("Windows".equals(info.getName())) {
+                                UIManager.setLookAndFeel(info.getClassName());
+                                break;
+                        }
+                }
+        } catch (Exception e) {
+                // If Nimbus is not available, you can set the GUI to
+                // another look and feel.
+        }
+		
 		setWindow(new Window(this));
 		
 		layerStore_ = new LayerStore(this);

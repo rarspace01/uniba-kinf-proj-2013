@@ -26,12 +26,18 @@ public class PLayers {
 			//toBeSaved.get(i);
 
 			try {
+				
+				int isVisible=0;
+				if(toBeSaved.get(i).isVisible()){
+					isVisible=1;
+				}
+				
 				DataManagerSQLiteSingleton.getInstance()
 						.execute(
 								"REPLACE INTO layer (layerid, name, isvisible, color) VALUES ('"
 										+ toBeSaved.get(i).getObjectId()
 										+ "','" + toBeSaved.get(i).getName()
-										+ "','" + toBeSaved.get(i).isVisible()
+										+ "','" + isVisible
 										+ "','"
 										+ toBeSaved.get(i).getColor().getRGB()
 										+ "'); ");
@@ -63,6 +69,9 @@ public class PLayers {
 				
 				layer.setName(resultSet.getString("name"));
 				layer.setVisibility(resultSet.getBoolean("isvisible"));
+				if(resultSet.getBoolean("isvisible")){
+					System.out.println("Layer ["+layer.getName()+"] is visible");
+				}
 				layer.setColor(new Color(resultSet.getInt("color")));
 				
 				//
