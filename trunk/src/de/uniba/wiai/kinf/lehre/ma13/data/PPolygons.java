@@ -19,12 +19,18 @@ public class PPolygons {
 		for (int i = 0; i < toBeSaved.size(); i++) {
 
 			try {
+				
+				int isVisible=0;
+				if(toBeSaved.get(i).isVisible()){
+					isVisible=1;
+				}
+				
 				DataManagerSQLiteSingleton.getInstance()
 						.execute(
 								"REPLACE INTO polygon (polygonid, layerid, isvisible, color) VALUES ('"
 										+ toBeSaved.get(i).getObjectId()
 										+ "','" + toBeSaved.get(i).getParent().getObjectId()
-										+ "','" + toBeSaved.get(i).isVisible()
+										+ "','" + isVisible
 										+ "','"
 										+ toBeSaved.get(i).getColor().getRGB()
 										+ "'); ");

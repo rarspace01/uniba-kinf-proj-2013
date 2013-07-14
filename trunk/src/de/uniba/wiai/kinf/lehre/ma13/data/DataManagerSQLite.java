@@ -12,7 +12,7 @@ import java.sql.Statement;
  *
  */
 public class DataManagerSQLite {
-	private static String filename_ = "default.db";
+	private static String filename_ = "default.sqlite";
 	
 	private java.sql.Connection conn_;
 	private Statement stmt_;
