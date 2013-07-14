@@ -27,9 +27,10 @@ public class PPolygons {
 				
 				DataManagerSQLiteSingleton.getInstance()
 						.execute(
-								"REPLACE INTO polygon (polygonid, layerid, isvisible, color) VALUES ('"
+								"REPLACE INTO polygon (polygonid, layerid, name, isvisible, color) VALUES ('"
 										+ toBeSaved.get(i).getObjectId()
 										+ "','" + toBeSaved.get(i).getParent().getObjectId()
+										+ "','" + toBeSaved.get(i).getName()
 										+ "','" + isVisible
 										+ "','"
 										+ toBeSaved.get(i).getColor().getRGB()
@@ -57,13 +58,14 @@ public class PPolygons {
 		
 		try {
 			ResultSet resultSet= 		
-					dataManager.select("SELECT polygonid, layerid, isvisible, color FROM polygon WHERE layerid = '"+layer.getObjectId()+"';");
+					dataManager.select("SELECT polygonid, layerid, name, isvisible, color FROM polygon WHERE layerid = '"+layer.getObjectId()+"';");
 			
 			while(resultSet.next()){
 				
 				IGeometry polygon=new Polygon(resultSet.getLong("polygonid"));
 				
 				polygon.setParent(layer);
+				polygon.setName(resultSet.getString("name"));
 				polygon.setVisibility(resultSet.getBoolean("isvisible"));
 				polygon.setColor(new Color(resultSet.getInt("color")));
 

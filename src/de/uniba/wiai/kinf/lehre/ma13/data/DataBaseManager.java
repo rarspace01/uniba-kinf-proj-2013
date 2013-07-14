@@ -24,7 +24,7 @@ public class DataBaseManager implements IDataManager{
 			//point table
 			currentDB_.execute("CREATE TABLE point (pointid INTEGER PRIMARY KEY, polygonid NUMERIC, x NUMERIC, y NUMERIC);");
 			//poly table
-			currentDB_.execute("CREATE TABLE polygon (polygonid INTEGER PRIMARY KEY, color NUMERIC, layerid NUMERIC, isvisible NUMERIC);");
+			currentDB_.execute("CREATE TABLE polygon (polygonid INTEGER PRIMARY KEY, name TEXT, color NUMERIC, layerid NUMERIC, isvisible NUMERIC);");
 			//layer table
 			currentDB_.execute("CREATE TABLE layer (layerid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, color NUMERIC);");
 			//background image
