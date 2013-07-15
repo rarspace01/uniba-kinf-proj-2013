@@ -11,7 +11,7 @@ public interface IPersistanceManager {
 
 	/**
 	 * saves thhe givven layerstore into the given filename
-	 * @param layerstore
+	 * @param layerStore
 	 * @param filename
 	 */
 	public void save(ILayerStore layerStore, String filename);

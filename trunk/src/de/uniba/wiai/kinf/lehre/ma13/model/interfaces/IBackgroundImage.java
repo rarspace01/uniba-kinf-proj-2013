@@ -30,13 +30,13 @@ public interface IBackgroundImage extends IGeometry
 	
 	/**
 	 * gets the current Image
-	 * @return
+	 * @return Image
 	 */
 	public Image getImage();
 	
 	/**
 	 * gets the data of the Image
-	 * @return
+	 * @return byte[]
 	 */
 	public byte[] getData();
 	
