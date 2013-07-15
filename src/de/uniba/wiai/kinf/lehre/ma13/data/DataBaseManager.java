@@ -56,7 +56,7 @@ public class DataBaseManager implements IDataManager{
 
 	/**
 	 * checks if the sqlite db is empty
-	 * @return
+	 * @return boolean
 	 */
 	private boolean isEmpty(){
 		ResultSet rs;

@@ -29,7 +29,7 @@ public interface IDataManager {
 	/**
 	 * executes a sql select command 
 	 * @param sql - {@link String}
-	 * @return {@link ResultSet}
+	 * 
 	 */
 	public void execute(String sql);
 	
