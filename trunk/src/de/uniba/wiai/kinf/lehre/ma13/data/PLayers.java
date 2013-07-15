@@ -34,12 +34,14 @@ public class PLayers {
 				
 				DataManagerSQLiteSingleton.getInstance()
 						.execute(
-								"REPLACE INTO layer (layerid, name, isvisible, color) VALUES ('"
+								"REPLACE INTO layer (layerid, name, isvisible, color, opacity) VALUES ('"
 										+ toBeSaved.get(i).getObjectId()
 										+ "','" + toBeSaved.get(i).getName()
 										+ "','" + isVisible
 										+ "','"
 										+ toBeSaved.get(i).getColor().getRGB()
+										+ "','"
+										+ toBeSaved.get(i).getOpacity()
 										+ "'); ");
 
 			} catch (SQLException e) {
@@ -61,7 +63,7 @@ public class PLayers {
 		try {
 			ResultSet resultSet= 		
 			DataManagerSQLiteSingleton
-			.getInstance().select("SELECT layerid, name, isvisible, color FROM layer;");
+			.getInstance().select("SELECT layerid, name, isvisible, color, opacity FROM layer;");
 			
 			while(resultSet.next()){
 				
@@ -73,7 +75,7 @@ public class PLayers {
 					System.out.println("Layer ["+layer.getName()+"] is visible");
 				}
 				layer.setColor(new Color(resultSet.getInt("color")));
-				
+				layer.setOpacity(resultSet.getFloat("opacity"));
 				//
 				PPolygons ppolygons = new PPolygons();
 				//ppolygons

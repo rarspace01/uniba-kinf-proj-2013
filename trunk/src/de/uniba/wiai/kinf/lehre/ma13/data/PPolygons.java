@@ -27,13 +27,15 @@ public class PPolygons {
 				
 				DataManagerSQLiteSingleton.getInstance()
 						.execute(
-								"REPLACE INTO polygon (polygonid, layerid, name, isvisible, color) VALUES ('"
+								"REPLACE INTO polygon (polygonid, layerid, name, isvisible, color, opacity) VALUES ('"
 										+ toBeSaved.get(i).getObjectId()
 										+ "','" + toBeSaved.get(i).getParent().getObjectId()
 										+ "','" + toBeSaved.get(i).getName()
 										+ "','" + isVisible
 										+ "','"
 										+ toBeSaved.get(i).getColor().getRGB()
+										+ "','"
+										+ toBeSaved.get(i).getOpacity()
 										+ "'); ");
 
 			} catch (SQLException e) {
@@ -58,7 +60,7 @@ public class PPolygons {
 		
 		try {
 			ResultSet resultSet= 		
-					dataManager.select("SELECT polygonid, layerid, name, isvisible, color FROM polygon WHERE layerid = '"+layer.getObjectId()+"';");
+					dataManager.select("SELECT polygonid, layerid, name, isvisible, color, opacity FROM polygon WHERE layerid = '"+layer.getObjectId()+"';");
 			
 			while(resultSet.next()){
 				
@@ -68,6 +70,7 @@ public class PPolygons {
 				polygon.setName(resultSet.getString("name"));
 				polygon.setVisibility(resultSet.getBoolean("isvisible"));
 				polygon.setColor(new Color(resultSet.getInt("color")));
+				polygon.setOpacity(resultSet.getFloat("opacity"));
 
 				PPoint pPoint = new PPoint();
 				//pPoint.				
@@ -76,6 +79,7 @@ public class PPolygons {
 					((Polygon) polygon).getPoints().clear();
 					((Polygon) polygon).getPoints().addAll(pPoint.loadFromDB(polygon));
 				}
+				
 				
 				polygonList.add(polygon);
 			}
