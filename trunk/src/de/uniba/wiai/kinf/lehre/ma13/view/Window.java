@@ -57,6 +57,7 @@ public class Window extends JFrame implements IWindow
 	private JMenuItem helpHello;
 	private JPanel nestedLayout;
 	private JMenuItem loadImage;
+	private JScrollPane scrollPane;
 	
 	public Window(IAppDelegate appDelegate)
 	{
@@ -80,7 +81,15 @@ public class Window extends JFrame implements IWindow
 		canvas_ = new Canvas(appDelegate_);
 		canvas_.setGeometryDrawer(new DrawPolygonRaw(appDelegate_));
 		canvas_.setBackgroundDrawer(new DrawBackgroundImage(appDelegate_));
-		add((JComponent)canvas_, BorderLayout.CENTER);		
+		
+		
+		scrollPane = new JScrollPane((JComponent)canvas_);
+		
+		scrollPane.setPreferredSize(canvas_.getCanvasClippingBounds().getSize());
+		scrollPane.setSize(canvas_.getCanvasClippingBounds().getSize());
+		scrollPane.setEnabled(true);
+		
+		add(scrollPane, BorderLayout.CENTER);		
 		
 		/*
 		 * JMenuBars
@@ -294,6 +303,8 @@ public class Window extends JFrame implements IWindow
 
 	@Override
 	public void refresh() {
+		scrollPane.setPreferredSize(canvas_.getCanvasClippingBounds().getSize());
+		scrollPane.setSize(canvas_.getCanvasClippingBounds().getSize());
 		canvas_.repaint();
 		layerView_.repaint();
 	}
