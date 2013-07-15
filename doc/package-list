@@ -1,0 +1,11 @@
+de.uniba.wiai.kinf.lehre.ma13.controller
+de.uniba.wiai.kinf.lehre.ma13.controller.interfaces
+de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions
+de.uniba.wiai.kinf.lehre.ma13.data
+de.uniba.wiai.kinf.lehre.ma13.data.interfaces
+de.uniba.wiai.kinf.lehre.ma13.model
+de.uniba.wiai.kinf.lehre.ma13.model.interfaces
+de.uniba.wiai.kinf.lehre.ma13.tests
+de.uniba.wiai.kinf.lehre.ma13.view
+de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates
+de.uniba.wiai.kinf.lehre.ma13.view.interfaces
