@@ -1,6 +1,7 @@
 package de.uniba.wiai.kinf.lehre.ma13.model.interfaces;
 
 import java.awt.Dimension;
+import java.awt.Image;
 
 public interface IBackgroundImage extends IGeometry
 {
@@ -26,4 +27,23 @@ public interface IBackgroundImage extends IGeometry
 	 * @param dimension
 	 */
 	public void setImageDimensions(Dimension dimension);
+	
+	/**
+	 * gets the current Image
+	 * @return
+	 */
+	public Image getImage();
+	
+	/**
+	 * gets the data of the Image
+	 * @return
+	 */
+	public byte[] getData();
+	
+	/**
+	 * sets the data of the Image
+	 * @param imageData
+	 */
+	public void setData(byte[] imageData);
+	
 }

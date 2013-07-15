@@ -48,7 +48,7 @@ public class PersistanceManager implements IPersistanceManager {
 		// Step 1 - Retrieve the Background Image
 		PBackgroundImage pbi=new PBackgroundImage();
 		
-		layerStore.setBackgroundImage(pbi.loadFromDB());
+		layerStore.getBackgroundImage().setData(pbi.loadFromDB().getData());
 
 		// Step 2 - Retrieve & save the Layers
 		PLayers pl=new PLayers();

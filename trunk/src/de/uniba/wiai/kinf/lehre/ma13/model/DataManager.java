@@ -18,7 +18,7 @@ public class DataManager
 		firstLayer.setVisibility(true);
 		appDelegate_.getLayerStore().getAllLayers().add(firstLayer);
 		
-		appDelegate_.getLayerStore().getBackgroundImage().setImagePath("res/default_image.jpg");
+		//appDelegate_.getLayerStore().getBackgroundImage().setImagePath("res/default_image.jpg");
 		
 	}
 }
