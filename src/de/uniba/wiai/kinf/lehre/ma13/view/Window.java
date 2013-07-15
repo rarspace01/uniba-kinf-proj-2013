@@ -285,6 +285,9 @@ public class Window extends JFrame implements IWindow
 		add(nestedLayout, BorderLayout.LINE_END);
 		
 		setSize(750, 550);
+		
+		opacitySlider_.setEnabled(false);
+		
 		setVisible(true);
 	}
 	
