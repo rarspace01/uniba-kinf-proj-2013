@@ -250,7 +250,7 @@ public class Window extends JFrame implements IWindow
 		        	appDelegate_.getWindow().getLayerView().getModel().getElementAt(
 							appDelegate_.getWindow().getLayerView().getMaxSelectionIndex()
 						).getObject().setOpacity(currentValue / 100);
-			    	refresh();
+			    	getCanvas().repaint();
 			    }
 			}
 		});
