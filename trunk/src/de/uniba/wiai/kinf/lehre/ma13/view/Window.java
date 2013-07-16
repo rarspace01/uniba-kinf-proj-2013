@@ -59,6 +59,14 @@ public class Window extends JFrame implements IWindow
 	private JMenuItem loadImage;
 	private JScrollPane scrollPane;
 	
+	public static final int BUTTON_CREATE_POLYGON = 0;
+	public static final int BUTTON_CREATE_FREEHAND = 1;
+	public static final int BUTTON_MOVE_POLYGON = 2;
+	public static final int BUTTON_COLOR = 3;
+	public static final int BUTTON_DELETE = 4;
+	public static final int BUTTON_STOP_ACTION = 5;
+	public static final int BUTTON_ADD_LAYER = 6;
+	
 	public Window(IAppDelegate appDelegate)
 	{
 		appDelegate_ = appDelegate;
@@ -344,7 +352,8 @@ public class Window extends JFrame implements IWindow
 	
 	        public void actionPerformed(ActionEvent e)
 	        {
-	        	getToolBar().getComponent(4).setEnabled(true);
+	        	// enable "stop action" button
+	        	getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(true);
 	            appDelegate_.setMouseAction(new CreatePolygonMouseAction(appDelegate_));
 	        }
 	    });
@@ -358,7 +367,8 @@ public class Window extends JFrame implements IWindow
 	
 	        public void actionPerformed(ActionEvent e)
 	        {
-	        	getToolBar().getComponent(4).setEnabled(true);
+	        	// enable "stop action" button
+	        	getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(true);
 	            appDelegate_.setMouseAction(new FreeHandPolygonMouseAction(appDelegate_));
 	        }
 	    });
@@ -372,6 +382,8 @@ public class Window extends JFrame implements IWindow
 	
 	        public void actionPerformed(ActionEvent e)
 	        {
+	        	// enable "stop action" button
+	        	getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(true);
 	            appDelegate_.setMouseAction(new MovePolygonMouseAction(appDelegate_));
 	        }
 	    });
@@ -443,7 +455,8 @@ public class Window extends JFrame implements IWindow
     			appDelegate_.getWindow().getCanvas().clearTempGeometries();
     			appDelegate_.setMouseAction(new DummyMouseAction(appDelegate_));
     			canvas_.repaint();
-    			getToolBar().getComponent(4).setEnabled(false);
+	        	// disable "stop action" button
+	        	getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
             }
         });
 		tbStopactionButton.setEnabled(false);
