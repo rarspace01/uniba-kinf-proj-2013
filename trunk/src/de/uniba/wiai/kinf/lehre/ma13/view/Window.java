@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -54,7 +56,7 @@ public class Window extends JFrame implements IWindow
 	private JMenuItem fileExit;
 	private JMenuBar menuBar;
 	private JMenu help;
-	private JMenuItem helpHello;
+	private JMenuItem helpOnline;
 	private JPanel nestedLayout;
 	private JMenuItem loadImage;
 	
@@ -223,8 +225,36 @@ public class Window extends JFrame implements IWindow
 		menuBar.add(file);
 
 		help = new JMenu("Help");
-		helpHello = new JMenuItem("Hello 1337!");
-		help.add(helpHello);
+		helpOnline = new JMenuItem("Get online Help.");
+		
+		helpOnline.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if(java.awt.Desktop.isDesktopSupported() ) {
+			        java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+			 
+			        if(desktop.isSupported(java.awt.Desktop.Action.BROWSE) ) {
+			          java.net.URI uri;
+					try {
+						uri = new java.net.URI("https://code.google.com/p/uniba-kinf-proj-2013/w/list");
+						desktop.browse(uri);
+					} catch (URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			        }
+			      }
+				
+				
+			}
+		});
+		
+		help.add(helpOnline);
 		menuBar.add(help);
 		
 		add(menuBar, BorderLayout.NORTH);		
