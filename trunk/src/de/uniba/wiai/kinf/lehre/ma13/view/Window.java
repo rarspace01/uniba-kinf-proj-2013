@@ -209,6 +209,16 @@ public class Window extends JFrame implements IWindow
 		file.add(loadImage);
 		
 		fileExit = new JMenuItem("Exit");
+		fileExit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				System.exit(0);
+				
+			}
+		});
+		
 		file.add(fileExit);
 		menuBar.add(file);
 
