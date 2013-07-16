@@ -18,14 +18,14 @@ public class PPoint {
 			List<Point> pointList = ((Polygon) toBeSaved).getPoints();
 			
 			for (int i = 0; i < pointList.size(); i++) {
-	
+				
 				try {
 					DataManagerSQLiteSingleton.getInstance()
 							.execute(
 									"REPLACE INTO point (polygonid, x, y) VALUES ('"
 											+ toBeSaved.getObjectId()
-											+ "','" + pointList.get(i).getX()
-											+ "','" + pointList.get(i).getY()
+											+ "','" + pointList.get(i).x
+											+ "','" + pointList.get(i).y
 											+ "'); ");
 	
 				} catch (SQLException e) {
@@ -56,11 +56,11 @@ public class PPoint {
 			while(resultSet.next()){
 				
 				Point point=new Point();
-				point.setLocation(resultSet.getDouble("x"), resultSet.getDouble("y"));
-				
+				point.x = resultSet.getInt("x");
+				point.y = resultSet.getInt("y");
+				//point.setLocation(resultSet.getDouble("x"), resultSet.getDouble("y"));
 				pointList.add(point);
 			}
-			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -1,5 +1,7 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller;
 
+import java.awt.Color;
+
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
