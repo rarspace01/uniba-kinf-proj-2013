@@ -15,9 +15,9 @@ public class PBackgroundImage {
 		try {
 
 			PreparedStatement prepStatement = DataManagerSQLiteSingleton.getInstance().getConnection().prepareStatement("REPLACE INTO backgroundimage (imageid,scalex, scaley, x, y, image, opacity) VALUES ('1','1','1','"
-					+ toBeSaved.getImageDimensions().getWidth()
-					+ "','"+toBeSaved.getImageDimensions().getHeight()+"', ?,'"+toBeSaved.getOpacity()+"'); ");
-			
+					+ toBeSaved.getImageDimensions().width
+					+ "','"+toBeSaved.getImageDimensions().height+"', ?,'"+toBeSaved.getOpacity()+"'); ");
+
 			prepStatement.setBytes(1, toBeSaved.getData());
 			
 			prepStatement.execute();
@@ -43,7 +43,7 @@ public class PBackgroundImage {
 				
 				
 				returnBackgroundImage = new BackgroundImage();
-				returnBackgroundImage.setImageDimensions(new Dimension(resultSet.getInt("scalex"), resultSet.getInt("scaley")));
+				returnBackgroundImage.setImageDimensions(new Dimension(resultSet.getInt("x"), resultSet.getInt("y")));
 				returnBackgroundImage.setData(resultSet.getBytes("image"));
 				returnBackgroundImage.setOpacity(resultSet.getFloat("opacity"));
 				

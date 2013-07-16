@@ -6,11 +6,18 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
 public class PPolygons {
+	
+	private IAppDelegate appDelegate_;
+	
+	public PPolygons(IAppDelegate appDelegate) {
+		appDelegate_ = appDelegate;
+	}
 
 	public void saveToDB(List<IGeometry> toBeSaved) {
 
@@ -30,7 +37,7 @@ public class PPolygons {
 					DataManagerSQLiteSingleton
 					.getInstance()
 					.execute(
-							"REPLACE INTO polygon (polygonid, layerid, name, isvisible, opacity) VALUES ('"
+							"REPLACE INTO polygon (polygonid, layerid, name, isvisible, color, opacity) VALUES ('"
 									+ toBeSaved.get(i).getObjectId()
 									+ "','"
 									+ toBeSaved.get(i).getParent()
@@ -39,6 +46,8 @@ public class PPolygons {
 									+ toBeSaved.get(i).getName()
 									+ "','"
 									+ isVisible
+									+ "','"
+									+ "0"
 									+ "','"
 									+ toBeSaved.get(i).getOpacity()
 									+ "'); ");
@@ -99,11 +108,17 @@ public class PPolygons {
 
 				IGeometry polygon = new Polygon(resultSet.getLong("polygonid"));
 
+				// check for global object-id
+				if(resultSet.getLong("polygonid") > appDelegate_.getUtil().getId()) {
+					appDelegate_.getUtil().setId(resultSet.getLong("polygonid"));
+				}
+				
 				polygon.setParent(layer);
 				polygon.setName(resultSet.getString("name"));
 				polygon.setVisibility(resultSet.getBoolean("isvisible"));
 				System.out.println("Color on Polygon: "+resultSet.getInt("color"));
-				polygon.setColor(new Color(resultSet.getInt("color")));
+				if(resultSet.getInt("color") < 0)
+					polygon.setColor(new Color(resultSet.getInt("color")));
 				polygon.setOpacity(resultSet.getFloat("opacity"));
 
 				PPoint pPoint = new PPoint();

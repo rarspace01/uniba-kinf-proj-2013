@@ -6,14 +6,21 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
 public class PLayers {
+	
+	private IAppDelegate appDelegate_;
+	
+	public PLayers(IAppDelegate appDelegate) {
+		appDelegate_ = appDelegate;
+	}
 
 	public void saveToDB(List<ILayer> toBeSaved) {
 
-		PPolygons ppolygon = new PPolygons();
+		PPolygons ppolygon = new PPolygons(appDelegate_);
 		
 		for (int i = 0; i < toBeSaved.size(); i++) {
 
@@ -68,6 +75,11 @@ public class PLayers {
 			while(resultSet.next()){
 				
 				ILayer layer=new Layer(resultSet.getLong("layerid"));
+
+				// check for global object-id
+				if(resultSet.getLong("layerid") > appDelegate_.getUtil().getId()) {
+					appDelegate_.getUtil().setId(resultSet.getLong("layerid"));
+				}
 				
 				layer.setName(resultSet.getString("name"));
 				layer.setVisibility(resultSet.getBoolean("isvisible"));
@@ -77,7 +89,7 @@ public class PLayers {
 				layer.setColor(new Color(resultSet.getInt("color")));
 				layer.setOpacity(resultSet.getFloat("opacity"));
 				//
-				PPolygons ppolygons = new PPolygons();
+				PPolygons ppolygons = new PPolygons(appDelegate_);
 				//ppolygons
 				layer.getGeometries().clear();
 				layer.getGeometries().addAll(ppolygons.loadFromDB(layer));
