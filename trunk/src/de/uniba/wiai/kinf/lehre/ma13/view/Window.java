@@ -29,7 +29,7 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.CreatePolygonMouseA
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.FreeHandPolygonMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MovePolygonMouseAction;
-import de.uniba.wiai.kinf.lehre.ma13.data.PersistanceManager;
+import de.uniba.wiai.kinf.lehre.ma13.data.DataManager;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
@@ -117,7 +117,7 @@ public class Window extends JFrame implements IWindow
                 fileChooser.setSelectedFile(new File(sFilename));
                 if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
                         
-                        PersistanceManager pm=new PersistanceManager(appDelegate_);
+                        DataManager pm=new DataManager(appDelegate_);
                         
                         System.out.println("opening file: ["+fileChooser.getSelectedFile().getPath().toLowerCase()+"]");
                         
@@ -156,7 +156,7 @@ public class Window extends JFrame implements IWindow
                                                 .getSelectedFile() + ".sqlite"));
                         }
                         
-                        PersistanceManager pm=new PersistanceManager(appDelegate_);
+                        DataManager pm=new DataManager(appDelegate_);
                         
                         System.out.println("saving file to: ["+fileChooser.getSelectedFile().getPath().toLowerCase()+"]");
                         
