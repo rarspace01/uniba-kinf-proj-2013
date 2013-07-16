@@ -5,8 +5,8 @@ import java.awt.Point;
 
 import org.junit.Test;
 
-import de.uniba.wiai.kinf.lehre.ma13.data.PersistanceManager;
-import de.uniba.wiai.kinf.lehre.ma13.data.interfaces.IPersistanceManager;
+import de.uniba.wiai.kinf.lehre.ma13.data.DataManager;
+import de.uniba.wiai.kinf.lehre.ma13.data.interfaces.IDataManager;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.LayerStore;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
@@ -52,21 +52,21 @@ public class DataBaseTests {
 
 		ls.getBackgroundImage().setImagePath("res/default_image.jpg");
 
-		IPersistanceManager pm = new PersistanceManager(null);
+		IDataManager dm = new DataManager(null);
 
-		pm.save(ls, filename);
+		dm.save(ls, filename);
 
 	}
 
 	@Test
 	public void testLoad() {
 
-		IPersistanceManager pm = new PersistanceManager(null);
+		IDataManager dm = new DataManager(null);
 		String filename = "testSave.sqlite";
 
 		ILayerStore ls = new LayerStore(null);
 
-		pm.load(ls,filename);
+		dm.load(ls,filename);
 
 		for (int i = 0; i < ls.getAllLayers().size(); i++) {
 			System.out.println("Layer: [" + ls.getAllLayers().get(i).getName()

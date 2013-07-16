@@ -1,6 +1,7 @@
 package de.uniba.wiai.kinf.lehre.ma13.data.interfaces;
 
-import java.sql.ResultSet;
+import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayerStore;
+
 
 /**
  * itnerface for  handling the databasefiles
@@ -9,6 +10,21 @@ import java.sql.ResultSet;
  */
 public interface IDataManager {
 
+	/**
+	 * saves thhe givven layerstore into the given filename
+	 * @param layerStore
+	 * @param filename
+	 */
+	public void save(ILayerStore layerStore, String filename);
+	
+	/**
+	 * loads the given file into the given layerstore	
+	 * @param layerStore
+	 * @param filename
+	 * 
+	 */
+	public void load(ILayerStore layerStore, String filename); 
+	
 	/**
 	 * open a SQLite DB
 	 * @param filename
@@ -19,18 +35,5 @@ public interface IDataManager {
 	 * close the current DB
 	 */
 	public void closeDb();
-	
-	/**
-	 * executes a sql select command 
-	 * @param sql - {@link String}
-	 * @return {@link ResultSet}
-	 */
-	public ResultSet select(String sql);
-	/**
-	 * executes a sql select command 
-	 * @param sql - {@link String}
-	 * 
-	 */
-	public void execute(String sql);
 	
 }

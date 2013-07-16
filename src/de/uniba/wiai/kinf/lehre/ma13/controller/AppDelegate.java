@@ -1,14 +1,12 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller;
 
-import java.awt.Color;
-
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.DummyMouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MouseAction;
-import de.uniba.wiai.kinf.lehre.ma13.model.DataManager;
+import de.uniba.wiai.kinf.lehre.ma13.data.DataManager;
 import de.uniba.wiai.kinf.lehre.ma13.model.LayerStore;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayerStore;
 import de.uniba.wiai.kinf.lehre.ma13.view.Window;
