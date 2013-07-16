@@ -43,7 +43,7 @@ public class FreeHandPolygonMouseAction extends MouseAction {
 				polygon_.setParent(appDelegate_.getLayerStore().getActiveLayer());
 				appDelegate_.getLayerStore().getActiveLayer().getGeometries().add(polygon_);
 			}
-			appDelegate_.setMouseAction(new DummyMouseAction(appDelegate_));
+			// refresh the whole window
 			appDelegate_.getWindow().refresh();
 		}
 		polygon_ = null;

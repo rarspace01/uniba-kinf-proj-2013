@@ -22,17 +22,7 @@ public class LayerView extends JList<LayerViewListItem> {
 	private static final long serialVersionUID = 1L;
 	private IAppDelegate appDelegate_;
 	private boolean lockrepaint_ = false;
-	private MouseInputAdapter mouseListener_ = null;
-	
-	private static final int BUTTON_CREATE_POLYGON = 0;
-	private static final int BUTTON_CREATE_FREEHAND = 1;
-	private static final int BUTTON_MOVE_POLYGON = 2;
-	private static final int BUTTON_COLOR = 3;
-	private static final int BUTTON_DELETE = 4;
-	private static final int BUTTON_STOP_ACTION = 5;
-	private static final int BUTTON_ADD_LAYER = 6;
-	
-	
+	private MouseInputAdapter mouseListener_ = null;	
 
 	public LayerView(IAppDelegate appDelegate)
 	{
@@ -137,13 +127,13 @@ public class LayerView extends JList<LayerViewListItem> {
 					if(newIndex < 0)
 					{
 						// moving polygon is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_MOVE_POLYGON).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_MOVE_POLYGON).setEnabled(false);
 						// select color is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_COLOR).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_COLOR).setEnabled(false);
 						// deleting object is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_DELETE).setEnabled(false);
 						// "stop action" is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_STOP_ACTION).setEnabled(false);
 						// set opacity-slider disabled
 						appDelegate_.getWindow().getOpacitySlider().setEnabled(false);
 						return;
@@ -154,13 +144,13 @@ public class LayerView extends JList<LayerViewListItem> {
 					if(item.getObject() instanceof IBackgroundImage)
 					{
 						// moving polygon is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_MOVE_POLYGON).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_MOVE_POLYGON).setEnabled(false);
 						// select color is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_COLOR).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_COLOR).setEnabled(false);
 						// deleting object is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_DELETE).setEnabled(false);
 						// "stop action" is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_STOP_ACTION).setEnabled(false);
 						// set opacity-slider disabled
 						appDelegate_.getWindow().getOpacitySlider().setEnabled(false);
 					}
@@ -168,13 +158,13 @@ public class LayerView extends JList<LayerViewListItem> {
 					{
 						appDelegate_.getLayerStore().setActiveLayer((ILayer)item.getObject());
 						// moving polygon is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_MOVE_POLYGON).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_MOVE_POLYGON).setEnabled(false);
 						// select color is enabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_COLOR).setEnabled(true);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_COLOR).setEnabled(true);
 						// deleting object is enabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(true);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_DELETE).setEnabled(true);
 						// "stop action" is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_STOP_ACTION).setEnabled(false);
 						// set opacity-slider enabled and set correct value
 						appDelegate_.getWindow().getOpacitySlider().setEnabled(true);
 						appDelegate_.getWindow().getOpacitySlider().setValue(Math.round(item.getObject().getOpacity() * 100));
@@ -182,13 +172,13 @@ public class LayerView extends JList<LayerViewListItem> {
 					else if(item.getObject() instanceof IGeometry)
 					{
 						// moving polygon is enabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_MOVE_POLYGON).setEnabled(true);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_MOVE_POLYGON).setEnabled(true);
 						// select color is enabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_COLOR).setEnabled(true);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_COLOR).setEnabled(true);
 						// deleting object is enabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_DELETE).setEnabled(true);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_DELETE).setEnabled(true);
 						// "stop action" is disabled
-						appDelegate_.getWindow().getToolBar().getComponent(BUTTON_STOP_ACTION).setEnabled(false);
+						appDelegate_.getWindow().getToolBar().getComponent(Window.BUTTON_STOP_ACTION).setEnabled(false);
 						// set opacity-slider enabled and set correct value
 						appDelegate_.getWindow().getOpacitySlider().setEnabled(true);
 						appDelegate_.getWindow().getOpacitySlider().setValue(Math.round(item.getObject().getOpacity() * 100));
