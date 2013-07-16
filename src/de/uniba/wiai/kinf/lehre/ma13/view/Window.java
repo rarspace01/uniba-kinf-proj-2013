@@ -127,7 +127,7 @@ public class Window extends JFrame implements IWindow
                         
                         PersistanceManager pm=new PersistanceManager(appDelegate_);
                         
-                        System.out.println("saving file to: ["+fileChooser.getSelectedFile().getPath().toLowerCase()+"]");
+                        System.out.println("opening file: ["+fileChooser.getSelectedFile().getPath().toLowerCase()+"]");
                         
                         pm.load(appDelegate_.getLayerStore(),fileChooser.getSelectedFile().getPath().toLowerCase());
                         
