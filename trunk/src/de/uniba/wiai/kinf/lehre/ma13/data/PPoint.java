@@ -10,7 +10,7 @@ import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 
 /**
- * Persistance class of Point - handles the saving and loading of a Point Object
+ * Persistance class of Point - handles the saving and loading of the Points from a Polygon Object
  * @author denis
  *
  */
