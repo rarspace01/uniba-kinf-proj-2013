@@ -9,6 +9,11 @@ import java.util.List;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 
+/**
+ * Persistance class of Point - handles the saving and loading of a Point Object
+ * @author denis
+ *
+ */
 public class PPoint {
 
 	public void saveToDB(IGeometry toBeSaved){

@@ -10,6 +10,11 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
+/**
+ * Persistance class of Layer - handles the saving and loading of multiple Layer Objects
+ * @author denis
+ *
+ */
 public class PLayers {
 	
 	private IAppDelegate appDelegate_;
