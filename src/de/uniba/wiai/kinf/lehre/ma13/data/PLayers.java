@@ -78,7 +78,7 @@ public class PLayers {
 	/**
 	 * retrieves the layers from the database
 	 * 
-	 * @return <{@link List}>{@link Ilayer} - the List of Layers from the
+	 * @return <{@link List}>{@link ILayer} - the List of Layers from the
 	 *         Database
 	 */
 	public List<ILayer> loadFromDB() {

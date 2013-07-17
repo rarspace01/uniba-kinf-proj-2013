@@ -119,7 +119,7 @@ public class PPolygons {
 	 * 
 	 * @param layer
 	 *            - {@link ILayer} the polygins should be retrieved from
-	 * @return
+	 * @return {@link List}< {@link IGeomertry} > - 
 	 */
 	public List<IGeometry> loadFromDB(ILayer layer) {
 

@@ -10,71 +10,89 @@ import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 
 /**
- * Persistance class of Point - handles the saving and loading of the Points from a Polygon Object
+ * Persistance class of Point - handles the saving and loading of the Points
+ * from a Polygon Object
+ * 
  * @author denis
- *
+ * 
  */
 public class PPoint {
 
-	public void saveToDB(IGeometry toBeSaved){
-		
-		if(toBeSaved instanceof Polygon){
-		
+	/**
+	 * saves the Points of a given {@link IGeometry} Object
+	 * 
+	 * @param toBeSaved
+	 *            - Polygon to be saved
+	 */
+	public void saveToDB(IGeometry toBeSaved) {
+
+		// check if given object is an instance of Polygon
+		if (toBeSaved instanceof Polygon) {
+
+			// retrieve the points of the given Polygon
 			List<Point> pointList = ((Polygon) toBeSaved).getPoints();
-			
+
+			// iterate over the points of the polygon
 			for (int i = 0; i < pointList.size(); i++) {
-				
+
 				try {
-					DataManagerSQLiteSingleton.getInstance()
-							.execute(
-									"REPLACE INTO point (polygonid, x, y) VALUES ('"
-											+ toBeSaved.getObjectId()
-											+ "','" + pointList.get(i).x
-											+ "','" + pointList.get(i).y
-											+ "'); ");
-	
+					// execute the insert for the specific point
+					DataManagerSQLiteSingleton.getInstance().execute(
+							"REPLACE INTO point (polygonid, x, y) VALUES ('"
+									+ toBeSaved.getObjectId() + "','"
+									+ pointList.get(i).x + "','"
+									+ pointList.get(i).y + "'); ");
+
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	
-				// save the Geometry/poly
-					//ppolygon.saveToDB(toBeSaved.get(i));
-	
+
 			}
-		
+
 		}
-		
-		
+
 	}
 
+	/**
+	 * method to load the list of points from a given polygon {@link IGeometry}
+	 * 
+	 * @param polygon
+	 * @return
+	 */
 	public List<Point> loadFromDB(IGeometry polygon) {
-		
+
+		// initate pointList for the polygon
 		List<Point> pointList = new LinkedList<Point>();
-		
-		DataManagerSQLite dataManager=new DataManagerSQLite(DataManagerSQLiteSingleton.getInstance().getCurrentFilename());
-		
+
+		// get a second Datamanager, as we are workign in a sub qry on a level
+		// above
+		DataManagerSQLite dataManager = new DataManagerSQLite(
+				DataManagerSQLiteSingleton.getInstance().getCurrentFilename());
+
 		try {
-			ResultSet resultSet= 		
-					dataManager.select("SELECT pointid, polygonid, x, y FROM point WHERE polygonid = '"+polygon.getObjectId()+"';");
-			
-			while(resultSet.next()){
-				
-				Point point=new Point();
+			// execute the SQL query
+			ResultSet resultSet = dataManager
+					.select("SELECT pointid, polygonid, x, y FROM point WHERE polygonid = '"
+							+ polygon.getObjectId() + "';");
+
+			// iterate over the resultset
+			while (resultSet.next()) {
+				// create a point and fill the values
+				Point point = new Point();
 				point.x = resultSet.getInt("x");
 				point.y = resultSet.getInt("y");
-				//point.setLocation(resultSet.getDouble("x"), resultSet.getDouble("y"));
+				// add the point to the given pointList
 				pointList.add(point);
 			}
-			
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		// close the Database manager to free resources and prevent memory leak
 		dataManager.dispose();
-		
+
 		return pointList;
-	}	
-	
+	}
+
 }
