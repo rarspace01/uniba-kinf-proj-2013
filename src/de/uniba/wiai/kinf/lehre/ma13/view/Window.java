@@ -225,7 +225,7 @@ public class Window extends JFrame implements IWindow
 		menuBar.add(file);
 
 		help = new JMenu("Help");
-		helpOnline = new JMenuItem("Get online Help.");
+		helpOnline = new JMenuItem("Get online Help");
 		
 		helpOnline.addActionListener(new ActionListener() {
 			

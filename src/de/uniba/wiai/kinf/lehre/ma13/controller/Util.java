@@ -5,6 +5,12 @@ import java.awt.Point;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 
+/**
+ * class for world ad screen transformations
+ * 
+ * @author denis
+ * 
+ */
 public class Util {
 	private IAppDelegate appDelegate_;
 
@@ -12,14 +18,17 @@ public class Util {
 	private Long lastId_;
 
 	private float zoomFactor_;
-//	private Point zoomOffset_; // would have been used for moving the zoomed image
+
+	// private Point zoomOffset_; // would have been used for moving the zoomed
+	// image
 
 	private Util(IAppDelegate appDelegate) {
 		lastId_ = 1337L;
 		appDelegate_ = appDelegate;
 
 		zoomFactor_ = 1.0f;
-//		zoomOffset_ = new Point(0, 0); // would have been used for moving the zoomed image
+		// zoomOffset_ = new Point(0, 0); // would have been used for moving the
+		// zoomed image
 	}
 
 	public static Util instance(IAppDelegate appDelegate) {
@@ -34,6 +43,13 @@ public class Util {
 		lastId_ = lastId;
 	}
 
+	/**
+	 * converts a given point on the screen to a World Coordinate
+	 * 
+	 * @param pt
+	 *            - {@link Point} on the Screen
+	 * @return {@link Point} - in the world
+	 */
 	public Point toWorldCoordinates(Point pt) {
 
 		// dimension of the background image
@@ -43,6 +59,7 @@ public class Util {
 		Dimension canvasDimension = appDelegate_.getWindow().getCanvas()
 				.getCanvasClippingBounds().getSize();
 
+		// calc the ratio, we'll need to scale
 		float ratio = Math
 				.min(((float) canvasDimension.width / (float) originalDimension.width),
 						((float) canvasDimension.height / (float) originalDimension.height));
@@ -50,10 +67,11 @@ public class Util {
 		float pointX = 0.0f;
 		float pointY = 0.0f;
 
-		// TODO: there can be an additional offset
+		// calc the offset
 		float offsetX = (((float) originalDimension.width * getZoom() * ratio) - (float) canvasDimension.width) / 2.0f;
 		float offsetY = (((float) originalDimension.height * getZoom() * ratio) - (float) canvasDimension.height) / 2.0f;
 
+		// calculate the new points based on the current zoomlevel & offset
 		pointX = (pt.x + offsetX) / (ratio * getZoom());
 		pointY = (pt.y + offsetY) / (ratio * getZoom());
 
@@ -64,6 +82,13 @@ public class Util {
 		// return new Point(worldDimension.width, worldDimension.height);
 	}
 
+	/**
+	 * converts a given World point to a screen coordinate
+	 * 
+	 * @param pt
+	 *            - Point in World
+	 * @return {@link Point} on the screen
+	 */
 	public Point toScreenCoordinates(Point pt) {
 
 		// dimension of the background image
@@ -73,6 +98,7 @@ public class Util {
 		Dimension canvasDimension = appDelegate_.getWindow().getCanvas()
 				.getCanvasClippingBounds().getSize();
 
+		// calc the ratio for scaling
 		float ratio = Math
 				.min(((float) canvasDimension.width / (float) originalDimension.width),
 						((float) canvasDimension.height / (float) originalDimension.height));
@@ -80,7 +106,7 @@ public class Util {
 		float pointX = 0.0f;
 		float pointY = 0.0f;
 
-		// TODO: there can be an additional offset
+		// calc the offset
 		float offsetX = (((float) originalDimension.width * getZoom() * ratio) - (float) canvasDimension.width) / 2.0f;
 		float offsetY = (((float) originalDimension.height * getZoom() * ratio) - (float) canvasDimension.height) / 2.0f;
 
@@ -94,6 +120,13 @@ public class Util {
 		// return new Point(screenDimension.width, screenDimension.height);
 	}
 
+	/**
+	 * convert a Dimension from screen to world
+	 * 
+	 * @param screen
+	 *            - Dimension on the screen
+	 * @return {@link Dimension} in the World
+	 */
 	public Dimension toWorldDimension(Dimension screen) {
 
 		/*
@@ -136,6 +169,9 @@ public class Util {
 	/**
 	 * translates a dimension from the "real world" to the screen. The image has
 	 * an original dimension which is translated to the screen here
+	 * 
+	 * @param world - {@link Dimension} of the world
+	 * @return {@link Dimension} on the screen
 	 */
 	public Dimension toScreenDimension(Dimension world) {
 
@@ -156,10 +192,18 @@ public class Util {
 		return new Dimension(Math.round(screenWidth), Math.round(screenHeight));
 	}
 
+	/**
+	 * get the Zoom
+	 * @return {@link float}
+	 */
 	public float getZoom() {
 		return zoomFactor_;
 	}
 
+	/**
+	 * sets the zoom
+	 * @param zoomFactor - {@link float}
+	 */
 	public void setZoom(float zoomFactor) {
 		zoomFactor_ = zoomFactor;
 	}
