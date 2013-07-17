@@ -5,6 +5,8 @@ import java.awt.Point;
 
 import org.junit.Test;
 
+import de.uniba.wiai.kinf.lehre.ma13.controller.AppDelegate;
+import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.data.DataManager;
 import de.uniba.wiai.kinf.lehre.ma13.data.interfaces.IDataManager;
 import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
@@ -14,6 +16,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayerStore;
 
+/**
+ * just some basic save & load test for the DB
+ * @author denis
+ *
+ */
 public class DataBaseTests {
 
 	@Test
@@ -50,7 +57,8 @@ public class DataBaseTests {
 
 		ls.getAllLayers().add(layer);
 
-		ls.getBackgroundImage().setImagePath("res/default_image.jpg");
+		ls.getBackgroundImage().setImagePath("C:/Users/denis/Pictures/Kirche-Gaustadt-03.JPG");
+		
 
 		IDataManager dm = new DataManager(null);
 
@@ -60,13 +68,21 @@ public class DataBaseTests {
 
 	@Test
 	public void testLoad() {
+		IAppDelegate appD=new AppDelegate();
+		appD.init();
 
-		IDataManager dm = new DataManager(null);
+		IDataManager dm = new DataManager(appD);
 		String filename = "testSave.sqlite";
 
-		ILayerStore ls = new LayerStore(null);
+		
+		ILayerStore ls = new LayerStore(appD);
 
-		dm.load(ls,filename);
+	    try{
+	        dm.load(ls,filename);
+	    }catch (Error e){
+	    	e.printStackTrace();
+	    }
+		
 
 		for (int i = 0; i < ls.getAllLayers().size(); i++) {
 			System.out.println("Layer: [" + ls.getAllLayers().get(i).getName()
