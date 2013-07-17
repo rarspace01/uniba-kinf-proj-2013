@@ -28,9 +28,7 @@ public interface IDataManager {
 	public void load(ILayerStore layerStore, String filename);
 
 	/**
-	 * open a SQLite DB
-	 * 
-	 * @param filename
+	 * load Initial Data on Startup
 	 */
 	public void loadInitialData();
 
