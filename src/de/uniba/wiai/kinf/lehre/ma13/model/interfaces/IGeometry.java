@@ -1,5 +1,10 @@
 package de.uniba.wiai.kinf.lehre.ma13.model.interfaces;
 
+/**
+ * interface for Geometry Objects such as Polygon
+ * @author denis
+ *
+ */
 public interface IGeometry extends IOrderedObject
 {	
 	/**

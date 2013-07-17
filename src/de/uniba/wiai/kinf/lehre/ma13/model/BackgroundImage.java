@@ -17,6 +17,13 @@ import javax.imageio.stream.ImageInputStream;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
+/**
+ * class which implements {@link IBackgroundImage}. Used to hold the Background
+ * Image.
+ * 
+ * @author denis
+ * 
+ */
 public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 
 	private byte[] data_;
@@ -37,14 +44,18 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 	@Override
 	public void setImagePath(String imagePath) {
 
+		// reads the dimensions of the image at the path present in imagePath
 		ImageInputStream in = null;
 		try {
 			in = ImageIO.createImageInputStream(new File(imagePath));
 			final Iterator<ImageReader> readers = ImageIO.getImageReaders(in);
+			// iterate through all Imagedecoders, one of them retrieves the
+			// heigh and width of the curren timage
 			if (readers.hasNext()) {
 				ImageReader reader = (ImageReader) readers.next();
 				try {
 					reader.setInput(in);
+					// set the dimension
 					scaledDimension_ = new Dimension(reader.getWidth(0),
 							reader.getHeight(0));
 				} finally {
@@ -59,27 +70,36 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 				} catch (IOException e) {
 				}
 		}
-		
+
+		// after getting the dimensions we want to store the complete image into
+		// the model. this enables us to save the complete picture with the
+		// objects into one portable file
+
+		// create a file object
 		File inputFile = new File(imagePath);
 
 		FileInputStream fileInputStream;
 		try {
-			
+
+			// create an input stream of the file
 			fileInputStream = new FileInputStream(inputFile);
+			// create a byte array of the size of the input stream
 			byte[] data = new byte[(int) inputFile.length()];
+			// write the data from the input stream into the byte array
 			fileInputStream.read(data);
+			// close
 			fileInputStream.close();
-			
+
+			// set the data
 			data_ = data;
-			
+
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		// ste the path
 		imagePath_ = imagePath;
 
 	}
@@ -120,31 +140,37 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 	public Image getImage() {
 
 		ImageInputStream in = null;
-		
+
+		// make sure there is a picture present
 		if (data_ != null) {
 
 			try {
-				
-				
-				
-				 ByteArrayInputStream baris= new ByteArrayInputStream(data_);
+
+				// create a Input Stream based on our data of the image
+				ByteArrayInputStream baris = new ByteArrayInputStream(data_);
+				// use theinput stream as a source for the IMageIO read method
 				imageBuffered_ = ImageIO.read(baris);
-				
+
+				// ensure the dimension gets set if the image data was retrieved
+				// from the database not a file
 				in = ImageIO.createImageInputStream(baris);
-				final Iterator<ImageReader> readers = ImageIO.getImageReaders(in);
+				final Iterator<ImageReader> readers = ImageIO
+						.getImageReaders(in);
+				// iterate through all Imagedecoders, one of them retrieves the
+				// heigh and width of the current image
 				if (readers.hasNext()) {
 					ImageReader reader = (ImageReader) readers.next();
 					try {
 						reader.setInput(in);
+						// set the dimension
 						scaledDimension_ = new Dimension(reader.getWidth(0),
 								reader.getHeight(0));
 					} finally {
 						reader.dispose();
 					}
 				}
-				
+
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -153,6 +179,7 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 		return imageBuffered_;
 	}
 
+	@Override
 	public byte[] getData() {
 		return data_;
 	}
@@ -160,9 +187,7 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 	@Override
 	public void setData(byte[] imageData) {
 		data_ = imageData;
-		
+
 	}
 
-	
-	
 }

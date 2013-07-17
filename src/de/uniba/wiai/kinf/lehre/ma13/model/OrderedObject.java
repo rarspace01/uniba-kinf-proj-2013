@@ -8,6 +8,11 @@ import java.io.ObjectStreamException;
 
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 
+/**
+ * class which implements the
+ * @author denis
+ *
+ */
 public abstract class OrderedObject implements IOrderedObject {
 
 	protected Long objectId_;
@@ -68,16 +73,13 @@ public abstract class OrderedObject implements IOrderedObject {
 
 	@Override
 	public void writeObject(ObjectOutputStream out) throws IOException {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void readObjectNoData() throws ObjectStreamException {
-		// TODO Auto-generated method stub
 	}	
 }
