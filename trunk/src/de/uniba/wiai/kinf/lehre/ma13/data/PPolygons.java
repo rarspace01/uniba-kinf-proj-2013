@@ -11,6 +11,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
+/**
+ * Persistance class of Polygon - handles the saving and loading of multiple Polygon Objects
+ * @author denis
+ *
+ */
 public class PPolygons {
 	
 	private IAppDelegate appDelegate_;

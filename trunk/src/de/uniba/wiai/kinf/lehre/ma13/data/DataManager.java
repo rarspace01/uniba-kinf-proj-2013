@@ -1,6 +1,5 @@
 package de.uniba.wiai.kinf.lehre.ma13.data;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
@@ -9,6 +8,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.Layer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayerStore;
 
+/**
+ * class for loading and saving the data
+ * @author denis
+ *
+ */
 public class DataManager implements IDataManager {
 
 	private IAppDelegate appDelegate_;
@@ -19,8 +23,12 @@ public class DataManager implements IDataManager {
 		appDelegate_ = appDelegate;
 	}
 	
-	public void loadTestData()
+	/**
+	 * loads the initial Data for Startup
+	 */
+	public void loadInitialData()
 	{
+		//setup Layer 1, so user can directly draw on the image, after loading one
 		Layer firstLayer = new Layer(appDelegate_.getId());
 		firstLayer.setName("Layer 1");
 		firstLayer.setVisibility(true);
@@ -37,14 +45,15 @@ public class DataManager implements IDataManager {
 		openDb(filename_);
 		cleanTables();
 		
-		// Step 1 - Retrieve & save the Background Image
+		// Step 1 - save the Background Image
 		PBackgroundImage pbi=new PBackgroundImage();
 		pbi.saveToDB(layerStore.getBackgroundImage());
 
-		// Step 2 - Retrieve & save the Layers
+		// Step 2 - save the Layers
 		PLayers pl=new PLayers(appDelegate_);
 		pl.saveToDB(layerStore.getAllLayers());
 		
+		//close the DB for removing the file handler on the file
 		closeDb();
 	}
 
@@ -53,7 +62,7 @@ public class DataManager implements IDataManager {
 		
 		filename_ = filename;
 		
-		//Step0 - open DB
+		// Step0 - open DB
 		openDb(filename_);
 		
 		// Step 1 - Retrieve the Background Image
@@ -77,43 +86,16 @@ public class DataManager implements IDataManager {
 		closeDb();
 	}
 	
-	@Override
-	public void openDb(String filename) {
+	/**
+	 * opens a database, checks for missing tables, creates the tables
+	 * @param filename
+	 */
+	private void openDb(String filename) {
 		this.filename_=filename;
 		currentDB_=DataManagerSQLiteSingleton.getInstance(this.filename_);
 		
-		if(databaseIsEmpty()){
-			createTables();
-		}
-	}
-	
-	/**
-	 * checks if the sqlite db is empty
-	 * @return boolean
-	 */
-	private boolean databaseIsEmpty(){
-		ResultSet rs;
-		int count=0;
-		boolean isEmpty = true;
-		
-		try {
-			rs = currentDB_.select("SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name != 'android_metadata' AND name != 'sqlite_sequence';");
-			
-			while(rs.next()){
-				count=rs.getInt(1);
-				System.out.println("table count: "+count);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(count>0){
-			isEmpty=false;
-		}
-		
-		return isEmpty;
+		//creates nonexisting tables. if tables already exists, nothing happens
+		createTables();
 	}
 	
 	/**
@@ -123,39 +105,55 @@ public class DataManager implements IDataManager {
 		
 		try {
 			//point table
-			currentDB_.execute("CREATE TABLE point (pointid INTEGER PRIMARY KEY, polygonid NUMERIC, x NUMERIC, y NUMERIC);");
+			currentDB_.execute("CREATE TABLE IF NOT EXISTS point (pointid INTEGER PRIMARY KEY, polygonid NUMERIC, x NUMERIC, y NUMERIC);");
 			//poly table
-			currentDB_.execute("CREATE TABLE polygon (polygonid INTEGER PRIMARY KEY, name TEXT, color NUMERIC, layerid NUMERIC, isvisible NUMERIC, opacity NUMERIC);");
+			currentDB_.execute("CREATE TABLE IF NOT EXISTS polygon (polygonid INTEGER PRIMARY KEY, name TEXT, color NUMERIC, layerid NUMERIC, isvisible NUMERIC, opacity NUMERIC);");
 			//layer table
-			currentDB_.execute("CREATE TABLE layer (layerid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, color NUMERIC, opacity NUMERIC);");
+			currentDB_.execute("CREATE TABLE IF NOT EXISTS layer (layerid INTEGER PRIMARY KEY, name TEXT, isvisible NUMERIC, color NUMERIC, opacity NUMERIC);");
 			//background image
-			currentDB_.execute("CREATE TABLE backgroundimage (imageid INTEGER PRIMARY KEY, scalex NUMERIC, scaley NUMERIC, x NUMERIC, y NUMERIC, imagepath TEXT, image BLOB, opacity NUMERIC);");
+			currentDB_.execute("CREATE TABLE IF NOT EXISTS backgroundimage (imageid INTEGER PRIMARY KEY, scalex NUMERIC, scaley NUMERIC, x NUMERIC, y NUMERIC, imagepath TEXT, image BLOB, opacity NUMERIC);");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 	
-	private void cleanTables(){
+	/**
+	 * drops all tables
+	 */
+	private void dropTables() {
 		
 		try {
-			currentDB_.execute("DELETE FROM point");
-			currentDB_.execute("DELETE FROM polygon");
-			currentDB_.execute("DELETE FROM layer");
-			currentDB_.execute("DELETE FROM backgroundimage");
-			
+			//point table
+			currentDB_.execute("DROP TABLE IF EXISTS point;");
+			//poly table
+			currentDB_.execute("DROP TABLE IF EXISTS polygon;");
+			//layer table
+			currentDB_.execute("DROP TABLE IF EXISTS layer;");
+			//background image
+			currentDB_.execute("DROP TABLE IF EXISTS backgroundimage;");
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 	
-	@Override
-	public void closeDb() {
+	/**
+	 * remove existing tables & recreate with the current structure
+	 */
+	private void cleanTables(){
+		
+		dropTables();
+		createTables();
+		
+	}
+	
+	/**
+	 * close the current DB
+	 */
+	private void closeDb() {
 		currentDB_.dispose();
 	}
 

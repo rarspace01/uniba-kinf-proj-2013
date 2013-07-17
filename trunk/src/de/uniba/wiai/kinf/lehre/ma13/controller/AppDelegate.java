@@ -13,83 +13,79 @@ import de.uniba.wiai.kinf.lehre.ma13.view.Window;
 import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.IWindow;
 
 public class AppDelegate implements IAppDelegate {
-	
+
 	/*
 	 * view
 	 */
 	/** the window which contains all views */
 	private IWindow window_;
-	
+
 	/*
 	 * model
 	 */
 	private ILayerStore layerStore_;
-	
+
 	/*
 	 * controller
 	 */
 	private Util util_;
 	private MouseAction mouseAction_;
-	
-	
-	public static void main(String[] args)
-	{
+
+	public static void main(String[] args) {
 		new AppDelegate().init();
 	}
-	
+
 	@Override
 	public void init() {
-		
-        // set look and feel
-        try {
-                for (LookAndFeelInfo info : UIManager
-                                .getInstalledLookAndFeels()) {
-                        if ("Windows".equals(info.getName())) {
-                                UIManager.setLookAndFeel(info.getClassName());
-                                break;
-                        }
-                }
-        } catch (Exception e) {
-                // If Nimbus is not available, you can set the GUI to
-                // another look and feel.
-        }
-		
+
+		// set look and feel
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Windows".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// If Nimbus is not available, you can set the GUI to
+			// another look and feel.
+		}
+
 		setWindow(new Window(this));
-		
+
 		layerStore_ = new LayerStore(this);
 		util_ = Util.instance(this);
-		
+
 		DataManager dm = new DataManager(this);
-		dm.loadTestData();
-		
+		dm.loadInitialData();
+
 		setMouseAction(new DummyMouseAction(this));
 		window_.refresh();
 	}
 
 	@Override
 	public void init(String fileName) {
-		init();		
+		init();
 	}
 
 	public IWindow getWindow() {
 		return window_;
 	}
+
 	public void setWindow(IWindow window) {
 		window_ = window;
 	}
-	
+
 	public ILayerStore getLayerStore() {
 		return layerStore_;
 	}
-	
-	public void setMouseAction(MouseAction ma)
-	{
+
+	public void setMouseAction(MouseAction ma) {
 		mouseAction_ = ma;
 		window_.getCanvas().setMouseAction(mouseAction_);
 	}
-	
-	public MouseAction getMouseAction()
-	{
+
+	public MouseAction getMouseAction() {
 		return mouseAction_;
 	}
 
