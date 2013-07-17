@@ -7,6 +7,11 @@ import java.util.List;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
+/**
+ * layer class. handles the layer and its containing {@link IGeometry} Objects
+ * @author denis
+ *
+ */
 public class Layer extends OrderedObject implements ILayer
 {
 	List<IGeometry> allGeometries_;
@@ -27,8 +32,10 @@ public class Layer extends OrderedObject implements ILayer
 	public List<IGeometry> getVisibleGeometries() {
 		
 		List<IGeometry> visibleGeometries = new LinkedList<IGeometry>();
+		// iterate over the IGeometries and check for their visibility and add them to the returning list
 		for(IGeometry geo: allGeometries_)
 		{
+			//check for visibility
 			if(geo.isVisible())
 				visibleGeometries.add(geo);
 		}
@@ -41,6 +48,7 @@ public class Layer extends OrderedObject implements ILayer
 		List<IGeometry> boundingBoxGeometries = new LinkedList<IGeometry>();
 		for(IGeometry geo: allGeometries_)
 		{
+			//if visible & intersects
 			if(geo.isVisible() && geo.inBoundingBox(x1, x2, y1, y2))
 				boundingBoxGeometries.add(geo);
 		}

@@ -8,6 +8,11 @@ import java.util.List;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
+/**
+ * 
+ * @author denis
+ *
+ */
 public class Polygon extends OrderedObject implements IGeometry {
 
 	private ILayer parent_;
