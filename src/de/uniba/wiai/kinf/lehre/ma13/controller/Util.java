@@ -12,14 +12,14 @@ public class Util {
 	private Long lastId_;
 
 	private float zoomFactor_;
-	private Point zoomOffset_;
+//	private Point zoomOffset_; // would have been used for moving the zoomed image
 
 	private Util(IAppDelegate appDelegate) {
 		lastId_ = 1337L;
 		appDelegate_ = appDelegate;
 
 		zoomFactor_ = 1.0f;
-		zoomOffset_ = new Point(0, 0);
+//		zoomOffset_ = new Point(0, 0); // would have been used for moving the zoomed image
 	}
 
 	public static Util instance(IAppDelegate appDelegate) {

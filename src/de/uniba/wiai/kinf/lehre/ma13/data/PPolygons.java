@@ -21,7 +21,7 @@ public class PPolygons {
 	private IAppDelegate appDelegate_;
 	
 	public PPolygons(IAppDelegate appDelegate) {
-		appDelegate_ = appDelegate;
+		appDelegate_ = appDelegate;	
 	}
 
 	public void saveToDB(List<IGeometry> toBeSaved) {
@@ -36,7 +36,7 @@ public class PPolygons {
 				if (toBeSaved.get(i).isVisible()) {
 					isVisible = 1;
 				}
-
+				
 				if (toBeSaved.get(i).getColor() == null) {
 					
 					DataManagerSQLiteSingleton

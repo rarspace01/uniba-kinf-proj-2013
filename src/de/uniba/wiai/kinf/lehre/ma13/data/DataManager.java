@@ -69,7 +69,9 @@ public class DataManager implements IDataManager {
 		PBackgroundImage pbi=new PBackgroundImage();
 		IBackgroundImage loadedImage = pbi.loadFromDB();
 		
+		//set Image data from DB
 		layerStore.getBackgroundImage().setData(loadedImage.getData());
+		//set the image dimensions for canvas rendering
 		layerStore.getBackgroundImage().setImageDimensions(loadedImage.getImageDimensions());
 		
 		// reset global object-id
@@ -92,6 +94,7 @@ public class DataManager implements IDataManager {
 	 */
 	private void openDb(String filename) {
 		this.filename_=filename;
+		//create db connection
 		currentDB_=DataManagerSQLiteSingleton.getInstance(this.filename_);
 		
 		//creates nonexisting tables. if tables already exists, nothing happens
