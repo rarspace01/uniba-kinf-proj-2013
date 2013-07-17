@@ -2,6 +2,11 @@ package de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class DummyMouseAction extends MouseAction {
 
 	public DummyMouseAction(IAppDelegate appDelegate) {

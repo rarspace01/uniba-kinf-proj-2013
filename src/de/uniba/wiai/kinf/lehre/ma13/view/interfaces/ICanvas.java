@@ -7,6 +7,11 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.mouseactions.MouseAction;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawGeometry;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public interface ICanvas
 {
 	/**

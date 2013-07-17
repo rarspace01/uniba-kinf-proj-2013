@@ -7,6 +7,11 @@ import java.awt.event.MouseMotionListener;
 
 import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public abstract class MouseAction implements MouseMotionListener, MouseListener
 {	
 	protected IAppDelegate appDelegate_;

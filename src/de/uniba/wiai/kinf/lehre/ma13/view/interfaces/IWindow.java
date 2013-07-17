@@ -7,6 +7,8 @@ import de.uniba.wiai.kinf.lehre.ma13.view.LayerView;
 
 /**
  * the main window
+ * @author lukas
+ * 
  */
 public interface IWindow
 {

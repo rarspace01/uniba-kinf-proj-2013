@@ -10,6 +10,11 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class DrawBackgroundImage extends DrawGeometry {
 
 	private Image backgroundImage_;

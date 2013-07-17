@@ -68,6 +68,11 @@ public class Window extends JFrame implements IWindow
 	public static final int BUTTON_STOP_ACTION = 5;
 	public static final int BUTTON_ADD_LAYER = 6;
 	
+	/**
+	 * 
+	 * @author lukas
+	 * 
+	 */
 	public Window(IAppDelegate appDelegate)
 	{
 		appDelegate_ = appDelegate;

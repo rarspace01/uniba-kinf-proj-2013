@@ -6,6 +6,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IBackgroundImage;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class LayerViewListItem 
 {
     // the object associated with this list-item

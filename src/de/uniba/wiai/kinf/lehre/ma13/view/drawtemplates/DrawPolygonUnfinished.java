@@ -10,6 +10,11 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class DrawPolygonUnfinished extends DrawGeometry {
 	
 	public DrawPolygonUnfinished(IAppDelegate appDelegate) {

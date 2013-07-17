@@ -17,6 +17,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class LayerView extends JList<LayerViewListItem> {
 	
 	private static final long serialVersionUID = 1L;
