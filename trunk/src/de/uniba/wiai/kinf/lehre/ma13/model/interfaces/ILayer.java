@@ -2,6 +2,11 @@ package de.uniba.wiai.kinf.lehre.ma13.model.interfaces;
 
 import java.util.List;
 
+/**
+ * interface for the layer. Helps to retrieve the contained geometries and visible objects 
+ * @author denis
+ *
+ */
 public interface ILayer extends IOrderedObject
 {
 	/**
