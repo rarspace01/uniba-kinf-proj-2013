@@ -12,6 +12,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayerStore;
 import de.uniba.wiai.kinf.lehre.ma13.view.Window;
 import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.IWindow;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class AppDelegate implements IAppDelegate {
 
 	/*
@@ -47,8 +52,7 @@ public class AppDelegate implements IAppDelegate {
 				}
 			}
 		} catch (Exception e) {
-			// If Nimbus is not available, you can set the GUI to
-			// another look and feel.
+			// just start if the theme doesnt get found
 		}
 
 		setWindow(new Window(this));

@@ -16,6 +16,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.view.interfaces.ICanvas;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class Canvas extends JComponent implements ICanvas  {
 
 	private static final long serialVersionUID = 1L;

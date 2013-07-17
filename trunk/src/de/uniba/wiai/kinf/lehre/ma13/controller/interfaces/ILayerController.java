@@ -1,5 +1,10 @@
 package de.uniba.wiai.kinf.lehre.ma13.controller.interfaces;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public interface ILayerController
 {
 	/**

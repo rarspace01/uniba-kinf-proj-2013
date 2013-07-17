@@ -15,6 +15,11 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.ILayer;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<LayerViewListItem>
 {
 	private static final long serialVersionUID = 1L;

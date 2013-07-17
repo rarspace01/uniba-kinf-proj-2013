@@ -11,6 +11,11 @@ import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IGeometry;
 import de.uniba.wiai.kinf.lehre.ma13.model.interfaces.IOrderedObject;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class DrawPolygonRaw extends DrawGeometry {
 	
 	public DrawPolygonRaw(IAppDelegate appDelegate) {

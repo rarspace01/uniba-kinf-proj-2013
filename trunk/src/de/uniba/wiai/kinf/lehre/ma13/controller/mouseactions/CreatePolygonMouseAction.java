@@ -6,6 +6,11 @@ import de.uniba.wiai.kinf.lehre.ma13.controller.interfaces.IAppDelegate;
 import de.uniba.wiai.kinf.lehre.ma13.model.Polygon;
 import de.uniba.wiai.kinf.lehre.ma13.view.drawtemplates.DrawPolygonUnfinished;
 
+/**
+ * 
+ * @author lukas
+ * 
+ */
 public class CreatePolygonMouseAction extends MouseAction {
 	
 	private Polygon polygon_;
