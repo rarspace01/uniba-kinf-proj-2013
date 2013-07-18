@@ -381,7 +381,7 @@ public class Window extends JFrame implements IWindow
 
 		// button for polygon, make lines between points
 		JButton tbPolygonButton = new JButton();
-		tbPolygonButton.setIcon(new ImageIcon("res/polygon.png"));
+		tbPolygonButton.setIcon(new ImageIcon(getClass().getResource("/res/polygon.png")));
 		tbPolygonButton.setToolTipText("Polygon");
 		tbPolygonButton.addActionListener(new ActionListener() {
 	
@@ -396,7 +396,7 @@ public class Window extends JFrame implements IWindow
 		
 		// button for free hand drawings (many implicit points in a polygon)
 		JButton tbFreeHandButton = new JButton();
-		tbFreeHandButton.setIcon(new ImageIcon("res/freehand.png"));
+		tbFreeHandButton.setIcon(new ImageIcon(getClass().getResource("/res/freehand.png")));
 		tbFreeHandButton.setToolTipText("Free Hand");
 		tbFreeHandButton.addActionListener(new ActionListener() {
 	
@@ -411,7 +411,7 @@ public class Window extends JFrame implements IWindow
 		
 		// button to move a polygon (only enabled when polygon is selected in JList)
 		JButton tbMoveButton = new JButton();
-		tbMoveButton.setIcon(new ImageIcon("res/movepolygon.png"));
+		tbMoveButton.setIcon(new ImageIcon(getClass().getResource("/res/movepolygon.png")));
 		tbMoveButton.setToolTipText("Move Polygon");
 		tbMoveButton.addActionListener(new ActionListener() {
 	
@@ -454,7 +454,7 @@ public class Window extends JFrame implements IWindow
 		
 		// button to move a polygon (only enabled when polygon is selected in JList)
 		JButton tbDeleteObject = new JButton();
-		tbDeleteObject.setIcon(new ImageIcon("res/delete.png"));
+		tbDeleteObject.setIcon(new ImageIcon(getClass().getResource("/res/delete.png")));
 		tbDeleteObject.setToolTipText("Delete Object");
 		tbDeleteObject.addActionListener(new ActionListener() {
 	
@@ -481,7 +481,7 @@ public class Window extends JFrame implements IWindow
 		
 		// button to stop current action
 		JButton tbStopactionButton = new JButton();
-		tbStopactionButton.setIcon(new ImageIcon("res/stop.png"));
+		tbStopactionButton.setIcon(new ImageIcon(getClass().getResource("/res/stop.png")));
 		tbStopactionButton.setToolTipText("Stop Action");
 		tbStopactionButton.addActionListener(new ActionListener() {
  
@@ -499,7 +499,7 @@ public class Window extends JFrame implements IWindow
 
 		// button to create a new layer
 		JButton tbCreatelayerButton = new JButton();
-		tbCreatelayerButton.setIcon(new ImageIcon("res/addlayer.png"));
+		tbCreatelayerButton.setIcon(new ImageIcon(getClass().getResource("/res/addlayer.png")));
 		tbCreatelayerButton.setToolTipText("Add Layer");
 		tbCreatelayerButton.addActionListener(new ActionListener() {
  

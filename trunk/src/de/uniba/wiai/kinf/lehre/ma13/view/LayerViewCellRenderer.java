@@ -59,7 +59,7 @@ public class LayerViewCellRenderer extends JPanel implements ListCellRenderer<La
  
         // set icon for visibility button (visible or invisible?)
 		visibilityButton_.setIcon(new ImageIcon(
-				(value.getObject().isVisible() ? "res/layer_visible.png" : "res/layer_invisible.png")
+				(value.getObject().isVisible() ? getClass().getResource("/res/layer_visible.png") : getClass().getResource("/res/layer_invisible.png"))
 				));
 		// if parent is invisible, disable visibility-button
 		if(value.getObject() instanceof IGeometry)

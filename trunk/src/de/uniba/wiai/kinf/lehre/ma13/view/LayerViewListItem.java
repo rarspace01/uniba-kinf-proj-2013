@@ -25,15 +25,15 @@ public class LayerViewListItem
     	
     	if(object_ instanceof ILayer)
     	{
-    		icon_ = new ImageIcon("res/layer.png");
+    		icon_ = new ImageIcon(getClass().getResource("/res/layer.png"));
     	}
     	else if(object_ instanceof IBackgroundImage)
     	{
-    		icon_ = new ImageIcon("res/image.png");
+    		icon_ = new ImageIcon(getClass().getResource("/res/image.png"));
     	}
     	else
     	{
-    		icon_ = new ImageIcon("res/polygon.png");
+    		icon_ = new ImageIcon(getClass().getResource("/res/polygon.png"));
     	}
     }
  
