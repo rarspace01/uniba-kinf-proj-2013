@@ -427,7 +427,7 @@ public class Window extends JFrame implements IWindow
 		
 		// button to change to color of a layer or polygon
 		JButton tbColorButton = new JButton();
-		tbColorButton.setIcon(new ImageIcon("res/color.png"));
+		tbColorButton.setIcon(new ImageIcon(getClass().getResource("/res/color.png")));
 		tbColorButton.setToolTipText("Change Color");
 		tbColorButton.addActionListener(new ActionListener() {
 	

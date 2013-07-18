@@ -102,6 +102,8 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 		// ste the path
 		imagePath_ = imagePath;
 
+		refreshBufferedImage();
+		
 	}
 
 	@Override
@@ -138,7 +140,26 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 
 	@Override
 	public Image getImage() {
+		return imageBuffered_;
+	}
 
+	@Override
+	public byte[] getData() {
+		return data_;
+	}
+
+	@Override
+	public void setData(byte[] imageData) {
+		data_ = imageData;
+		refreshBufferedImage();
+
+	}
+
+	/**
+	 * refreshs the imageBuffered content. only to be called when the image data
+	 * has change or a new image was loaded
+	 */
+	private void refreshBufferedImage() {
 		ImageInputStream in = null;
 
 		// make sure there is a picture present
@@ -175,19 +196,6 @@ public class BackgroundImage extends OrderedObject implements IBackgroundImage {
 			}
 
 		}
-
-		return imageBuffered_;
-	}
-
-	@Override
-	public byte[] getData() {
-		return data_;
-	}
-
-	@Override
-	public void setData(byte[] imageData) {
-		data_ = imageData;
-
 	}
 
 }
